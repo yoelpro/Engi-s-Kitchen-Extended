@@ -9,6 +9,8 @@
 
 #define Nil NULL
 
+extern StackBahan Hand;
+extern StackMakanan Tray;
 extern int Waktu;
 extern int Life;
 extern int Money;
@@ -42,14 +44,16 @@ typedef struct
 
 typedef struct 
 {
-	Makanan Hidangan [5+1];
+	Makanan T [5+1];
 	Indeks TOP;
-} Tray; /* Struktur data untuk tray didalam game */
+} StackMakanan; /* Struktur data untuk tray didalam game */
 
 typedef struct
 {
-	
-} Tangan;
+	Bahan T [5+1];
+	Indeks TOP;
+} StackBahan;
+
 typedef struct tElmtlist* address;
 
 typedef struct tElmtlist {
