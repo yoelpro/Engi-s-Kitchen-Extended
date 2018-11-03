@@ -3,13 +3,51 @@
 
 #ifndef data_H
 #define data_H
-#define kol 8;
-#define bar 8;
-#define MaxMeja 4;
 
 #include "boolean.h"
 
-enum JenisRuangan {Makan,Dapur};
+#define KOLOM 8
+#define BARIS 8
+#define MAX_MEJA 4
+#define MAX_BAHAN 16
+#define MAX_MAKANAN 9
+
+enum JenisRuangan {
+	Makan,	//0
+	Dapur	//1
+};
+
+const char *JenisBahan[MAX_BAHAN] = {
+	"Piring",		//0
+	"Sendok",		//1
+	"Garpu",		//2
+	"EsKrim",		//3
+	"Nasi",			//4
+	"Roti",			//5
+	"Spaghetti",	//6
+	"Pisang",		//7
+	"Stroberi",		//8
+	"Telur",		//9
+	"AyamGoreng",	//10
+	"Patty",		//11
+	"Sosis",		//12
+	"Bolognese",	//13
+	"Carbonara",	//14
+	"Keju"			//15
+};
+
+const char *JenisMakanan[MAX_MAKANAN] = {
+	"BananaSplit",			//0
+	"Sundae",				//1
+	"NasiTelurDadar",		//2
+	"NasiAyamGoreng",		//3
+	"Burger",				//4
+	"HotDog",				//5
+	"Keju",					//6
+	"SpaghettiCarbonara",	//7
+	"SpaghettiBolognese"	//8
+};
+
 extern StackBahan Hand;
 extern StackMakanan Tray;
 
@@ -20,17 +58,7 @@ typedef struct
 	long Waktu;
 	int Life;
 	long Money;
-} Game;
-
-typedef struct 
-{
-	enum JenisRuangan Tipe;
-	char Map [bar+1][kol+1];
-	int JmlMeja;
-	Meja DMeja [MaxMeja+1];
-
-
-} Ruangan;
+} GameData;
 
 typedef struct
 {
@@ -39,6 +67,14 @@ typedef struct
 	int Occ; /* jumlah kursi yang occupied */
 	boolean N [4+1]; /* array of boolean yang artinya kursi dinomori dari 1-4 secara clockwise, true artinya ada di map */
 } Meja;
+
+typedef struct 
+{
+	enum JenisRuangan Tipe;
+	char Map[BARIS+1][KOLOM+1];
+	int JmlMeja;
+	Meja DMeja[MAX_MEJA+1];
+} Ruangan;
 
 typedef struct
 {
@@ -70,7 +106,7 @@ typedef struct
 	Indeks TOP;
 } StackBahan;
 
-typedef struct tElmtlist* address;
+typedef struct tElmtlist *address;
 
 typedef struct tElmtlist {
 	infotype info;
@@ -80,16 +116,5 @@ typedef struct tElmtlist {
 typedef struct {
 	address First;
 } List;
-
-/* Definisi list : */
-/* List kosong : First(L) = Nil */
-/* Setiap elemen dengan address P dapat diacu Info(P), Next(P) */
-/* Elemen terakhir list : jika addressnya Last, maka Next(Last)=Nil */
-
-#define Info(P) (P)->info
-#define Next(P) (P)->next
-#define First(L) (L).First
-
-/* PROTOTYPE */
 
 #endif
