@@ -5,6 +5,9 @@
 #define data_H
 
 #include "boolean.h"
+#include "stackt.h"
+#include "matriks.h"
+#include "point.h"
 
 #define KOLOM 8
 #define BARIS 8
@@ -48,33 +51,33 @@ const char *JenisMakanan[MAX_MAKANAN] = {
 	"SpaghettiBolognese"	//8
 };
 
-extern StackBahan Hand;
-extern StackMakanan Tray;
-
-typedef int Indeks;
-
-typedef struct
-{
-	long Waktu;
-	int Life;
-	long Money;
-} GameData;
+extern Pemain Player;
+extern GameData Data;
 
 typedef struct
 {
 	int NoMeja;
+	Point Posisi;
 	int JmlKursi;
-	int Occ; /* jumlah kursi yang occupied */
+	int Terisi; /* jumlah kursi yang terisi */
 	boolean N [4+1]; /* array of boolean yang artinya kursi dinomori dari 1-4 secara clockwise, true artinya ada di map */
 } Meja;
 
 typedef struct 
 {
 	enum JenisRuangan Tipe;
-	char Map[BARIS+1][KOLOM+1];
+	Matriks Map;
 	int JmlMeja;
 	Meja DMeja[MAX_MEJA+1];
 } Ruangan;
+
+typedef struct
+{
+	long Waktu;
+	int Life;
+	long Money;
+	Ruangan CurrentRoom;
+} GameData;
 
 typedef struct
 {
@@ -86,35 +89,9 @@ typedef struct
 
 typedef struct
 {
-	int No; /* Nomor makanan yang berkorespondensi dengan jenis makanan tertentu */
-} Makanan;
-
-typedef struct
-{
-	int No; /* Nomor bahan makanan yang berkorespondensi dengan jenis bahan tertentu */
-} Bahan;
-
-typedef struct 
-{
-	Makanan TI [5+1];
-	Indeks TOP;
-} StackMakanan; /* Struktur data untuk tray didalam game */
-
-typedef struct
-{
-	Bahan TI [5+1];
-	Indeks TOP;
-} StackBahan;
-
-typedef struct tElmtlist *address;
-
-typedef struct tElmtlist {
-	infotype info;
-	address next;
-} ElmtList;
-
-typedef struct {
-	address First;
-} List;
+	Point Posisi;
+	Stack Hand;
+	Stack Tray;
+} Pemain;
 
 #endif
