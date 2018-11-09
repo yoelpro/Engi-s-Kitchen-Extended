@@ -4,10 +4,11 @@
 #ifndef data_H
 #define data_H
 
-#include "boolean.h"
-#include "stackt.h"
-#include "matriks.h"
-#include "point.h"
+#include "ADT/boolean.h"
+#include "ADT/stackt.h"
+#include "ADT/matriks.h"
+#include "ADT/point.h"
+#include "ADT/pohon.h"
 
 #define KOLOM 8
 #define BARIS 8
@@ -51,13 +52,13 @@ const char *JenisMakanan[MAX_MAKANAN] = {
 	"SpaghettiBolognese"	//8
 };
 
-extern Pemain Player;
-extern GameData Data;
+extern GameData data;
+extern ResepMakanan resep;
 
 typedef struct
 {
-	int NoMeja;
 	Point Posisi;
+	int NoMeja;
 	int JmlKursi;
 	int Terisi; /* jumlah kursi yang terisi */
 	boolean N [4+1]; /* array of boolean yang artinya kursi dinomori dari 1-4 secara clockwise, true artinya ada di map */
@@ -65,18 +66,21 @@ typedef struct
 
 typedef struct 
 {
-	enum JenisRuangan Tipe;
 	Matriks Map;
-	int JmlMeja;
 	Meja DMeja[MAX_MEJA+1];
+	int JmlMeja;
+	enum JenisRuangan Tipe;
 } Ruangan;
 
 typedef struct
 {
-	long Waktu;
-	int Life;
-	long Money;
 	Ruangan CurrentRoom;
+	Point PosisiPlayer;
+	Stack Hand;
+	Stack Tray;
+	long Waktu;
+	long Money;
+	int Life;
 } GameData;
 
 typedef struct
@@ -87,11 +91,6 @@ typedef struct
 	boolean Star; /* true jika dia star */
 } Customer;
 
-typedef struct
-{
-	Point Posisi;
-	Stack Hand;
-	Stack Tray;
-} Pemain;
+typedef BinTree ResepMakanan;
 
 #endif
