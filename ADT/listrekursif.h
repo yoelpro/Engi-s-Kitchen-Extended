@@ -3,7 +3,6 @@
 #include "boolean.h"
 
 /* List rekursif direpresentasi dengan pointer */
-#define Nil NULL
 typedef char Infotype;
 typedef struct tElmtList *Address;
 typedef struct tElmtList {

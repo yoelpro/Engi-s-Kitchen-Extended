@@ -11,7 +11,6 @@
 #include "listrekursif.h"
 #include "mesinkar.h"
 
-#define Nil NULL
 //typedef char Infotype
 
 /*** Definisi Type Pohon Biner ***/
