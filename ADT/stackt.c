@@ -22,7 +22,7 @@ void CreateEmpty (Stack *S){
 
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-boolean IsEmpty (Stack S){
+boolean IsEmptyStck (Stack S){
 /* Mengirim true jika Stack kosong: lihat definisi di atas */
     /* KAMUS */
 
@@ -30,7 +30,7 @@ boolean IsEmpty (Stack S){
     return Top(S) == Nil;
 }
 
-boolean IsFull (Stack S){
+boolean IsFullStck (Stack S){
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
     /* KAMUS */
 
@@ -47,7 +47,7 @@ void Push (Stack * S, stackInfoType X){
     /* KAMUS */
 
     /* ALGORITMA */
-    if(IsEmpty(*S)){
+    if(IsEmptyStck(*S)){
         Top(*S) = 1;
     }
     else{

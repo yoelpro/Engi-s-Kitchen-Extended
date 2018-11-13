@@ -16,5 +16,5 @@ int main()
 	TabInt coba;
 	MakeEmpty(&coba);
 	BacaIsi(&coba);
-	TulisIsi(coba);
+	TulisIsiTab(coba);
 }

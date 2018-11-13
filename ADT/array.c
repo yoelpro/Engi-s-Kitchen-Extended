@@ -31,38 +31,46 @@ boolean IsEmptyArr (TabInt T){
 	return (Neff(T)==0);
 }
 
-boolean IsFull (TabInt T){
+boolean IsFullArr (TabInt T){
 	return (Neff(T)==IdxMax);	
 }
 
-void BacaIsi (TabInt * T){
-	int N,i;
-	while (N<0 || N>MaxNbEl(*T)){
-		scanf("%d",&N);
-	}
-	if (N==0){
-		MakeEmpty(&(*T));
-	} 
-	else{
-		for (i=IdxMin;i<=N;i++){
-			scanf("%d",&ElmtArr(*T,i));
-		}
-		Neff(*T)=N;
-	}
+void BacaIsi (TabInt * T)
+{
+  int n;
+  scanf("%d",&n);
+  while (!(n>=0 && n<=MaxNbEl(*T)))
+  {
+    scanf("%d",&n);
+  }
+  if (n==0)
+  {
+    MakeEmpty(T);
+  }
+  else
+  {
+    IdxType i=0;
+    for(i=IdxMin; i<(IdxMin+n); i++)
+    {
+      scanf("%d",&ElmtArr(*T,i));
+      Neff(*T)++;
+    }
+  }
 }
 
-void TulisIsiTab (TabInt T){
-	IdxType i;
-	if (Neff(T)==0){
-		printf("[]");
-	}
-	else{
-		printf("[");
-		for(i=IdxMin;i<=Neff(T);i++){
-			printf("%d,", ElmtArr(T,i));
-		}
-		printf("]");
-	}
+void TulisIsiTab (TabInt T)
+{
+  printf("[");
+  if (!(IsEmptyArr(T)))
+  {
+    IdxType i;
+    printf("%d",ElmtArr(T,GetFirstIdx(T)));
+    for (i=GetFirstIdx(T)+1; i<=GetLastIdx(T); i++)
+    {
+      printf(",%d",ElmtArr(T,i));
+    }
+  }
+  printf("]");
 }
 
 IdxType Search1 (TabInt T, ElType X){
@@ -261,7 +269,7 @@ void MaxMinUrut (TabInt T, ElType * Max, ElType * Min){
 
 void Add1Urut (TabInt * T, ElType X){
 	int i=IdxMin;
-	if (!(IsFull(*T)))
+	if (!(IsFullArr(*T)))
 	{
 		while(X>ElmtArr(*T,i) && X<ElmtArr(*T,i+1))
 		{

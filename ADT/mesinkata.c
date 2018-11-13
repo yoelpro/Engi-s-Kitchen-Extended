@@ -3,6 +3,11 @@
 #include "mesinkar.h"
 #include <stdio.h>
 
+boolean EndKata;
+Kata CKata;
+boolean EndCommand;
+Kata Command;
+
 void STARTKATA()
 /* I.S. : CC sembarang 
    F.S. : EndKata = true, dan CC = MARK; 

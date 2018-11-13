@@ -68,7 +68,7 @@ IdxType GetLastIdx (TabInt T);
 boolean IsEmptyArr (TabInt T);
 /* Mengirimkan true jika tabel T kosong, mengirimkan false jika tidak */
 /* *** Test tabel penuh *** */
-boolean IsFull (TabInt T);
+boolean IsFullArr (TabInt T);
 /* Mengirimkan true jika tabel T penuh, mengirimkan false jika tidak */
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
