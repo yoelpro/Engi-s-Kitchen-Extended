@@ -23,16 +23,6 @@ void MakeMatriks (int NB, int NK, Matriks * M)
 }
 
 /* *** Selektor "DUNIA Matriks" *** */
-boolean IsIdxValid (int i, int j)
-/* Mengirimkan true jika i, j adalah indeks yang valid untuk matriks apa pun */
-{
-    /* KAMUS LOKAL */
-
-    /* ALGORITMA */
-    return ((i>=MATRIX_MIN_BRS && i<=MATRIX_MAX_BRS) && (j>=MATRIX_MIN_KOL && j<=MATRIX_MAX_KOL));
-}
-
-
 /* *** Selektor: Untuk sebuah matriks M yang terdefinisi: *** */
 matriksIndeks GetFirstIdxBrs (Matriks M)
 /* Mengirimkan indeks baris terkecil M */

@@ -35,9 +35,6 @@ void MakeMatriks (int NB, int NK, Matriks * M);
 #define ElmtMat(M,i,j) (M).Mem[(i)][(j)]
 
 /* *** Selektor "DUNIA Matriks" *** */
-boolean IsIdxValid (int i, int j);
-/* Mengirimkan true jika i, j adalah matriksIndeks yang valid untuk matriks apa pun */
-
 /* *** Selektor: Untuk sebuah matriks M yang terdefinisi: *** */
 matriksIndeks GetFirstIdxBrs (Matriks M);
 /* Mengirimkan matriksIndeks baris terkecil M */
