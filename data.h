@@ -4,11 +4,16 @@
 #ifndef data_H
 #define data_H
 
+#include "ADT/array.h"
 #include "ADT/boolean.h"
-#include "ADT/stackt.h"
+#include "ADT/jam.h"
+#include "ADT/listrekursif.h"
 #include "ADT/matriks.h"
-#include "ADT/point.h"
+#include "ADT/mesinkar.h"
+#include "ADT/mesinkata.h"
 #include "ADT/pohon.h"
+#include "ADT/point.h"
+#include "ADT/stackt.h"
 
 #define KOLOM 8
 #define BARIS 8
