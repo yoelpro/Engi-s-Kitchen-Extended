@@ -55,40 +55,6 @@ void BacaIsi (TabInt * T){
 	}
 }
 
-void BacaIsiTab (TabInt * T){
-	int x,i;
-	scanf("%d",&x);
-	if (x=IdxUndef){
-		MakeEmpty(&(*T));
-	} 
-	else{
-		i=IdxMin;
-		while (x!=IdxUndef && IsIdxValid(*T,i)){
-			ElmtArr(*T,i)=x;
-			i++;
-			scanf("%d",&x);
-		}
-		if (i>IdxMax){
-			Neff(*T)=i-1;
-		}
-		else{
-			Neff(*T)=i;
-		}
-	}
-}
-
-void TulisIsi (TabInt T){
-	IdxType i;
-	if (Neff(T)==0){
-		printf("Tabel Kosong\n");
-	}
-	else{
-		for(i=IdxMin;i<=Neff(T);i++){
-			printf("[%d]%d\n", i, ElmtArr(T,i));
-		}
-	}
-}
-
 void TulisIsiTab (TabInt T){
 	IdxType i;
 	if (Neff(T)==0){
@@ -101,85 +67,6 @@ void TulisIsiTab (TabInt T){
 		}
 		printf("]");
 	}
-}
-
-TabInt PlusTab (TabInt T1, TabInt T2){
-	TabInt T3;
-	int i;
-	for (i=IdxMin;i<=Neff(T1);i++){
-		ElmtArr(T3,i)=ElmtArr(T1,i)+ElmtArr(T2,i);
-	}
-	Neff(T3)=Neff(T1);
-	return T3;
-}
-
-TabInt MinusTab (TabInt T1, TabInt T2){
-	TabInt T3;
-	int i;
-	for (i=IdxMin;i<=Neff(T1);i++){
-		ElmtArr(T3,i)=ElmtArr(T1,i)-ElmtArr(T2,i);
-	}
-	Neff(T3)=Neff(T1);
-	return T3;	
-}
-
-TabInt KaliTab (TabInt T1, TabInt T2){
-	TabInt T3;
-	int i;
-	for (i=IdxMin;i<=Neff(T1);i++){
-		ElmtArr(T3,i)=ElmtArr(T1,i)*ElmtArr(T2,i);
-	}
-	Neff(T3)=Neff(T1);
-	return T3;	
-}
-
-TabInt KaliKons (TabInt Tin, ElType c){
-	TabInt Tout;
-	int i;
-	for (i=IdxMin;i<=Neff(Tin);i++){
-		ElmtArr(Tout,i)=ElmtArr(Tin,i)*c;
-	}
-	Neff(Tout)=Neff(Tin);
-	return Tout;	
-}
-
-boolean IsEQ (TabInt T1, TabInt T2){
-	int i;
-	boolean EQ;
-	i=IdxMin;
-	EQ = true;
-	if(Neff(T1)!=Neff(T2)){
-		return (!EQ);
-	}
-	else{
-		while(i<=GetLastIdx(T1) && EQ){
-			if(ElmtArr(T1,i)==ElmtArr(T2,i)){
-				i++;
-			}
-			else{
-				EQ=false;
-			}
-		}
-		return EQ;
-	}
-}
-
-boolean IsLess (TabInt T1, TabInt T2){
-	int max;
-	int i=IdxMin;
-	if (Neff(T1)>Neff(T2)){
-		max = Neff(T1);
-	}
-	else{
-		max=Neff(T2);
-	}
-	while (i<=max &&  ElmtArr(T1,i)<ElmtArr(T2,i)){
-		i++;
-	}
-	if(i==max+1){
-		return true;
-	}
-
 }
 
 IdxType Search1 (TabInt T, ElType X){
@@ -287,19 +174,6 @@ TabInt InverseTab (TabInt T){
 		}
 	}
 	return T;
-}
-
-boolean IsSimetris (TabInt T){
-	boolean simetris = true;
-	int i=1;
-	if (Neff(T)==0){
-		return simetris;
-	}
-
-	while (i<=(Neff(T)/2) && simetris){
-		simetris=(ElmtArr(T,(GetFirstIdx(T)+i-1))==ElmtArr(T,(GetLastIdx(T)+i-1)));
-	}
-	return simetris;
 }
 
 void MaxSortDesc (TabInt * T){

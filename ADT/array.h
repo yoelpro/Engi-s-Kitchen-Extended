@@ -88,25 +88,7 @@ void BacaIsi (TabInt * T);
 /* 2. Jika 0 < N <= MaxNbEl(T); Lakukan N kali: Baca elemen mulai dari indeks 
       IdxMin satu per satu diakhiri enter */
 /*    Jika N = 0; hanya terbentuk T kosong */
-void BacaIsiTab (TabInt * T);
-/* I.S. T sembarang */
-/* F.S. Tabel T terdefinisi */
-/* Proses : membaca elemen T sampai dimasukkan nilai -9999 */
-/* Dibaca elemen satu per satu dan disimpan mulai dari IdxMin */
-/* Pembacaan dihentikan jika pengguna memasukkan nilai -9999 */
-/* Jika dari pertama dimasukkan nilai -9999 maka terbentuk T kosong */
-void TulisIsi (TabInt T);
-/* Proses : Menuliskan isi tabel dengan traversal */
-/* I.S. T boleh kosong */
-/* F.S. Jika T tidak kosong : indeks dan elemen tabel ditulis berderet ke bawah */
-/*      Jika T kosong : Hanya menulis "Tabel kosong" */
-/* Contoh: Jika isi Tabel: [1, 20, 30, 50]
-   Maka tercetak di layar:
-   [1]1
-   [2]20
-   [3]30
-   [4]50
-*/
+
 void TulisIsiTab (TabInt T);
 /* Proses : Menuliskan isi tabel dengan traversal, tabel ditulis di antara kurung siku; 
    antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan karakter di depan,
@@ -115,29 +97,6 @@ void TulisIsiTab (TabInt T);
 /* F.S. Jika T tidak kosong: [e1,e2,...,en] */
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika tabel kosong : menulis [] */
-
-/* ********** OPERATOR ARITMATIKA ********** */
-/* *** Aritmatika tabel : Penjumlahan, pengurangan, perkalian, ... *** */
-TabInt PlusTab (TabInt T1, TabInt T2);
-/* Prekondisi : T1 dan T2 berukuran sama dan tidak kosong */
-/* Mengirimkan  T1+T2, yaitu setiap elemen T1 dan T2 pada indeks yang sama dijumlahkan */
-TabInt MinusTab (TabInt T1, TabInt T2);
-/* Prekondisi : T1 dan T2 berukuran sama dan tidak kosong */
-/* Mengirimkan T1-T2, yaitu setiap elemen T1 dikurangi elemen T2 pada indeks yang sama */
-TabInt KaliTab (TabInt T1, TabInt T2);
-/* Prekondisi : T1 dan T2 berukuran sama dan tidak kosong */
-/* Mengirimkan T1 * T2 dengan definisi setiap elemen dengan indeks yang sama dikalikan */
-TabInt KaliKons (TabInt Tin, ElType c);
-/* Prekondisi : Tin tidak kosong */
-/* Mengirimkan tabel dengan setiap elemen Tin dikalikan c */
-
-/* ********** OPERATOR RELASIONAL ********** */
-/* *** Operasi pembandingan tabel : < =, > *** */
-boolean IsEQ (TabInt T1, TabInt T2);
-/* Mengirimkan true jika T1 sama dengan T2 yaitu jika ukuran T1 = T2 dan semua elemennya sama */
-boolean IsLess (TabInt T1, TabInt T2);
-/* Mengirimkan true jika T1 < T2, */
-/* yaitu : sesuai dg analogi 'Ali' < Badu'; maka [0, 1] < [2, 3] */
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : Tabel boleh kosong!! *** */
@@ -189,12 +148,6 @@ TabInt InverseTab (TabInt T);
 /* elemen pertama menjadi terakhir, */
 /* elemen kedua menjadi elemen sebelum terakhir, dst.. */
 /* Tabel kosong menghasilkan tabel kosong */
-boolean IsSimetris (TabInt T);
-/* Menghasilkan true jika tabel simetrik */
-/* Tabel disebut simetrik jika: */
-/*      elemen pertama = elemen terakhir, */
-/*      elemen kedua = elemen sebelum terakhir, dan seterusnya */
-/* Tabel kosong adalah tabel simetris */
 
 /* ********** SORTING ********** */
 void MaxSortDesc (TabInt * T);
