@@ -27,7 +27,7 @@ IdxType GetLastIdx (TabInt T){
 	return Neff(T);
 }
 
-boolean IsEmpty (TabInt T){
+boolean IsEmptyArr (TabInt T){
 	return (Neff(T)==0);
 }
 
@@ -68,7 +68,7 @@ void TulisIsiTab (TabInt T){
 IdxType Search1 (TabInt T, ElType X){
 	int i;
 	i=IdxMin;
-	if(IsEmpty(T)){
+	if(IsEmptyArr(T)){
 		return IdxUndef;
 	}
 	else{
@@ -89,7 +89,7 @@ IdxType Search2 (TabInt T, ElType X){
 	i=IdxMin;
 	boolean Found;
 	Found = false;
-	if(IsEmpty(T)){
+	if(IsEmptyArr(T)){
 		return IdxUndef;
 	}
 	else{
