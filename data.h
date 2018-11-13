@@ -52,9 +52,6 @@ const char *JenisMakanan[MAX_MAKANAN] = {
 	"SpaghettiBolognese"	//8
 };
 
-extern GameData data;
-extern ResepMakanan resep;
-
 typedef struct
 {
 	Point Posisi;
