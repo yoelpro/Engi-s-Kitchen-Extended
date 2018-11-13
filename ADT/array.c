@@ -27,10 +27,6 @@ IdxType GetLastIdx (TabInt T){
 	return Neff(T);
 }
 
-boolean IsIdxValid (TabInt T, IdxType i){
-	return (i>=IdxMin) && (i<=IdxMax);
-}
-
 boolean IsIdxEff (TabInt T, IdxType i){
 	return (i>=GetFirstIdx(T)) && (i<=GetLastIdx(T));	
 }
