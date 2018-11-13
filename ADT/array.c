@@ -395,8 +395,10 @@ void MaxMinUrut (TabInt T, ElType * Max, ElType * Min){
 
 void Add1Urut (TabInt * T, ElType X){
 	int i=IdxMin;
-	if (!(isFull(*T))){
-		while(X>Elmt(*T,i) && X<Elmt(*T,i+1)) {
+	if (!(IsFull(*T)))
+	{
+		while(X>Elmt(*T,i) && X<Elmt(*T,i+1))
+		{
 		   i++;
 		}
 		AddEli(&(*T),X,i);
