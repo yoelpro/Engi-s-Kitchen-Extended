@@ -27,10 +27,6 @@ IdxType GetLastIdx (TabInt T){
 	return Neff(T);
 }
 
-boolean IsIdxEff (TabInt T, IdxType i){
-	return (i>=GetFirstIdx(T)) && (i<=GetLastIdx(T));	
-}
-
 boolean IsEmpty (TabInt T){
 	return (Neff(T)==0);
 }

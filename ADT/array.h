@@ -63,11 +63,6 @@ IdxType GetLastIdx (TabInt T);
 /* Prekondisi : Tabel T tidak kosong */
 /* Mengirimkan indeks elemen T terakhir */
 
-/* ********** Test Indeks yang valid ********** */
-boolean IsIdxEff (TabInt T, IdxType i);
-/* Mengirimkan true jika i adalah indeks yang terdefinisi utk tabel */
-/* yaitu antara FirstIdx(T)..LastIdx(T) */
-
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test tabel kosong *** */
 boolean IsEmpty (TabInt T);
