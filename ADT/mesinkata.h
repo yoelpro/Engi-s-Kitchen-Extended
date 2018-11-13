@@ -8,7 +8,8 @@
 #include "mesinkar.h"
 
 #define NMax 50
-#define BLANK '\n'
+#define BLANK ' '
+#define ENTER '\n'
 
 typedef struct {
 	char TabKata[NMax+1]; /* container penyimpan kata, indeks yang dipakai [1..NMax] */
@@ -18,8 +19,8 @@ typedef struct {
 /* State Mesin Kata */
 extern boolean EndKata;
 extern Kata CKata;
-
-boolean EqualKata(char* inputMesin, int length, char* inputBanding);
+extern boolean EndCommand;
+extern Kata Command;
 
 void STARTKATA();
 /* I.S. : CC sembarang 
@@ -41,6 +42,25 @@ void SalinKata();
           CC = BLANK atau CC = MARK; 
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+
+boolean EqualKata(char* inputMesin, int length, char* inputBanding);
+/*  Fungsi yang berguna untuk membandingkan input dengan suatu kata, misalnya:
+    EqualKata(CKata.TabKata,CKata.Length,"UP")
+    Akan menghasilkan true apabila sama, false jika string berbeda
+*/
+
+void BacaCommand();
+/* I.S. : CCommand sembarang 
+   F.S. : EndKata = true, dan CCommand = MARK; 
+          atau EndKata = false, Command adalah kata yang sudah diakuisisi,
+          CCommand karakter pertama sesudah karakter terakhir kata */
+
+void SalinCommand();
+/* Mengakuisisi command dari console, menyimpan dalam CCommand
+   I.S. : CCommand adalah karakter pertama dari kata
+   F.S. : CCommand berisi kata yang sudah diakuisisi; 
+          CCommand = \n */
+
 
 #endif
 

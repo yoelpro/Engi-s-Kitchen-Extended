@@ -3,27 +3,6 @@
 #include "mesinkar.h"
 #include <stdio.h>
 
-#define NMax 50
-#define BLANK '\n'
-
-/* State Mesin Kata */
-boolean EndKata;
-Kata CKata;
-
-boolean EqualKata(char* inputMesin, int length, char* inputBanding)
-/*  Fungsi yang berguna untuk membandingkan input dengan suatu kata, misalnya:
-    EqualKata(CKata.TabKata,CKata.Length,"UP")
-    Akan menghasilkan true apabila sama, false jika string berbeda
-*/
-{
-  int i = 0;
-  while (i<length-1 && *(inputMesin+(i+1))==*(inputBanding+i))
-  {
-    i++;
-  }
-  return *(inputMesin+(i+1))==*(inputBanding+(i));
-}
-
 void STARTKATA()
 /* I.S. : CC sembarang 
    F.S. : EndKata = true, dan CC = MARK; 
@@ -87,4 +66,64 @@ void SalinKata()
   } while (!(CC==MARK || CC==BLANK));
   i--;
   CKata.Length = i;
+}
+
+boolean EqualKata(char* inputMesin, int length, char* inputBanding)
+/*  Fungsi yang berguna untuk membandingkan input dengan suatu kata, misalnya:
+    EqualKata(CKata.TabKata,CKata.Length,"UP")
+    Akan menghasilkan true apabila sama, false jika string berbeda
+*/
+{
+  int i = 0;
+  while (i<length-1 && *(inputMesin+(i+1))==*(inputBanding+i))
+  {
+    i++;
+  }
+  return *(inputMesin+(i+1))==*(inputBanding+(i));
+}
+
+void BacaCommand()
+/* Procedure yang digunakan 
+/* I.S. : CC sembarang 
+   F.S. : EndKata = true, dan CC = MARK; 
+          atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
+          CC karakter pertama sesudah karakter terakhir kata */
+{
+  STARTCommand();
+  switch (CCommand)
+  {
+    case MARK:
+    {
+      EndCommand = true;
+      break;
+    }
+    default :
+    {
+      EndCommand = false;
+      SalinCommand();
+    }
+  }
+}
+
+void SalinCommand()
+/* Mengakuisisi command dari console, menyimpan dalam CCommand
+   I.S. : CC adalah karakter pertama dari kata
+   F.S. : CCommand berisi kata yang sudah diakuisisi; 
+          CC = \n */
+{
+  int i;
+  //Algoritma
+  i=1;
+  do
+  {
+    // printf("%c\n",CC);
+    if (i<=NMax)
+    {
+      Command.TabKata[i] = CCommand;
+      i++;
+    }
+    ADVCommand();
+  } while (!CCommand==ENTER);
+  i--;
+  Command.Length = i;
 }
