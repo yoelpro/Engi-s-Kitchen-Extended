@@ -32,7 +32,7 @@ void MakeMatriks (int NB, int NK, Matriks * M);
 /* *** Selektor *** */
 #define NBrsEff(M) (M).NBrsEff
 #define NKolEff(M) (M).NKolEff
-#define Elmt(M,i,j) (M).Mem[(i)][(j)]
+#define ElmtMat(M,i,j) (M).Mem[(i)][(j)]
 
 /* *** Selektor "DUNIA Matriks" *** */
 boolean IsIdxValid (int i, int j);
@@ -49,7 +49,7 @@ matriksIndeks GetLastIdxKol (Matriks M);
 /* Mengirimkan matriksIndeks kolom terbesar M */
 boolean IsIdxEff (Matriks M, matriksIndeks i, matriksIndeks j);
 /* Mengirimkan true jika i, j adalah matriksIndeks efektif bagi M */
-matriksElType GetElmtDiagonal (Matriks M, matriksIndeks i);
+matriksElType GetElmtMatDiagonal (Matriks M, matriksIndeks i);
 /* Mengirimkan elemen M(i,i) */
 
 /* ********** Assignment  Matriks ********** */
@@ -96,7 +96,7 @@ void PKaliKons (Matriks * M, matriksElType K);
 
 /* ********** KELOMPOK OPERASI RELASIONAL TERHADAP Matriks ********** */
 boolean EQ (Matriks M1, Matriks M2);
-/* Mengirimkan true jika M1 = M2, yaitu NBElmt(M1) = NBElmt(M2) dan */
+/* Mengirimkan true jika M1 = M2, yaitu NBElmtMat(M1) = NBElmtMat(M2) dan */
 /* untuk setiap i,j yang merupakan matriksIndeks baris dan kolom M1(i,j) = M2(i,j) */
 /* Juga merupakan strong EQ karena GetFirstIdxBrs(M1) = GetFirstIdxBrs(M2) 
    dan GetLastIdxKol(M1) = GetLastIdxKol(M2) */
@@ -107,7 +107,7 @@ boolean EQSize (Matriks M1, Matriks M2);
 /* yaitu GetBrsEff(M1) = GetNBrsEff (M2) dan GetNKolEff (M1) = GetNKolEff (M2) */
 
 /* ********** Operasi lain ********** */
-int NBElmt (Matriks M);
+int NBElmtMat (Matriks M);
 /* Mengirimkan banyaknya elemen M */
 
 /* ********** KELOMPOK TEST TERHADAP Matriks ********** */

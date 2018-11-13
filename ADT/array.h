@@ -39,7 +39,7 @@ typedef struct {
 /* ********** SELEKTOR ********** */
 #define Neff(T)   (T).Neff
 #define TI(T)     (T).TI
-#define Elmt(T,i) (T).TI[(i)]
+#define ElmtArr(T,i) (T).TI[(i)]
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */
@@ -49,7 +49,7 @@ void MakeEmpty (TabInt * T);
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
-int NbElmt (TabInt T);
+int NbElmtArr (TabInt T);
 /* Mengirimkan banyaknya elemen efektif tabel */
 /* Mengirimkan nol jika tabel kosong */
 /* *** Daya tampung container *** */

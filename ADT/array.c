@@ -11,7 +11,7 @@ void MakeEmpty (TabInt * T){
 	Neff(*T)=0;
 }
 
-int NbElmt (TabInt T){
+int NbElmtArr (TabInt T){
 	return Neff(T);
 }
 
@@ -53,7 +53,7 @@ void BacaIsi (TabInt * T){
 	} 
 	else{
 		for (i=IdxMin;i<=N;i++){
-			scanf("%d",&Elmt(*T,i));
+			scanf("%d",&ElmtArr(*T,i));
 		}
 		Neff(*T)=N;
 	}
@@ -68,7 +68,7 @@ void BacaIsiTab (TabInt * T){
 	else{
 		i=IdxMin;
 		while (x!=IdxUndef && IsIdxValid(*T,i)){
-			Elmt(*T,i)=x;
+			ElmtArr(*T,i)=x;
 			i++;
 			scanf("%d",&x);
 		}
@@ -88,7 +88,7 @@ void TulisIsi (TabInt T){
 	}
 	else{
 		for(i=IdxMin;i<=Neff(T);i++){
-			printf("[%d]%d\n", i, Elmt(T,i));
+			printf("[%d]%d\n", i, ElmtArr(T,i));
 		}
 	}
 }
@@ -101,7 +101,7 @@ void TulisIsiTab (TabInt T){
 	else{
 		printf("[");
 		for(i=IdxMin;i<=Neff(T);i++){
-			printf("%d,", Elmt(T,i));
+			printf("%d,", ElmtArr(T,i));
 		}
 		printf("]");
 	}
@@ -111,7 +111,7 @@ TabInt PlusTab (TabInt T1, TabInt T2){
 	TabInt T3;
 	int i;
 	for (i=IdxMin;i<=Neff(T1);i++){
-		Elmt(T3,i)=Elmt(T1,i)+Elmt(T2,i);
+		ElmtArr(T3,i)=ElmtArr(T1,i)+ElmtArr(T2,i);
 	}
 	Neff(T3)=Neff(T1);
 	return T3;
@@ -121,7 +121,7 @@ TabInt MinusTab (TabInt T1, TabInt T2){
 	TabInt T3;
 	int i;
 	for (i=IdxMin;i<=Neff(T1);i++){
-		Elmt(T3,i)=Elmt(T1,i)-Elmt(T2,i);
+		ElmtArr(T3,i)=ElmtArr(T1,i)-ElmtArr(T2,i);
 	}
 	Neff(T3)=Neff(T1);
 	return T3;	
@@ -131,7 +131,7 @@ TabInt KaliTab (TabInt T1, TabInt T2){
 	TabInt T3;
 	int i;
 	for (i=IdxMin;i<=Neff(T1);i++){
-		Elmt(T3,i)=Elmt(T1,i)*Elmt(T2,i);
+		ElmtArr(T3,i)=ElmtArr(T1,i)*ElmtArr(T2,i);
 	}
 	Neff(T3)=Neff(T1);
 	return T3;	
@@ -141,7 +141,7 @@ TabInt KaliKons (TabInt Tin, ElType c){
 	TabInt Tout;
 	int i;
 	for (i=IdxMin;i<=Neff(Tin);i++){
-		Elmt(Tout,i)=Elmt(Tin,i)*c;
+		ElmtArr(Tout,i)=ElmtArr(Tin,i)*c;
 	}
 	Neff(Tout)=Neff(Tin);
 	return Tout;	
@@ -157,7 +157,7 @@ boolean IsEQ (TabInt T1, TabInt T2){
 	}
 	else{
 		while(i<=GetLastIdx(T1) && EQ){
-			if(Elmt(T1,i)==Elmt(T2,i)){
+			if(ElmtArr(T1,i)==ElmtArr(T2,i)){
 				i++;
 			}
 			else{
@@ -177,7 +177,7 @@ boolean IsLess (TabInt T1, TabInt T2){
 	else{
 		max=Neff(T2);
 	}
-	while (i<=max &&  Elmt(T1,i)<Elmt(T2,i)){
+	while (i<=max &&  ElmtArr(T1,i)<ElmtArr(T2,i)){
 		i++;
 	}
 	if(i==max+1){
@@ -193,10 +193,10 @@ IdxType Search1 (TabInt T, ElType X){
 		return IdxUndef;
 	}
 	else{
-		while ((i<=Neff(T))&&(Elmt(T,i)!=X)){
+		while ((i<=Neff(T))&&(ElmtArr(T,i)!=X)){
 			i++;
 		}
-		if (Elmt(T,i)==X){
+		if (ElmtArr(T,i)==X){
 			return i;
 		}
 		else{
@@ -215,7 +215,7 @@ IdxType Search2 (TabInt T, ElType X){
 	}
 	else{
 		while ((i<=Neff(T))&& (~Found)){
-			Found=(Elmt(T,i)==X);
+			Found=(ElmtArr(T,i)==X);
 			i++;
 		}	
 		if (Found){
@@ -232,26 +232,26 @@ boolean SearchB (TabInt T, ElType X){
 
 boolean SearchSentinel (TabInt T, ElType X){
 	int i=GetLastIdx(T);
-	Elmt(T,0)=X;
-	while(Elmt(T,i)!=X){
+	ElmtArr(T,0)=X;
+	while(ElmtArr(T,i)!=X){
 		i--;
 	}
 	return (i!=0);
 }
 
 ElType ValMax (TabInt T){
-	return Elmt(T,IdxMaxTab(T));
+	return ElmtArr(T,IdxMaxTab(T));
 }
 
 ElType ValMin (TabInt T){
-	return Elmt(T,IdxMinTab(T));
+	return ElmtArr(T,IdxMinTab(T));
 }
 
 IdxType IdxMaxTab (TabInt T){
 	int imax = GetFirstIdx(T);
 	int i;
 	for(i=IdxMin+1;i<=Neff(T);i++){
-		if(Elmt(T,i)>Elmt(T,imax)){
+		if(ElmtArr(T,i)>ElmtArr(T,imax)){
 			imax=i;
 		}
 	}
@@ -262,7 +262,7 @@ IdxType IdxMinTab (TabInt T){
 	int imin = GetFirstIdx(T);
 	int i;
 	for(i=IdxMin+1;i<=Neff(T);i++){
-		if(Elmt(T,i)<Elmt(T,imin)){
+		if(ElmtArr(T,i)<ElmtArr(T,imin)){
 			imin=i;
 		}
 	}
@@ -273,7 +273,7 @@ void CopyTab (TabInt Tin, TabInt * Tout){
 	int i;
 	Neff(*Tout)=Neff(Tin);
 	for(i=IdxMin;i<=GetLastIdx(Tin);i++){
-		Elmt(*Tout,i)=Elmt(Tin,i);
+		ElmtArr(*Tout,i)=ElmtArr(Tin,i);
 	}
 }
 
@@ -285,9 +285,9 @@ TabInt InverseTab (TabInt T){
 	}
 	else{
 		for(i=1;i<=(Neff(T)/2);i++){
-			temp=Elmt(T,(GetFirstIdx(T)+i-1));
-			Elmt(T,(GetFirstIdx(T)+i-1))=Elmt(T,(GetLastIdx(T)+i-1));
-			Elmt(T,(GetLastIdx(T)+i-1))=temp;
+			temp=ElmtArr(T,(GetFirstIdx(T)+i-1));
+			ElmtArr(T,(GetFirstIdx(T)+i-1))=ElmtArr(T,(GetLastIdx(T)+i-1));
+			ElmtArr(T,(GetLastIdx(T)+i-1))=temp;
 		}
 	}
 	return T;
@@ -301,7 +301,7 @@ boolean IsSimetris (TabInt T){
 	}
 
 	while (i<=(Neff(T)/2) && simetris){
-		simetris=(Elmt(T,(GetFirstIdx(T)+i-1))==Elmt(T,(GetLastIdx(T)+i-1)));
+		simetris=(ElmtArr(T,(GetFirstIdx(T)+i-1))==ElmtArr(T,(GetLastIdx(T)+i-1)));
 	}
 	return simetris;
 }
@@ -315,10 +315,10 @@ void MaxSortDesc (TabInt * T){
 	while (tukar){
 		tukar = false;
 		for(i=GetFirstIdx(*T);i<=N-1;i++){
-			if (Elmt(*T,i+1) > Elmt(*T,i)){
-				temp = Elmt(*T,i+1);
-				Elmt(*T,i+1)=Elmt(*T,i);
-				Elmt(*T,i)=temp;
+			if (ElmtArr(*T,i+1) > ElmtArr(*T,i)){
+				temp = ElmtArr(*T,i+1);
+				ElmtArr(*T,i+1)=ElmtArr(*T,i);
+				ElmtArr(*T,i)=temp;
 				tukar=true;
 			}
 		}
@@ -330,27 +330,27 @@ void InsSortAsc (TabInt * T){
 	IdxType i,j;
 	ElType temp;
 	for(i=GetFirstIdx(*T)+1;i<=GetLastIdx(*T);i++){
-		temp=Elmt(*T,i);
+		temp=ElmtArr(*T,i);
 		j=i;
-		while ((j>1) && (temp<Elmt(*T,j-1))){
-			Elmt(*T,j)=Elmt(*T,j-1);
+		while ((j>1) && (temp<ElmtArr(*T,j-1))){
+			ElmtArr(*T,j)=ElmtArr(*T,j-1);
 			j--;
 		}
-		Elmt(*T,j)=temp;
+		ElmtArr(*T,j)=temp;
 	}
 }
 
 void AddAsLastEl (TabInt * T, ElType X){
-	Elmt(*T,GetLastIdx(*T)+1)=X;
+	ElmtArr(*T,GetLastIdx(*T)+1)=X;
 	Neff(*T)++;
 }
 
 void AddEli (TabInt * T, ElType X, IdxType i){
 	IdxType j;
 	for(j=GetLastIdx(*T);j>=i;j--){
-		Elmt(*T,j+1)=Elmt(*T,j);
+		ElmtArr(*T,j+1)=ElmtArr(*T,j);
 	}
-	Elmt(*T,i)=X;
+	ElmtArr(*T,i)=X;
 	Neff(*T)++;
 }
 
@@ -361,14 +361,14 @@ void DelLastEl (TabInt * T, ElType * X){
 void DelEli (TabInt * T, IdxType i, ElType * X){
 	IdxType j;
 	for(j=i;j<=GetLastIdx(*T)-1;j++){
-		Elmt(*T,j)=Elmt(*T,j+1);
+		ElmtArr(*T,j)=ElmtArr(*T,j+1);
 	}
 	Neff(*T)--;
 }
 
 void AddElUnik (TabInt * T, ElType X){
 	if (!SearchSentinel(*T,X)){
-		Elmt(*T,GetLastIdx(*T)+1)=X;
+		ElmtArr(*T,GetLastIdx(*T)+1)=X;
 		Neff(*T)++;
 	}
 	else{
@@ -397,7 +397,7 @@ void Add1Urut (TabInt * T, ElType X){
 	int i=IdxMin;
 	if (!(IsFull(*T)))
 	{
-		while(X>Elmt(*T,i) && X<Elmt(*T,i+1))
+		while(X>ElmtArr(*T,i) && X<ElmtArr(*T,i+1))
 		{
 		   i++;
 		}
