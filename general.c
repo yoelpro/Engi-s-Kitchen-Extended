@@ -18,4 +18,7 @@ void InitGame()
     Waktu(GameData) = 0;
     Money(GameData) = 0;
     Life(GameData) = 5;
+
+    /* Reading dari file (belum diimplementasi) */
+    
 }
