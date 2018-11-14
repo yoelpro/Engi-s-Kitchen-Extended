@@ -78,5 +78,7 @@ typedef BinTree ResepMakanan;
 
 /* Declaration of global variable */
 extern SimulationData GameData;
+extern Stack Hand;
+extern Stack Tray;
 
 #endif
