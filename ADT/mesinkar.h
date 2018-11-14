@@ -6,7 +6,8 @@
 
 #include "boolean.h"
 
-#define MARK '\n'
+#define MARK '.'
+#define ENTER '\n'
 /* State Mesin */
 extern char CC;
 extern char CCommand;

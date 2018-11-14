@@ -14,5 +14,18 @@
 /* Deklarasi variable global */
 int main()
 {
+	int i;
 	InitGame();
+	BacaCommand();
+	while (!(EqualKata(Command.TabKata,Command.Length,"EXIT")))
+	{
+		/* Game Main Loop */
+		// printf("%d\n",Command.Length);
+		for (i=1; i<=Command.Length; i++)
+		{
+			printf("%c",Command.TabKata[i]);
+		}
+		printf("\n");
+		BacaCommand();
+	}
 }

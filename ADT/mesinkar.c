@@ -59,5 +59,5 @@ void ADVCommand()
 {
   /* Algoritma */
   retval = scanf("%c",&CCommand);
-  EOP = (CCommand == MARK);
+  EOP = (CCommand == ENTER);
 }

@@ -20,10 +20,21 @@
 /* Definisi elemen dan koleksi objek */
 typedef int IdxType;  /* type indeks */
 typedef int ElType;   /* type elemen tabel */
+typedef struct
+{
+  int NoMenu;
+  int NoMeja;
+} Order;
+
 typedef struct { 
 	ElType TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
 	int Neff; /* >=0, banyaknya elemen efektif */
 } TabInt;
+
+typedef struct { 
+  Order TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
+  int Neff; /* >=0, banyaknya elemen efektif */
+} TabOrder;
 /* Indeks yang digunakan [IdxMin..IdxMax] */
 /* Jika T adalah TabInt, cara deklarasi dan akses: */
 /* Deklarasi : T : TabInt */

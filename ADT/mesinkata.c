@@ -97,7 +97,7 @@ void BacaCommand()
   STARTCommand();
   switch (CCommand)
   {
-    case MARK:
+    case ENTER:
     {
       EndCommand = true;
       break;
@@ -105,6 +105,7 @@ void BacaCommand()
     default :
     {
       EndCommand = false;
+      // printf("salin\n");
       SalinCommand();
     }
   }
@@ -128,7 +129,7 @@ void SalinCommand()
       i++;
     }
     ADVCommand();
-  } while (!CCommand==ENTER);
+  } while (CCommand!=ENTER);
   i--;
   Command.Length = i;
 }
