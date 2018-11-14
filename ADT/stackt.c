@@ -13,11 +13,11 @@ void CreateEmptyStck (Stack *S){
 /* I.S. sembarang; */
 /* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
 /* jadi indeksnya antara 1.. MaxEl+1 karena 0 tidak dipakai */
-/* Ciri stack kosong : TOP bernilai Nil */
+/* Ciri stack kosong : TOP bernilai Nol */
     /* KAMUS */
 
     /* ALGORITMA */
-    Top(*S) = Nil;
+    Top(*S) = Nol;
 }
 
 
@@ -27,7 +27,7 @@ boolean IsEmptyStck (Stack S){
     /* KAMUS */
 
     /* ALGORITMA */
-    return Top(S) == Nil;
+    return Top(S) == Nol;
 }
 
 boolean IsFullStck (Stack S){
@@ -68,7 +68,7 @@ void Pop (Stack * S, stackInfoType* X){
     *X = InfoTop(*S);
 
     if(Top(*S) == 1){
-        Top(*S) = Nil;
+        Top(*S) = Nol;
     }
     else{
         Top(*S)--;
