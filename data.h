@@ -26,36 +26,17 @@ enum JenisRuangan {
 	Dapur	//1
 };
 
-const char *JenisBahan[MAX_BAHAN] = {
-	"Piring",		//0
-	"Sendok",		//1
-	"Garpu",		//2
-	"EsKrim",		//3
-	"Nasi",			//4
-	"Roti",			//5
-	"Spaghetti",	//6
-	"Pisang",		//7
-	"Stroberi",		//8
-	"Telur",		//9
-	"AyamGoreng",	//10
-	"Patty",		//11
-	"Sosis",		//12
-	"Bolognese",	//13
-	"Carbonara",	//14
-	"Keju"			//15
-};
+/* ********** SELEKTOR ********** */
 
-const char *JenisMakanan[MAX_MAKANAN] = {
-	"BananaSplit",			//0
-	"Sundae",				//1
-	"NasiTelurDadar",		//2
-	"NasiAyamGoreng",		//3
-	"Burger",				//4
-	"HotDog",				//5
-	"Keju",					//6
-	"SpaghettiCarbonara",	//7
-	"SpaghettiBolognese"	//8
-};
+/* Selektor untuk GameData */
+#define Waktu(SimulationData)   (SimulationData).Waktu
+#define Money(SimulationData)     (SimulationData).Money
+#define Life(SimulationData)     (SimulationData).Life
+#define CurrentRoom(SimulationData) (SimulationData).CurrentRoom
+
+extern const char * JenisBahan[MAX_BAHAN];
+
+const char * JenisMakanan[MAX_MAKANAN];
 
 typedef struct
 {
@@ -76,14 +57,14 @@ typedef struct
 
 typedef struct
 {
-	Ruangan CurrentRoom;
+	int CurrentRoom;
 	Point PosisiPlayer;
 	Stack Hand;
 	Stack Tray;
 	long Waktu;
 	long Money;
 	int Life;
-} GameData;
+} SimulationData;
 
 typedef struct
 {
@@ -94,5 +75,8 @@ typedef struct
 } Customer;
 
 typedef BinTree ResepMakanan;
+
+/* Declaration of global variable */
+extern SimulationData GameData;
 
 #endif
