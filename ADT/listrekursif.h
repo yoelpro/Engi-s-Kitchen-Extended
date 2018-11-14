@@ -2,6 +2,8 @@
 #define LISTREKURSIF_H
 #include "boolean.h"
 
+#define Nil NULL
+
 /* List rekursif direpresentasi dengan pointer */
 typedef char Infotype;
 typedef struct tElmtList *Address;
