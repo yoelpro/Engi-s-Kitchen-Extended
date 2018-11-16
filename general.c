@@ -15,3 +15,26 @@ void InitGame()
     /* Reading dari file (belum diimplementasi) */
     
 }
+
+void UpdateWaitingCustomer()
+{
+    
+}
+
+void UpdateSeatedCustomer()
+{
+
+}
+
+void AddCustomer()
+{
+
+}
+
+void UpdateGameState()
+{
+    UpdateWaitingCustomer();
+    UpdateSeatedCustomer();
+    Waktu(GameData)++;
+    AddCustomer();
+}
