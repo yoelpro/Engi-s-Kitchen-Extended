@@ -16,10 +16,11 @@ void InitGame();
 void UpdateGameState();
 /*  Procedure yang menjalankan berbagai routine saat waktu bertambah 1 tick */
 /*  Diantaranya: 
-    1. Update customer yang sedang nungggu
-    2. Update customer yang sudah duduk dimeja
-    3. Nambah waktu
-    4. Add customer(probabilitas) */
+    1. Update customer yang sedang nungggu (pending)
+    2. Update customer yang sudah duduk dimeja (pending)
+    3. Nambah waktu (done)
+    4. Add customer(probabilitas) (pending) */
 
-
+void UpdateWaitingCustomer();
+/*  Procedure 
 #endif
