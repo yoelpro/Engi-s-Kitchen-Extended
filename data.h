@@ -29,10 +29,10 @@ enum JenisRuangan {
 /* ********** SELEKTOR ********** */
 
 /* Selektor untuk GameData */
-#define Waktu(SimulationData)   (SimulationData).Waktu
-#define Money(SimulationData)     (SimulationData).Money
-#define Life(SimulationData)     (SimulationData).Life
-#define CurrentRoom(SimulationData) (SimulationData).CurrentRoom
+#define Waktu(SimulationData)		(SimulationData).Waktu
+#define Money(SimulationData)		(SimulationData).Money
+#define Life(SimulationData)		(SimulationData).Life
+#define CurrentRoom(SimulationData)	(SimulationData).CurrentRoom
 
 extern const char * JenisBahan[MAX_BAHAN];
 
