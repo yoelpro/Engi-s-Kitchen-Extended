@@ -37,3 +37,5 @@ const char * JenisMakanan[MAX_MAKANAN] =
 SimulationData GameData;
 Stack Hand;
 Stack Tray;
+TypeQueueCustomer QWaitingC;	// Waiting customer
+TypeQueueCustomer QSeatedC;

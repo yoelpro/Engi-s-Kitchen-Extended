@@ -14,6 +14,7 @@
 #include "ADT/pohon.h"
 #include "ADT/point.h"
 #include "ADT/stackt.h"
+#include "ADT/queue.h"
 
 #define KOLOM 8
 #define BARIS 8
@@ -21,7 +22,8 @@
 #define MAX_BAHAN 16
 #define MAX_MAKANAN 9
 
-enum JenisRuangan {
+enum JenisRuangan
+{
 	Makan,	//0
 	Dapur	//1
 };
@@ -72,7 +74,7 @@ typedef struct
 	int Kesabaran;
 	int JmlOrang;
 	boolean Star; /* true jika dia star */
-} Customer;
+} TypeCustomer;
 
 typedef BinTree ResepMakanan;
 
@@ -80,5 +82,8 @@ typedef BinTree ResepMakanan;
 extern SimulationData GameData;
 extern Stack Hand;
 extern Stack Tray;
+extern TypeQueueCustomer QWaitingC;	// Waiting customer
+extern TypeQueueCustomer QSeatedC;	// Seating customer
+
 
 #endif
