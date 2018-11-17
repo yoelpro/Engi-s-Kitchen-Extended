@@ -1,5 +1,4 @@
 /* File: jam.h */
-/* Tanggal: 28 Agustus 2016 */
 /* Definisi ADT JAM */
 
 #ifndef JAM_H
