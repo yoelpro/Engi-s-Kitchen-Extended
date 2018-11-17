@@ -83,6 +83,7 @@ struct TypeCustomer
 	boolean Star; /* true jika dia star */
 };
 
+
 /* Deklarasi variabel bertype Queue : */
 typedef struct
 {   
@@ -102,36 +103,44 @@ typedef struct
 /* ********* Prototype ********* */
 boolean IsEmptyQC (TypeQueueCustomer QC);
 /* Mengirim true jika Q kosong: lihat definisi di atas */
+/* Status: Tested */
+
 boolean IsFullQC (TypeQueueCustomer QC);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
+/* Status: Tested */
+
 int NBElmtQC (TypeQueueCustomer QC);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
+/* Status: Tested */
 
 /* *** Kreator *** */
-void CreateEmptyQC(TypeQueueCustomer* QC, int Max);
+void CreateEmptyQC(TypeQueueCustomer* QC);
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
 /* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
-
-/* *** Destruktor *** */
-void DeAlokasiQC (TypeQueueCustomer* QC);
-/* Proses: Mengembalikan memori Q */
-/* I.S. Q pernah dialokasi */
-/* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
+/* Status: Tested */
 
 /* *** Primitif Add/Delete *** */
 void AddCustomerWC(TypeQueueCustomer *QC, int id, int kesabaran, int Orang, boolean IsStar);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO kecuali star */
 /* I.S. Q mungkin kosong, tabel penampung elemen QC TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" */
+/* Status: Tested */
 
 void DelCustomerQC(TypeQueueCustomer *QC, int id);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. Setelah mendelete customer dengan id tertentu, maka element akan maju
         Q mungkin kosong */
-        
+/* Status: Tested */        
+
+void CleanQC(TypeQueueCustomer *QC);
+/* Proses: Menghapus customer yang sudah hilang kesabaran */
+/* I.S. Q tidak mungkin kosong */
+/* F.S. Menghapus customer yang kesabarannya 0
+        Q mungkin kosong */
+/* Status: Tested */
 #endif
