@@ -3,36 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define Nil 0
-/* Konstanta untuk mendefinisikan address tak terdefinisi */
-
-/* Definisi elemen dan address */
-typedef int infotype;
-typedef int address;   /* indeks tabel */
-
-/* Definisi Queue kosong: HEAD=Nil; TAIL=Nil. */
-/* Catatan implementasi: T[0] tidak pernah dipakai */
-
-/* ********* AKSES (Selektor) ********* */
-/* Jika Q adalah Queue, maka akses elemen : */
-#define Head(Q) (Q).HEAD
-#define Tail(Q) (Q).TAIL
-#define InfoHead(Q) (Q).T[(Q).HEAD]
-#define InfoTail(Q) (Q).T[(Q).TAIL]
-#define MaxEl(Q) (Q).MaxEl
-
-/* ********* Prototype ********* */
 boolean IsEmpty (Queue Q)
-/* Mengirim true jika Q kosong: lihat definisi di atas */
 {
-	return (Head(Q)==Nil && Tail(Q)==Nil);
+	return (Head(Q)==Nol && Tail(Q)==Nol);
 }
 
 boolean IsFull (Queue Q)
-/* Mengirim true jika tabel penampung elemen Q sudah penuh */
-/* yaitu mengandung elemen sebanyak MaxEl */
 {
-	return NBElmt(Q)==MaxEl(Q);
+	return NBElmt(Q)==MaxElQ(Q);
 }
 
 int NBElmt (Queue Q)
@@ -44,69 +22,166 @@ int NBElmt (Queue Q)
 	}
 	else
 	{
-		return ((Tail(Q)-Head(Q)+MaxEl(Q))%MaxEl(Q))+1;
+		return ((Tail(Q)-Head(Q)+MaxElQ(Q))%MaxElQ(Q))+1;
 	}
 }
 
 /* *** Kreator *** */
 void CreateEmpty (Queue * Q, int Max)
-/* I.S. sembarang */
-/* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
-/* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
-/* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
-/* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 {
 	(*Q).T = (infotype*) malloc ((Max+1)* sizeof(infotype));
 	if ((*Q).T!= NULL)
 	{
-		MaxEl(*Q) = Max;
-		Head(*Q) = Nil;
-		Tail(*Q) = Nil;
+		MaxElQ(*Q) = Max;
+		Head(*Q) = Nol;
+		Tail(*Q) = Nol;
 	}
 	else
 	{
-		MaxEl(*Q) = 0;
+		MaxElQ(*Q) = 0;
 	}
 }
 
 /* *** Destruktor *** */
 void DeAlokasi(Queue * Q)
-/* Proses: Mengembalikan memori Q */
-/* I.S. Q pernah dialokasi */
-/* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 {
-	MaxEl(*Q)=0;
+	MaxElQ(*Q)=0;
 	free((*Q).T);
 }
 
 /* *** Primitif Add/Delete *** */
 void Add (Queue * Q, infotype X)
-/* Proses: Menambahkan X pada Q dengan aturan FIFO */
-/* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
-/* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
 {
 	if (IsEmpty(*Q))
 	{
 		Head(*Q)=1;
 	}
-	Tail(*Q)= (Tail(*Q) % MaxEl(*Q)) + 1;
+	Tail(*Q)= (Tail(*Q) % MaxElQ(*Q)) + 1;
 	InfoTail(*Q)=X;
 }
 
 void Del (Queue * Q, infotype * X)
-/* Proses: Menghapus X pada Q dengan aturan FIFO */
-/* I.S. Q tidak mungkin kosong */
-/* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 
-        Q mungkin kosong */
 {
 	*X = InfoHead(*Q);
 	if (NBElmt(*Q)==1)
 	{
-		Head(*Q)=Nil;
-		Tail(*Q)=Nil;
+		Head(*Q)=Nol;
+		Tail(*Q)=Nol;
 	}
 	else
 	{
-		Head(*Q) = (Head(*Q) % MaxEl(*Q)) + 1;
+		Head(*Q) = (Head(*Q) % MaxElQ(*Q)) + 1;
+	}
+}
+
+boolean IsEmptyQC (TypeQueueCustomer QC)
+{
+	return (Head(QC)==Nol && Tail(QC)==Nol);
+}
+
+boolean IsFullQC (TypeQueueCustomer QC)
+{
+	return ((Tail(QC)-Head(QC)+1)==MaxElQC);
+}
+
+int NBElmtQC (TypeQueueCustomer QC)
+{
+	return Tail(QC)-Head(QC)+1;
+}
+
+/* *** Kreator *** */
+void CreateEmptyQC(TypeQueueCustomer* QC)
+{
+		Head(*QC) = Nol;
+		Tail(*QC) = Nol;
+}
+
+/* *** Primitif Add/Delete *** */
+void MoveDataCustomer(TypeQueueCustomer* QC, int from, int to)
+{
+	(*QC).Customer[to].Id = (*QC).Customer[from].Id;
+	(*QC).Customer[to].NoMeja = (*QC).Customer[from].NoMeja;
+	(*QC).Customer[to].Kesabaran = (*QC).Customer[from].Kesabaran;
+	(*QC).Customer[to].JmlOrang = (*QC).Customer[from].JmlOrang;
+	(*QC).Customer[to].Star = (*QC).Customer[from].Star;
+}
+
+void AddCustomerWC (TypeQueueCustomer* QC, int id, int kesabaran, int Orang, boolean IsStar)
+{
+	if (IsEmptyQC(*QC))
+	{
+		Head(*QC)++;
+	}
+	if (!IsStar)
+	{
+		(*QC).Customer[Tail(*QC) + 1].Id = id;
+		(*QC).Customer[Tail(*QC) + 1].NoMeja = 0;
+		(*QC).Customer[Tail(*QC) + 1].Kesabaran = kesabaran;
+		(*QC).Customer[Tail(*QC) + 1].JmlOrang = Orang;
+		(*QC).Customer[Tail(*QC) + 1].Star = IsStar; /* true jika dia star */
+	}
+	else
+	{
+		int idx = Tail(*QC);
+		while (idx>1 && (!(*QC).Customer[idx].Star))
+		{
+			MoveDataCustomer(QC,idx,idx+1);
+			idx--;
+		}
+		if ((*QC).Customer[idx].Star)
+		{
+			(*QC).Customer[idx+1].Id = id;
+			(*QC).Customer[idx+1].NoMeja = 0;
+			(*QC).Customer[idx+1].Kesabaran = kesabaran;
+			(*QC).Customer[idx+1].JmlOrang = Orang;
+			(*QC).Customer[idx+1].Star = IsStar;
+		}
+		else
+		{
+			(*QC).Customer[idx].Id = id;
+			(*QC).Customer[idx].NoMeja = 0;
+			(*QC).Customer[idx].Kesabaran = kesabaran;
+			(*QC).Customer[idx].JmlOrang = Orang;
+			(*QC).Customer[idx].Star = IsStar;
+		}
+	}
+	Tail(*QC)++;
+
+}
+
+
+void DelCustomerQC (TypeQueueCustomer* QC, int id)
+{
+	int i = Head(*QC);
+	while ((*QC).Customer[i].Id!=id && i<Tail(*QC))
+	{
+		i++;
+	}
+	if ((*QC).Customer[i].Id==id)
+	{
+		for(i=i; i<Tail(*QC); i++)
+		{
+			MoveDataCustomer(QC, i+1, i);
+		}
+		Tail(*QC)--;
+	}
+	if (Tail(*QC)==0)
+	{
+		Head(*QC)=0;
+	}
+}
+
+void CleanQC(TypeQueueCustomer *QC)
+{
+	int idx;
+	for(idx = Head(*QC); idx<=Tail(*QC); idx++)
+	{
+		if ((*QC).Customer[idx].Kesabaran==0)
+		{
+			DelCustomerQC(QC,(*QC).Customer[idx].Id);
+			// printf("aa\n");
+			idx--;
+		}
+		// printf("%d %d %d\n",idx,(*QC).Customer[idx].Id,(*QC).Customer[idx].Kesabaran);
 	}
 }
