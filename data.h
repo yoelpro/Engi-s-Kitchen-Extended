@@ -4,21 +4,17 @@
 #ifndef data_H
 #define data_H
 
-// #include "ADT/array.h"
-// #include "ADT/boolean.h"
-// #include "ADT/jam.h"
-// #include "ADT/listrekursif.h"
-// #include "ADT/matriks.h"
-// #include "ADT/mesinkar.h"
-// #include "ADT/mesinkata.h"
-// #include "ADT/pohon.h"
-#include "ADT/point.c"
-// #include "ADT/stackt.h"
-// #include "ADT/queue.h"
-#include "ADT/array.c"
+#include "ADT/array.h"
 #include "ADT/boolean.h"
-#include "ADT/stackt.c"
-#include "ADT/queue.c"
+#include "ADT/jam.h"
+#include "ADT/listrekursif.h"
+#include "ADT/matriks.h"
+#include "ADT/mesinkar.h"
+#include "ADT/mesinkata.h"
+#include "ADT/pohon.h"
+#include "ADT/point.h"
+#include "ADT/stackt.h"
+#include "ADT/queue.h"
 
 #define KOLOM 8
 #define BARIS 8
@@ -46,19 +42,16 @@ const char * JenisMakanan[MAX_MAKANAN];
 
 typedef struct
 {
-	int Id;
 	Point Posisi;
 	int NoMeja;
 	int JmlKursi;
 	int Terisi; /* jumlah kursi yang terisi */
 	boolean N [4+1]; /* array of boolean yang artinya kursi dinomori dari 1-4 secara clockwise, true artinya ada di map */
-	boolean NIsiCustomer[4+1]; //array of boolean yang diduduki dari atas dan clockwise
-	int order; //menu yang dipesan dari 0 ke 8
 } Meja;
 
-typedef struct
+typedef struct 
 {
-	// Matriks Map;
+	Matriks Map;
 	Meja DMeja[MAX_MEJA+1];
 	int JmlMeja;
 	enum JenisRuangan Tipe;
@@ -75,16 +68,22 @@ typedef struct
 	int Life;
 } SimulationData;
 
-/*
 typedef struct
 {
+	int Id;
 	int NoMeja;
 	int Kesabaran;
 	int JmlOrang;
-	boolean Star; // true jika dia star
-} TypeCustomer;*/
+	boolean Star; /* true jika dia star */
+} TypeCustomer;
 
-// typedef BinTree ResepMakanan;
+#define Id(TypeCustomer)	(TypeCustomer).Id
+#define NoMeja(TypeCustomer)	(TypeCustomer).NoMeja
+#define Id(TypeCustomer)	(TypeCustomer).Id
+#define Id(TypeCustomer)	(TypeCustomer).Id
+#define Id(TypeCustomer)	(TypeCustomer).Id
+
+typedef BinTree ResepMakanan;
 
 /* Declaration of global variable */
 extern SimulationData GameData;
@@ -92,8 +91,6 @@ extern Stack Hand;
 extern Stack Tray;
 extern TypeQueueCustomer QWaitingC;	// Waiting customer
 extern TypeQueueCustomer QSeatedC;	// Seating customer
-extern TabOrder TabOrders;
-extern Ruangan RSkrg;
 
 
 #endif

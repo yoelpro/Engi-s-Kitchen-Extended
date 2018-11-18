@@ -1,7 +1,6 @@
 #include "data.h"
 
 /* Definition of global variable */
-
 const char * JenisBahan[MAX_BAHAN] =
 {
 	"Piring",		//0
@@ -40,5 +39,3 @@ Stack Hand;
 Stack Tray;
 TypeQueueCustomer QWaitingC;	// Waiting customer
 TypeQueueCustomer QSeatedC;
-TabOrder TabOrders;
-Ruangan RSkrg;
