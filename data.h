@@ -70,11 +70,18 @@ typedef struct
 
 typedef struct
 {
+	int Id;
 	int NoMeja;
 	int Kesabaran;
 	int JmlOrang;
 	boolean Star; /* true jika dia star */
 } TypeCustomer;
+
+#define Id(TypeCustomer)	(TypeCustomer).Id
+#define NoMeja(TypeCustomer)	(TypeCustomer).NoMeja
+#define Id(TypeCustomer)	(TypeCustomer).Id
+#define Id(TypeCustomer)	(TypeCustomer).Id
+#define Id(TypeCustomer)	(TypeCustomer).Id
 
 typedef BinTree ResepMakanan;
 
