@@ -1,5 +1,6 @@
 #include "general.h"
 #include "data.h"
+#include "time.h"
 
 void InitGame()
 /* Procedure untuk menginisialisasi game data untuk new game */
@@ -18,17 +19,38 @@ void InitGame()
 
 void UpdateWaitingCustomer()
 {
-    
+    if (!IsEmptyQC(QWaitingC))
+    {
+        CleanQC(&QWaitingC);
+    }
 }
 
 void UpdateSeatedCustomer()
 {
-
+    if (!IsEmptyQC(QSeatedC))
+    {
+        CleanQC(&QSeatedC);
+    }
 }
 
 void AddCustomer()
 {
-
+    /* Random from 0 to 19 */
+    unsigned int chanceInsert = rand() % 20;
+    unsigned int chanceStarred =  rand() % 20;
+    if (chanceInsert>=15 && !IsFullQC(QWaitingC))
+    {
+        if (chanceStarred>=15)
+        {
+            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,12,(rand()%4)+1,true);
+        }
+        else
+        {
+            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,20,(rand()%4)+1,false);
+        }
+        /* Jika berhasil insert, jml customer tambah 1 */
+        GameData.JmlCustomer++;
+    }
 }
 
 void UpdateGameState()
