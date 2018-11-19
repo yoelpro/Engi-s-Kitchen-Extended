@@ -22,5 +22,15 @@ void UpdateGameState();
     4. Add customer(probabilitas) (pending) */
 
 void UpdateWaitingCustomer();
-/*  Procedure 
+/*  Procedure untuk update customer yang masih berada di waiting list */
+
+
+void UpdateSeatedCustomer();
+/*  Procedure untuk update customer yang sudah duduk*/
+
+void AddCustomer();
+/*  Procedure untuk add customer ke waiting list apabila list belum penuh */
+
+
+
 #endif
