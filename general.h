@@ -30,6 +30,7 @@ void UpdateSeatedCustomer();
 
 void AddCustomer();
 /*  Procedure untuk add customer ke waiting list apabila list belum penuh */
+/*  Add customer berbasis angka random, sehingga mungkin saja customer bertambah, mungkin tidak */
 
 
 
