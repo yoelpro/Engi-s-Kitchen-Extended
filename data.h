@@ -4,21 +4,17 @@
 #ifndef data_H
 #define data_H
 
-// #include "ADT/array.h"
-// #include "ADT/boolean.h"
-// #include "ADT/jam.h"
-// #include "ADT/listrekursif.h"
-// #include "ADT/matriks.h"
-// #include "ADT/mesinkar.h"
-// #include "ADT/mesinkata.h"
-// #include "ADT/pohon.h"
-#include "ADT/point.c"
-// #include "ADT/stackt.h"
-// #include "ADT/queue.h"
-#include "ADT/array.c"
+#include "ADT/array.h"
 #include "ADT/boolean.h"
-#include "ADT/stackt.c"
-#include "ADT/queue.c"
+#include "ADT/jam.h"
+#include "ADT/listrekursif.h"
+#include "ADT/matriks.h"
+#include "ADT/mesinkar.h"
+#include "ADT/mesinkata.h"
+#include "ADT/pohon.h"
+#include "ADT/point.h"
+#include "ADT/stackt.h"
+#include "ADT/queue.h"
 
 #define KOLOM 8
 #define BARIS 8
@@ -58,7 +54,7 @@ typedef struct
 
 typedef struct
 {
-	// Matriks Map;
+	Matriks Map;
 	Meja DMeja[MAX_MEJA+1];
 	int JmlMeja;
 	enum JenisRuangan Tipe;
@@ -75,16 +71,16 @@ typedef struct
 	int Life;
 } SimulationData;
 
-/*
+
 typedef struct
 {
 	int NoMeja;
 	int Kesabaran;
 	int JmlOrang;
 	boolean Star; // true jika dia star
-} TypeCustomer;*/
+} TypeCustomer;
 
-// typedef BinTree ResepMakanan;
+typedef BinTree ResepMakanan;
 
 /* Declaration of global variable */
 extern SimulationData GameData;
