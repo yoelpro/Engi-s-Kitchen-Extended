@@ -69,6 +69,7 @@ typedef struct
 	long Waktu;
 	long Money;
 	int Life;
+	int JmlCustomer;
 } SimulationData;
 
 
@@ -90,6 +91,6 @@ extern TypeQueueCustomer QWaitingC;	// Waiting customer
 extern TypeQueueCustomer QSeatedC;	// Seating customer
 extern TabOrder TabOrders;
 extern Ruangan RSkrg;
-
+extern Ruangan Room [4+1];
 
 #endif
