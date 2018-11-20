@@ -1,5 +1,5 @@
 /* File : stackt.h */
-/* deklarasi stack yang diimplementasi dengan tabel kontigu dan ukuran sama */
+/* Deklarasi stack yang diimplementasi dengan tabel kontigu dan ukuran sama */
 /* TOP adalah alamat elemen puncak */
 /* Implementasi dalam bahasa C dengan alokasi statik */
 #ifndef STACKT_H
@@ -12,7 +12,7 @@
 /* Nil adalah stack dengan elemen kosong . */
 /* Karena indeks dalam bhs C dimulai 0 maka tabel dg indeks 0 tidak dipakai */
 
-typedef int stackInfoType;
+typedef char stackInfoType;
 typedef int address;   /* indeks tabel */
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
