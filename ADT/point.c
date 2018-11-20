@@ -13,7 +13,7 @@
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk Point *** */
-Point MakePoint (float X, float Y){
+Point MakePoint (int X, int Y){
 /* Membentuk sebuah Point dari komponen-komponennya */
     /* KAMUS LOKAL */
     Point poi;
@@ -23,7 +23,7 @@ Point MakePoint (float X, float Y){
     Ordinat(poi) = Y;
 
     return poi;
-}
+} 
 
 /* *** KELOMPOK Interaksi dengan I/O device, BACA/TULIS  *** */                                                 
 void BacaPoint (Point * P){
@@ -35,10 +35,10 @@ void BacaPoint (Point * P){
 /* I.S. Sembarang */
 /* F.S. P terdefinisi */
     /* KAMUS LOKAL */
-    float X, Y;
+    int X, Y;
 
     /* ALGORITMA */
-    scanf("%f %f", &X, &Y);
+    scanf("%d %d", &X, &Y);
 
     * P = MakePoint(X, Y);
 }
@@ -54,7 +54,7 @@ void TulisPoint (Point P){
     /* KAMUS LOKAL */
 
     /* ALGORITMA */
-    printf("(%2f,%2f)", Absis(P), Ordinat(P));
+    printf("(%2d,%2d)", Absis(P), Ordinat(P));
 }
 
 /* *** Kelompok operasi relasional terhadap Point *** */
@@ -115,7 +115,7 @@ int Kuadran (Point P){
     else if ((Absis(P) < 0) && (Ordinat(P) < 0 )){
         return 3;
     }
-    else if ((Absis(P) > 0) && (Ordinat(P) < 0 )){
+    else{
         return 4;
     }
 }

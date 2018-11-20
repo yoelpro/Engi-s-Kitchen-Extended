@@ -7,8 +7,8 @@
 #include "boolean.h"
 
 typedef struct { 
-	float X; /* absis   */
-	float Y; /* ordinat */
+	int X; /* absis   */
+	int Y; /* ordinat */
 } Point;
 
 /* *** Notasi Akses: Selektor Point *** */
@@ -17,7 +17,7 @@ typedef struct {
         
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk Point *** */
-Point MakePoint (float X, float Y);
+Point MakePoint (int X, int Y);
 /* Membentuk sebuah Point dari komponen-komponennya */
 
 /* *** KELOMPOK Interaksi dengan I/O device, BACA/TULIS  *** */                                                 
