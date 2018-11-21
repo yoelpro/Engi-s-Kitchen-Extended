@@ -27,18 +27,28 @@ void MakeTree (Infotype Akar, BinTree L, BinTree R, BinTree *P) {
 
 void BuildTree (BinTree *P) {
 	ADV(); //karakter pertama sudah dibaca di driver dg START();
-	if (CC == ')') {
+	if (CC == ')')
+	{
 		*P= Nil;
-	} else {
+	}
+	else
+	{
 		*P= Tree(CC, Nil, Nil);
 		ADV();
-		while (CC == ' ') ADV();
+		while (CC == ' ')
+		{
+			ADV();
+		}
 		BuildTree(&Left(*P));
-		while (CC == ' ') ADV();
+		while (CC == ' ')
+		{
+			ADV();
+		}
 		BuildTree(&Right(*P));
 		ADV();
 	}
 }
+
 /* Membentuk sebuah pohon biner P dari pita karakter yang dibaca */
 /* I.S. Pita berisi "konstanta" pohon dalam bentuk prefix.
 Memori pasti cukup, alokasi pasti berhasil. */
