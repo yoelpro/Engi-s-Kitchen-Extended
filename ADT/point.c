@@ -1,5 +1,3 @@
-/* Nama: Stefanus Ardi Mulia */
-/* NIM: 13517119 */
 /* File: jam.h */
 /* Tanggal: 5 September 2018 */
 /* Implementasi ADT Point */
@@ -13,7 +11,7 @@
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk Point *** */
-Point MakePoint (int X, int Y){
+Point MakePoint (float X, float Y){
 /* Membentuk sebuah Point dari komponen-komponennya */
     /* KAMUS LOKAL */
     Point poi;
@@ -23,7 +21,7 @@ Point MakePoint (int X, int Y){
     Ordinat(poi) = Y;
 
     return poi;
-} 
+}
 
 /* *** KELOMPOK Interaksi dengan I/O device, BACA/TULIS  *** */                                                 
 void BacaPoint (Point * P){
@@ -35,10 +33,10 @@ void BacaPoint (Point * P){
 /* I.S. Sembarang */
 /* F.S. P terdefinisi */
     /* KAMUS LOKAL */
-    int X, Y;
+    float X, Y;
 
     /* ALGORITMA */
-    scanf("%d %d", &X, &Y);
+    scanf("%f %f", &X, &Y);
 
     * P = MakePoint(X, Y);
 }
@@ -54,7 +52,7 @@ void TulisPoint (Point P){
     /* KAMUS LOKAL */
 
     /* ALGORITMA */
-    printf("(%2d,%2d)", Absis(P), Ordinat(P));
+    printf("(%2f,%2f)", Absis(P), Ordinat(P));
 }
 
 /* *** Kelompok operasi relasional terhadap Point *** */
@@ -115,7 +113,7 @@ int Kuadran (Point P){
     else if ((Absis(P) < 0) && (Ordinat(P) < 0 )){
         return 3;
     }
-    else{
+    else if ((Absis(P) > 0) && (Ordinat(P) < 0 )){
         return 4;
     }
 }
