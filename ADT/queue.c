@@ -146,7 +146,6 @@ void AddCustomerWC (TypeQueueCustomer* QC, int id, int kesabaran, int Orang, boo
 		}
 	}
 	Tail(*QC)++;
-
 }
 
 
