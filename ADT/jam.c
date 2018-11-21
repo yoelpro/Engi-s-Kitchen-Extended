@@ -77,7 +77,7 @@ void TulisJAM (JAM J){
    /* KAMUS LOKAL */
 
    /* ALGORITMA */
-   printf("&d:&d:&d", Hour(J), Minute(J), Second(J));
+   printf("%d:%d:%d", Hour(J), Minute(J), Second(J));
 }
 
 /* ***************************************************************** */

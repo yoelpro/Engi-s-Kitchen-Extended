@@ -120,7 +120,7 @@ void BacaMatriks (Matriks * M, int NB, int NK)
     for(i=GetFirstIdxBrs(* M);i<=GetLastIdxBrs(* M);i++){
 
         for(j=GetFirstIdxKol(* M);j<=GetLastIdxKol(* M);j++){
-            scanf("%d", &ElmtMat(* M,i,j));
+            scanf("%c", &ElmtMat(* M,i,j));
         }
 
     }

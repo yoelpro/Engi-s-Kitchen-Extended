@@ -11,7 +11,7 @@
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk Point *** */
-Point MakePoint (float X, float Y){
+Point MakePoint (int X, int Y){
 /* Membentuk sebuah Point dari komponen-komponennya */
     /* KAMUS LOKAL */
     Point poi;
@@ -52,7 +52,7 @@ void TulisPoint (Point P){
     /* KAMUS LOKAL */
 
     /* ALGORITMA */
-    printf("(%2f,%2f)", Absis(P), Ordinat(P));
+    printf("(%d,%d)", Absis(P), Ordinat(P));
 }
 
 /* *** Kelompok operasi relasional terhadap Point *** */
