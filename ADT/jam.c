@@ -1,5 +1,3 @@
-/* Nama: Stefanus Ardi Mulia */
-/* NIM: 13517119 */
 /* File: jam.h */
 /* Tanggal: 5 September 2016 */
 /* Implementasi ADT JAM */
