@@ -32,6 +32,20 @@ void AddCustomer();
 /*  Procedure untuk add customer ke waiting list apabila list belum penuh */
 /*  Add customer berbasis angka random, sehingga mungkin saja customer bertambah, mungkin tidak */
 
+void Put();
+/*  Procedure untuk membuat makanan dari bahan-bahan yang ada di tray */
+/*  Hand mungkin kosong, atau bahan-bahan ada di hand secara terurut maupun acak */
+/*  Hand kosong, tergantung dari urutan bahan yang ada di hand, mungkin ada makanan,
+    mungkin juga tidak terbentuk makanan di Stack Tray */
 
+
+void Take();
+/*I.S. Posisi player dan posisi meja terdefinisi*/
+/*F.S. Bahan yang dicari ditambahkan ke tray jika ada meja disekitar player*/
+/*     Apabila tidak ada meja, maka tidak terjadi perubahan */
+
+void BuildTreeText(BinTree *P, char* text, int* i);
+/*I.S. Text untuk tree tersedia, tree tersedia, i=0 */
+/*F.S. Tree dibangun pada bintree, i berada di index char terakhir */
 
 #endif
