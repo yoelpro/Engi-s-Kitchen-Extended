@@ -69,7 +69,7 @@ void Put()
 {
     Stack ReverseStack;
     BinTree ScopePencarian = Resep;
-    char X;
+    int X;
 
     if(IsEmptyStck(Hand))
     {
@@ -93,7 +93,7 @@ void Put()
         while (!IsEmptyStck(Hand));
 
         // Mulai iterasi per item
-        char target;
+        int target;
         int hasil = 0;
         boolean stillFind = true;
         do
@@ -102,7 +102,7 @@ void Put()
             do
             {
                 Pop(&ReverseStack,&target); //change target
-                if (target == '0') //piring
+                if (target == 0) //piring
                 {
                     ScopePencarian = Resep;
                     stillFind = true;
@@ -140,17 +140,28 @@ void Put()
     }
 }
 
+/* Fungsi pendukung put dan take */
+int hexToInt(char target)
+{
+    if (target >= '0' && target <= '9')
+        return target - '0';
+    if (target >= 'a' && target <= 'f')
+        return target - 'a' + 10;
+    return -1;
+}
+
 /*fungsi isMeja*/
 boolean isMejaBahan(Point kotak)
+/* Menerima point koordinat kotak yang ingin dicek apakah meja bahan*/
 {
     char x = (Room[GameData.CurrentRoom].Map.Mem[Absis(kotak)][Ordinat(kotak)]);
-    return (x != 'T' && x != 'B');
+    return (x != 'T' && x != ' ');
 }
 
 void Take ()
 {
     Stack Hand;
-    char dataMeja;
+    int dataMeja;
 
     /*kondisi hand penuh*/
     if (IsFullStck(Hand))
@@ -161,28 +172,28 @@ void Take ()
     {
         if(isMejaBahan(MakePoint(Absis(GameData.PosisiPlayer),Ordinat(GameData.PosisiPlayer)+1))) //meja di atas
         {
-            dataMeja = (Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)][Ordinat(GameData.PosisiPlayer)+1]);
+            dataMeja = hexToInt((Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)][Ordinat(GameData.PosisiPlayer)+1]));
             /*Memasukkan bahan ke Tray*/
             Push(&Hand,dataMeja);
             printf("Bahan berhasil ditambahkan ke hand.\n");
         }
         else if (isMejaBahan(MakePoint(Absis(GameData.PosisiPlayer)+1,Ordinat(GameData.PosisiPlayer)))) //meja di kanan
         {
-            dataMeja = (Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)+1][Ordinat(GameData.PosisiPlayer)]);
+            dataMeja = hexToInt((Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)+1][Ordinat(GameData.PosisiPlayer)]));
             /*Memasukkan bahan ke Tray*/
             Push(&Hand,dataMeja);
             printf("Bahan berhasil ditambahkan ke hand.\n");
         }
         else if (isMejaBahan(MakePoint(Absis(GameData.PosisiPlayer),Ordinat(GameData.PosisiPlayer)-1))) //meja di bawah
         {
-            dataMeja = (Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)][Ordinat(GameData.PosisiPlayer)+1]);
+            dataMeja = hexToInt((Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)][Ordinat(GameData.PosisiPlayer)+1]));
             /*Memasukkan bahan ke Tray*/
             Push(&Hand,dataMeja);
             printf("Bahan berhasil ditambahkan ke hand.\n");
         }
         else if (isMejaBahan(MakePoint(Absis(GameData.PosisiPlayer)-1,Ordinat(GameData.PosisiPlayer)))) //meja di kiri
         {
-            dataMeja = (Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)+1][Ordinat(GameData.PosisiPlayer)]);
+            dataMeja = hexToInt((Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)+1][Ordinat(GameData.PosisiPlayer)]));
             /*Memasukkan bahan ke Tray*/
             Push(&Hand,dataMeja);
             printf("Bahan berhasil ditambahkan ke hand.\n");
@@ -294,41 +305,48 @@ void orderFood()
     int menu;
     Ruangan RNow=Room[GameData.CurrentRoom];
     Point P1 = GameData.PosisiPlayer;
-    while ((i<=RNow.JmlMeja) && (!cek))
+    if (!IsFullTabOrder(TabOrders))
     {
-        if ((RNow.DMeja[i].order<=8 && RNow.DMeja[i].order>=0) || RNow.DMeja[i].Terisi<=0)
+        while ((i<=RNow.JmlMeja) && (!cek))
         {
-            i++;
-        }
-        else
-        {
-            // printf("absis %f ordinat %f\n", Absis(RNow.DMeja[i].Posisi), Ordinat(RNow.DMeja[i].Posisi));
-            tableno = searchMeja(P1,RNow.DMeja[i],2);
-            if (tableno!=Nol)
-            {
-                cek = true;
-            }
-            else
+            if ((RNow.DMeja[i].order<=8 && RNow.DMeja[i].order>=0) || RNow.DMeja[i].Terisi<=0)
             {
                 i++;
             }
+            else
+            {
+                // printf("absis %f ordinat %f\n", Absis(RNow.DMeja[i].Posisi), Ordinat(RNow.DMeja[i].Posisi));
+                tableno = searchMeja(P1,RNow.DMeja[i],2);
+                if (tableno!=Nol)
+                {
+                    cek = true;
+                }
+                else
+                {
+                    i++;
+                }
+            }
         }
-    }
-    if (!cek)
-    {
-        printf("failed\n");
+        if (!cek)
+        {
+            printf("failed\n");
+        }
+        else
+        {
+            Order Temp;
+            menu = (rand() % 9); //Jumlah makanan ada 0..8
+            RNow.DMeja[tableno].order = menu;
+            // Rnow.Dmeja[tableno].Pelanggan.Kesabaran = ((rand()%6)+25);/*tambah kesabaran*/
+            Temp.NoMeja = tableno;
+            Temp.NoMenu = menu;
+            AddAsLastElTabOrder(&TabOrders,Temp);
+        }
+        Room[GameData.CurrentRoom] = RNow;
     }
     else
     {
-        Order Temp;
-        menu = (rand() % 9); //Jumlah makanan ada 0..8
-        RNow.DMeja[tableno].order = menu;
-        // Rnow.Dmeja[tableno].Pelanggan.Kesabaran = ((rand()%6)+25);/*tambah kesabaran*/
-        Temp.NoMeja = tableno;
-        Temp.NoMenu = menu;
-        AddAsLastElTabOrder(&TabOrders,Temp);
+        printf("Order sudah penuh, orderan tidak berhasil diambil!");
     }
-    Room[GameData.CurrentRoom] = RNow;
 }
 
 void placeCustomer()
@@ -439,9 +457,12 @@ F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja d
             }
         }
     }
-    if(!cek){
+    if(!cek)
+    {
         printf("failed");
-    }else{
+    }
+    else
+    {
         int Temp;
         Pop(&Tray, &Temp);
     }
