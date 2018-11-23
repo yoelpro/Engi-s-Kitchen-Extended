@@ -55,7 +55,7 @@ int main()
 	printf("absis %d ordinat %d\n", GameData.PosisiPlayer.X, Ordinat(GameData.PosisiPlayer));
 	// Room[GameData.CurrentRoom].Map.NBrsEff=8;
 	// Room[GameData.CurrentRoom].Map.NKolEff=8;
-	TulisMatriks(Room[GameData.CurrentRoom].Map);
+	TulisMatriks(Room[1].Map);
 	printf("\n");
 
 	printf("input 1/2/3: ");
