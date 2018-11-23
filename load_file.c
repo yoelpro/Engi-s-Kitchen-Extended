@@ -94,7 +94,7 @@ void load_arr_ruangan(Ruangan Rooms[])
     /* ALGORITMA */
     START("Res/Ruangan.txt");
 
-    for (ruangNo=1;ruangNo<=4;i++)
+    for (ruangNo=1;ruangNo<=1;ruangNo++)
     {
         Rooms[ruangNo].Tipe = CC - '0';
         ADV(); ADV();
@@ -107,7 +107,7 @@ void load_arr_ruangan(Ruangan Rooms[])
                 ElmtMat(Rooms[ruangNo].Map, i, j) = CC;
                 ADV();
             }
-            ADV(); ADV();
+            ADV();
         }
         if( Rooms[ruangNo].Tipe == Makan) {
             _search_meja_in_ruangan(&Rooms[ruangNo]);
@@ -163,7 +163,6 @@ Memori pasti cukup, alokasi pasti berhasil. */
             _build_resep(&Left(*ResepTree));
 
             IgnoreBlank();
-            ADV();
             _build_resep(&Right(*ResepTree ));
         }
 	}

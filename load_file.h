@@ -8,7 +8,7 @@
 #include "ADT/pohon.h"
 #include "data.h"
 
-void load_ruangan(Ruangan Rooms[]);
+void load_arr_ruangan(Ruangan *Rooms);
 /*  Membaca ruangan dari file eksternal
  *  I.S. : Rooms[] sembarang
  *  F.S. : Rooms[] berisi ruangan dari file eksternal
