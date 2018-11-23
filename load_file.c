@@ -99,7 +99,7 @@ void load_arr_ruangan(Ruangan Rooms[])
         Rooms[ruangNo].Tipe = CC - '0';
         ADV(); ADV();
 
-        MakeMatriks(MAP_VERTICAL_SIZE, MAP_HORIZONTAL_SIZE, &Rooms[ruangNo]);
+        MakeMatriks(MAP_VERTICAL_SIZE, MAP_HORIZONTAL_SIZE, &(Rooms[ruangNo].Map));
         for (i=1;i<=MAP_VERTICAL_SIZE;i++)
         {
             for (j=1;j<=MAP_HORIZONTAL_SIZE;j++)
