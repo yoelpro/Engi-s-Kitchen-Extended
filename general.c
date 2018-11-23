@@ -1,14 +1,11 @@
 #include "general.h"
+#include "load_file.h"
 #include "data.h"
 #include "time.h"
 
 void InitGame()
 {
-    // Read resep
-    char x[120] = "(0(1(3(7(0()())())(8(1()())()))(4(9(2()())())(a(3()())())))(2(5(b(4()())())(c(5()())()))(6(d(f(8()())())())(e(7()())))))";
-    int textPointer = 0;
-    BuildTreeText(&Resep, x, &textPointer);
-
+    load_resep(&Resep);
     CurrentRoom(GameData) = 4; //Dapur
     GameData.PosisiPlayer = MakePoint(4,4); //Sepakati dapur 4,4 harus kosong dan tidak menjebak
     CreateEmptyStck(&GameData.Hand);
@@ -122,8 +119,8 @@ void Put()
                         stillFind = false;
                     }
                 }
-            } while (!IsEmptyStck(ReverseStack) && stillFind && !IsOneElmt(Left(ScopePencarian)));
-            if (IsOneElmt(Left(ScopePencarian)))// bahannya terurut
+            } while (!IsEmptyStck(ReverseStack) && stillFind && !IsTreeOneElmt(Left(ScopePencarian)));
+            if (IsTreeOneElmt(Left(ScopePencarian)))// bahannya terurut
             {
                 Push(&Tray,Akar(ScopePencarian));
                 hasil++;
@@ -340,8 +337,10 @@ void orderFood()
             Temp.NoMeja = tableno;
             Temp.NoMenu = menu;
             AddAsLastElTabOrder(&TabOrders,Temp);
+            printf("Order berhasil ! Menu : %d dan nomor meja : %d\n", Temp.NoMenu, Temp.NoMeja);
         }
         Room[GameData.CurrentRoom] = RNow;
+        
     }
     else
     {
@@ -390,6 +389,10 @@ F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC ber
                 Head(QWaitingC)++;
             }
         }
+    }
+    else
+    {
+        printf("Tidak ada customer yang menunggu!\n");
     }
     if (!cek)
     {
