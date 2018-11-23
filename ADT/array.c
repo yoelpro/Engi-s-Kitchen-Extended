@@ -20,13 +20,14 @@ void AddAsLastElTabOrder (TabOrder * T, Order X){
 	ElmtArr(*T,Neff(*T))=X;
 }
 
-void DelEliTabOrder (TabOrder * T, IdxType i, Order * X){
-	IdxType j;
-	*X = ElmtArr(*T,j);
-	for(j=i;j<=Neff(*T)-1;j++){
-		ElmtArr(*T,j)=ElmtArr(*T,j+1);
-	}
-	Neff(*T)--;
+void DelEliTabOrder (TabOrder * T, IdxType i, Order * X)
+{
+  *X = ElmtArr(*T, i);
+  IdxType j;
+  for(j=i ; j<=Neff(*T)-1; j++){
+    ElmtArr(*T,j) = ElmtArr(*T, j+1);
+  }
+  Neff(*T) -= 1;
 }
 
 void MakeEmpty (TabInt * T)
