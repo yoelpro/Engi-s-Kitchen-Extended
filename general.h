@@ -1,6 +1,5 @@
 /*  File : general.h
     berisi fungsi dan prosedur yang dibutuhkan program secara general
-
 */
 
 #ifndef GENERAL_H
