@@ -15,6 +15,9 @@
 #include "ADT/point.h"
 #include "ADT/stackt.h"
 #include "ADT/queue.h"
+#include "ADT/multilist.h"
+// #include "load_file.h" sepertinya gk perlu
+#include <stdio.h>
 
 #define KOLOM 8
 #define BARIS 8
@@ -52,8 +55,7 @@ typedef struct
 	int order; //menu yang dipesan dari 0 ke 8
 } Meja;
 
-typedef struct
-{
+typedef struct {
 	Matriks Map;
 	Meja DMeja[MAX_MEJA+1];
 	int JmlMeja;
@@ -75,10 +77,11 @@ typedef struct
 
 typedef struct
 {
+	int Id;
 	int NoMeja;
 	int Kesabaran;
 	int JmlOrang;
-	boolean Star; // true jika dia star
+	boolean Star; /* true jika dia star */
 } TypeCustomer;
 
 typedef BinTree ResepMakanan;
