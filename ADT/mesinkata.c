@@ -8,13 +8,26 @@ Kata CKata;
 boolean EndCommand;
 Kata Command;
 
-void STARTKATA()
+void IgnoreBlank()
+/* Mengabaikan satu atau beberapa BLANK
+   I.S. : CC sembarang 
+   F.S. : CC ≠ BLANK atau CC = MARK */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+    while((CC==BLANK || CC==ENTER) && CC!=MARK){
+        ADV();
+    }
+}
+
+void STARTKATA(char *fileName)
 /* I.S. : CC sembarang 
    F.S. : EndKata = true, dan CC = MARK; 
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata */
 {
-  START();
+  START(fileName);
   switch (CC)
   {
     case MARK :
@@ -73,15 +86,13 @@ void SalinKata()
   CKata.Length = i;
 }
 
-boolean EqualKata(Kata input, char* inputBanding)
+boolean EqualKata(char* inputMesin, int length, char* inputBanding)
 /*  Fungsi yang berguna untuk membandingkan input dengan suatu kata, misalnya:
     EqualKata(CKata.TabKata,CKata.Length,"UP")
     Akan menghasilkan true apabila sama, false jika string berbeda
 */
 {
   int i = 0;
-  char* inputMesin = input.TabKata;
-  int length = input.Length;
   while (i<length-1 && *(inputMesin+(i+1))==*(inputBanding+i))
   {
     i++;
@@ -90,7 +101,7 @@ boolean EqualKata(Kata input, char* inputBanding)
 }
 
 void BacaCommand()
-/* Procedure yang digunakan */
+/* Procedure yang digunakan 
 /* I.S. : CC sembarang 
    F.S. : EndKata = true, dan CC = MARK; 
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,

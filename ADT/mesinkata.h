@@ -22,7 +22,12 @@ extern Kata CKata;
 extern boolean EndCommand;
 extern Kata Command;
 
-void STARTKATA();
+void IgnoreBlank();
+/* Mengabaikan satu atau beberapa BLANK
+   I.S. : CC sembarang 
+   F.S. : CC ≠ BLANK atau CC = MARK */
+   
+void STARTKATA(char *fileName);
 /* I.S. : CC sembarang 
    F.S. : EndKata = true, dan CC = MARK; 
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
@@ -43,7 +48,7 @@ void SalinKata();
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
-boolean EqualKata(Kata input, char* inputBanding);
+boolean EqualKata(char* inputMesin, int length, char* inputBanding);
 /*  Fungsi yang berguna untuk membandingkan input dengan suatu kata, misalnya:
     EqualKata(CKata.TabKata,CKata.Length,"UP")
     Akan menghasilkan true apabila sama, false jika string berbeda
