@@ -14,7 +14,6 @@
 /* Deklarasi variable global */
 int main()
 {
-	Ruangan a;
 	InitGame();
 
 	Room[GameData.CurrentRoom].JmlMeja=2;
@@ -58,10 +57,8 @@ int main()
 	Room[GameData.CurrentRoom].Map.NKolEff=8;
 	TulisMatriks(Room[GameData.CurrentRoom].Map);
 
-	int cmd;
 	printf("input 1/2/3: ");
 	BacaCommand();
-	// scanf("%d", &cmd);
 
 	if (EqualKata(Command,"1"))
 	{

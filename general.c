@@ -434,7 +434,7 @@ F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja d
     time_t t;
     int max =5;
     srand((unsigned) time(&t));
-    int tableno=0,i =1,j=1;
+    int tableno=0,i=1;
     boolean cek = false;
     Ruangan RNow=Room[GameData.CurrentRoom];
     Point P1 = GameData.PosisiPlayer;

@@ -103,7 +103,7 @@ boolean EqualKata(Kata input, char* inputBanding)
 }
 
 void BacaCommand()
-/* Procedure yang digunakan 
+/* Procedure yang digunakan */
 /* I.S. : CC sembarang 
    F.S. : EndKata = true, dan CC = MARK; 
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
