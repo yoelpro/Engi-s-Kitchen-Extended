@@ -48,7 +48,7 @@ void SalinKata();
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
-boolean EqualKata(char* inputMesin, int length, char* inputBanding);
+boolean EqualKata(Kata input, char* inputBanding);
 /*  Fungsi yang berguna untuk membandingkan input dengan suatu kata, misalnya:
     EqualKata(CKata.TabKata,CKata.Length,"UP")
     Akan menghasilkan true apabila sama, false jika string berbeda
