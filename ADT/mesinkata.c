@@ -73,13 +73,15 @@ void SalinKata()
   CKata.Length = i;
 }
 
-boolean EqualKata(char* inputMesin, int length, char* inputBanding)
+boolean EqualKata(Kata input, char* inputBanding)
 /*  Fungsi yang berguna untuk membandingkan input dengan suatu kata, misalnya:
     EqualKata(CKata.TabKata,CKata.Length,"UP")
     Akan menghasilkan true apabila sama, false jika string berbeda
 */
 {
   int i = 0;
+  char* inputMesin = input.TabKata;
+  int length = input.Length;
   while (i<length-1 && *(inputMesin+(i+1))==*(inputBanding+i))
   {
     i++;
@@ -88,7 +90,7 @@ boolean EqualKata(char* inputMesin, int length, char* inputBanding)
 }
 
 void BacaCommand()
-/* Procedure yang digunakan 
+/* Procedure yang digunakan */
 /* I.S. : CC sembarang 
    F.S. : EndKata = true, dan CC = MARK; 
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
