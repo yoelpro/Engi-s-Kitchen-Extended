@@ -254,12 +254,14 @@ IdxType SearchUrut (TabInt T, ElType X){
 	return Search1(T,X);
 }
 
-ElType MaxUrut (TabInt T){
-	return(T,GetLastIdx(T));
+ElType MaxUrut (TabInt T)
+{
+	return(GetLastIdx(T));
 }
 
-ElType MinUrut (TabInt T){
-	return(T,GetFirstIdx(T));
+ElType MinUrut (TabInt T)
+{
+	return(GetFirstIdx(T));
 }
 
 void MaxMinUrut (TabInt T, ElType * Max, ElType * Min){
