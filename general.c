@@ -196,29 +196,3 @@ void Take ()
 
 /* Jesnat */
 
-void BuildTreeText(BinTree *P, char* text, int* i)
-{
-    (*i)++;
-    if(text[*i] == ')')
-    {
-        *P = Nil;
-        (*i)++;
-    }
-    else
-    {
-        *P = Tree(text[*i],Nil,Nil);
-        (*i)++;
-        // printf("%d",*i);
-        while(text[*i] == ' ') 
-        {
-            (*i)++;
-        }
-        BuildTreeText(&Left(*P),text,i);
-        while(text[*i] == ' ')
-        {
-            (*i)++;
-        }
-        BuildTreeText(&Right(*P),text,i);
-        (*i)++;
-    }
-}

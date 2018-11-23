@@ -113,7 +113,7 @@ int Kuadran (Point P){
     else if ((Absis(P) < 0) && (Ordinat(P) < 0 )){
         return 3;
     }
-    else if ((Absis(P) > 0) && (Ordinat(P) < 0 )){
+    else{
         return 4;
     }
 }
