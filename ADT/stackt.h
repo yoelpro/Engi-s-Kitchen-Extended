@@ -12,7 +12,7 @@
 /* Nil adalah stack dengan elemen kosong . */
 /* Karena indeks dalam bhs C dimulai 0 maka tabel dg indeks 0 tidak dipakai */
 
-typedef char stackInfoType;
+typedef int stackInfoType;
 typedef int address;   /* indeks tabel */
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
