@@ -41,6 +41,5 @@ Stack Tray;
 TypeQueueCustomer QWaitingC;	// Waiting customer
 TypeQueueCustomer QSeatedC;
 TabOrder TabOrders;
-Ruangan RSkrg;
 Ruangan Room [4+1];
 BinTree Resep;

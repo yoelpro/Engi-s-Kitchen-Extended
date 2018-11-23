@@ -90,7 +90,6 @@ extern Stack Tray;
 extern TypeQueueCustomer QWaitingC;	// Waiting customer
 extern TypeQueueCustomer QSeatedC;	// Seating customer
 extern TabOrder TabOrders;
-extern Ruangan RSkrg;
 extern Ruangan Room [4+1];
 extern BinTree Resep;
 #endif
