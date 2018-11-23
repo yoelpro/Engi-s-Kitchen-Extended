@@ -44,8 +44,4 @@ void Take();
 /*F.S. Bahan yang dicari ditambahkan ke tray jika ada meja disekitar player*/
 /*     Apabila tidak ada meja, maka tidak terjadi perubahan */
 
-void BuildTreeText(BinTree *P, char* text, int* i);
-/*I.S. Text untuk tree tersedia, tree tersedia, i=0 */
-/*F.S. Tree dibangun pada bintree, i berada di index char terakhir */
-
 #endif

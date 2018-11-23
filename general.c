@@ -4,6 +4,11 @@
 
 void InitGame()
 {
+    // Read resep
+    char x[120] = "(0(1(3(7(0()())())(8(1()())()))(4(9(2()())())(a(3()())())))(2(5(b(4()())())(c(5()())()))(6(d(f(8()())())())(e(7()())))))";
+    int textPointer = 0;
+    BuildTreeText(&Resep, x, &textPointer);
+
     CurrentRoom(GameData) = 4; //Dapur
     GameData.PosisiPlayer = MakePoint(4,4); //Sepakati dapur 4,4 harus kosong dan tidak menjebak
     CreateEmptyStck(&GameData.Hand);
@@ -60,14 +65,8 @@ void UpdateGameState()
     AddCustomer();
 }
 
-void Put ()
+void Put()
 {
-    // Membangun tree untuk pengetesan program
-    char x[120] = "(0(1(3(7(0()())())(8(1()())()))(4(9(2()())())(a(3()())())))(2(5(b(4()())())(c(5()())()))(6(d(f(8()())())())(e(7()())))))";
-    BinTree Resep = Nil;
-    int textPointer = 0;
-    BuildTreeText(&Resep, x, &textPointer);
-    PrintTree(Resep,1);
     Stack ReverseStack;
     BinTree ScopePencarian = Resep;
     char X;
@@ -75,6 +74,10 @@ void Put ()
     if(IsEmptyStck(Hand))
     {
         printf("Hand kosong!\n");
+    }
+    else if (IsFullStck(Tray))
+    {
+        printf("Tray penuh!\n");
     }
     else //kalau hand gk kosong
     {
@@ -138,7 +141,7 @@ void Put ()
 }
 
 /*fungsi isMeja*/
-boolean isMeja(Point kotak)
+boolean isMejaBahan(Point kotak)
 {
     char x = (Room[GameData.CurrentRoom].Map.Mem[Absis(kotak)][Ordinat(kotak)]);
     return (x != 'T' && x != 'B');
@@ -147,9 +150,7 @@ boolean isMeja(Point kotak)
 void Take ()
 {
     Stack Hand;
-    Point kotak;
     char dataMeja;
-    int bahan;
 
     /*kondisi hand penuh*/
     if (IsFullStck(Hand))
@@ -158,28 +159,28 @@ void Take ()
     }
     else
     {
-        if(isMeja(MakePoint(Absis(GameData.PosisiPlayer),Ordinat(GameData.PosisiPlayer)+1))) //meja di atas
+        if(isMejaBahan(MakePoint(Absis(GameData.PosisiPlayer),Ordinat(GameData.PosisiPlayer)+1))) //meja di atas
         {
             dataMeja = (Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)][Ordinat(GameData.PosisiPlayer)+1]);
             /*Memasukkan bahan ke Tray*/
             Push(&Hand,dataMeja);
             printf("Bahan berhasil ditambahkan ke hand.\n");
         }
-        else if (isMeja(MakePoint(Absis(GameData.PosisiPlayer)+1,Ordinat(GameData.PosisiPlayer)))) //meja di kanan
+        else if (isMejaBahan(MakePoint(Absis(GameData.PosisiPlayer)+1,Ordinat(GameData.PosisiPlayer)))) //meja di kanan
         {
             dataMeja = (Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)+1][Ordinat(GameData.PosisiPlayer)]);
             /*Memasukkan bahan ke Tray*/
             Push(&Hand,dataMeja);
             printf("Bahan berhasil ditambahkan ke hand.\n");
         }
-        else if (isMeja(MakePoint(Absis(GameData.PosisiPlayer),Ordinat(GameData.PosisiPlayer)-1))) //meja di bawah
+        else if (isMejaBahan(MakePoint(Absis(GameData.PosisiPlayer),Ordinat(GameData.PosisiPlayer)-1))) //meja di bawah
         {
             dataMeja = (Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)][Ordinat(GameData.PosisiPlayer)+1]);
             /*Memasukkan bahan ke Tray*/
             Push(&Hand,dataMeja);
             printf("Bahan berhasil ditambahkan ke hand.\n");
         }
-        else if (isMeja(MakePoint(Absis(GameData.PosisiPlayer)-1,Ordinat(GameData.PosisiPlayer)))) //meja di kiri
+        else if (isMejaBahan(MakePoint(Absis(GameData.PosisiPlayer)-1,Ordinat(GameData.PosisiPlayer)))) //meja di kiri
         {
             dataMeja = (Room[GameData.CurrentRoom].Map.Mem[Absis(GameData.PosisiPlayer)+1][Ordinat(GameData.PosisiPlayer)]);
             /*Memasukkan bahan ke Tray*/
@@ -192,6 +193,8 @@ void Take ()
         }
     }
 }
+
+/* Jesnat */
 
 void BuildTreeText(BinTree *P, char* text, int* i)
 {
