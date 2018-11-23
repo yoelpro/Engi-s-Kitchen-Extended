@@ -8,10 +8,10 @@
 #include "ADT/pohon.h"
 #include "data.h"
 
-void load_arr_ruangan(Ruangan Rooms[]);
+void load_arr_ruangan(Ruangan Rooms[], int NRooms);
 /*  Membaca ruangan dari file eksternal
- *  I.S. : Rooms[] sembarang
- *  F.S. : Rooms[] berisi ruangan dari file eksternal
+ *  I.S. : Rooms[] sembarang, NRooms terdefinisi
+ *  F.S. : Rooms[] berisi Nrooms buah ruangan dari file eksternal
  */
 
 void load_resep(BinTree *ResepTree);

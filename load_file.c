@@ -82,7 +82,7 @@ void _search_meja_in_ruangan (Ruangan *ruang)
     }
 }
 
-void load_arr_ruangan(Ruangan Rooms[])
+void load_arr_ruangan(Ruangan Rooms[], int NRooms)
 /*  Membaca ruangan dari file eksternal
  *  I.S. : Rooms[] sembarang
  *  F.S. : Rooms[] berisi ruangan dari file eksternal
@@ -94,7 +94,7 @@ void load_arr_ruangan(Ruangan Rooms[])
     /* ALGORITMA */
     START("Res/Ruangan.txt");
 
-    for (ruangNo=1;ruangNo<=4;ruangNo++)
+    for (ruangNo=1;ruangNo<=NRooms;ruangNo++)
     {
         Rooms[ruangNo].Tipe = CC - '0';
         ADV(); ADV();
