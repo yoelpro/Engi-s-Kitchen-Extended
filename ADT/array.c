@@ -1,11 +1,35 @@
-//Vivianni
-//13517060
-//12 September 2018
-//ADT Array
-
 #include "boolean.h"
 #include "array.h"
 #include <stdio.h>
+
+void MakeEmptyTabOrder (TabOrder * T){
+	Neff(*T)=0;
+}
+
+boolean IsFullTabOrder (TabOrder T)
+{
+	return (Neff(T)==IdxMaxOrder);
+}
+
+boolean IsEmptyTabOrder (TabOrder T){
+	return (Neff(T)==0);
+}
+
+void AddAsLastElTabOrder (TabOrder * T, Order X){
+	Neff(*T)++;
+	ElmtArr(*T,Neff(*T))=X;
+}
+
+void DelEliTabOrder (TabOrder * T, IdxType i, Order * X){
+	IdxType j;
+	*X = ElmtArr(*T,j);
+	for(j=i;j<=Neff(*T)-1;j++){
+		ElmtArr(*T,j)=ElmtArr(*T,j+1);
+	}
+	Neff(*T)--;
+}
+
+
 
 void MakeEmpty (TabInt * T){
 	Neff(*T)=0;
@@ -32,7 +56,7 @@ boolean IsEmptyArr (TabInt T){
 }
 
 boolean IsFullArr (TabInt T){
-	return (Neff(T)==IdxMax);	
+	return (Neff(T)==IdxMax);
 }
 
 void BacaIsi (TabInt * T)
@@ -89,7 +113,7 @@ IdxType Search1 (TabInt T, ElType X){
 		else{
 			return IdxUndef;
 		}
-	}	
+	}
 }
 
 IdxType Search2 (TabInt T, ElType X){
@@ -104,7 +128,7 @@ IdxType Search2 (TabInt T, ElType X){
 		while ((i<=Neff(T))&& (~Found)){
 			Found=(ElmtArr(T,i)==X);
 			i++;
-		}	
+		}
 		if (Found){
 			return i-1;
 		}else{
@@ -142,7 +166,7 @@ IdxType IdxMaxTab (TabInt T){
 			imax=i;
 		}
 	}
-	return imax;	
+	return imax;
 }
 
 IdxType IdxMinTab (TabInt T){
@@ -153,7 +177,7 @@ IdxType IdxMinTab (TabInt T){
 			imin=i;
 		}
 	}
-	return imin;	
+	return imin;
 }
 
 void CopyTab (TabInt Tin, TabInt * Tout){
@@ -254,14 +278,12 @@ IdxType SearchUrut (TabInt T, ElType X){
 	return Search1(T,X);
 }
 
-ElType MaxUrut (TabInt T)
-{
-	return(GetLastIdx(T));
+ElType MaxUrut (TabInt T){
+	return(T,GetLastIdx(T));
 }
 
-ElType MinUrut (TabInt T)
-{
-	return(GetFirstIdx(T));
+ElType MinUrut (TabInt T){
+	return(T,GetFirstIdx(T));
 }
 
 void MaxMinUrut (TabInt T, ElType * Max, ElType * Min){
