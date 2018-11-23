@@ -1,10 +1,26 @@
-#include "pohon.h"
+/* Nama: Stefanus Ardi Mulia */
+/* NIM: 13517119 */
+/* Tanggal: 21 November 2018 */
+/* File: bintree.c */
+/* ADT Pohon Biner */
+/* Implementasi dengan menggunakan pointer */
+/* Penamaan type InfotypeTree, type addrNode, dan beberapa fungsi disesuikan 
+   karena melibatkan modul list rekursif. */
 
-/*** Konstruktor ***/
-BinTree Tree (Infotype Akar, BinTree L, BinTree R) {
+#include "pohon.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+/* *** Konstruktor *** */
+BinTree Tree(InfotypeTree Akar, BinTree L, BinTree R)
+/* Menghasilkan sebuah pohon biner dari A, L, dan R, jika alokasi berhasil */
+/* Menghasilkan pohon kosong (Nil) jika alokasi gagal */
+{
+  /* KAMUS */
 	BinTree T;
 
-	T= (AddressTree) malloc (sizeof(Node));
+  /* ALGORITMA */
+	T= (addrNode) malloc (sizeof(Node));
 	if (T == Nil) {
 		return Nil;
 	} else {
@@ -14,84 +30,100 @@ BinTree Tree (Infotype Akar, BinTree L, BinTree R) {
 		return T;
 	}
 }
-/* Menghasilkan sebuah pohon biner dari A, L, dan R, jika alokasi berhasil */
-/* Menghasilkan pohon kosong (Nil) jika alokasi gagal */
 
-void BuildTreeText(BinTree *P, char* text, int* i)
+void MakeTree(InfotypeTree Akar, BinTree L, BinTree R, BinTree *P)
+/* I.S. Akar, L, R terdefinisi. P Sembarang */
+/* F.S. Membentuk pohon P dengan Akar(P)=Akar, Left(P)=L, dan Right(P)=R 
+		jika alokasi berhasil. P = Nil jika alokasi gagal. */
 {
-    (*i)++;
-    if(text[*i] == ')')
-    {
-        *P = Nil;
-        (*i)++;
-    }
-    else
-    {
-        *P = Tree(text[*i],Nil,Nil);
-        (*i)++;
-        // printf("%d",*i);
-        while(text[*i] == ' ') 
-        {
-            (*i)++;
-        }
-        BuildTreeText(&Left(*P),text,i);
-        while(text[*i] == ' ')
-        {
-            (*i)++;
-        }
-        BuildTreeText(&Right(*P),text,i);
-        (*i)++;
-    }
+  /* KAMUS */
+
+  /* ALGORITMA */
+  *P= Tree(Akar, L, R);
 }
 
-void MakeTree (Infotype Akar, BinTree L, BinTree R, BinTree *P) {
-	*P= Tree(Akar, L, R);
-}
-/* I.S. Sembarang */
-/* F.S. Menghasilkan sebuah pohon P */
-/* Menghasilkan sebuah pohon biner P dari A, L, dan R, jika alokasi berhasil */
-/* Menghasilkan pohon P yang kosong (Nil) jika alokasi gagal */
+BinTree BuildBalanceTree(int n)
+/* Menghasilkan sebuah balanced tree dengan n node, nilai setiap node dibaca */
+{
+  /* KAMUS */
+	BinTree P, L, R;
+	int nL, nR;
+	InfotypeTree X;
 
-void BuildTree (BinTree *P) {
-	ADV(); //karakter pertama sudah dibaca di driver dg START();
-	if (CC == ')')
-	{
-		*P= Nil;
-	}
-	else
-	{
-		*P= Tree(CC, Nil, Nil);
-		ADV();
-		while (CC == ' ')
-		{
-			ADV();
+  /* ALGORITMA */
+	if (n == 0)
+    return Nil;
+	else {
+		scanf("%d", &X);
+		MakeTree(X, Nil, Nil, &P);
+		if (P!= Nil) {
+			nL= n/2;
+			nR= n-nL-1;
+			L= BuildBalanceTree(nL);
+			R= BuildBalanceTree(nR);
+			Left(P)= L;
+			Right(P)= R;
+			return P;
 		}
-		BuildTree(&Left(*P));
-		while (CC == ' ')
-		{
-			ADV();
-		}
-		BuildTree(&Right(*P));
-		ADV();
+    else 
+      return Nil;
 	}
 }
 
-/* Membentuk sebuah pohon biner P dari pita karakter yang dibaca */
-/* I.S. Pita berisi "konstanta" pohon dalam bentuk prefix.
-Memori pasti cukup, alokasi pasti berhasil. */
-/* F.S. P dibentuk dari ekspresi dalam pita */
+/* Manajemen Memory */
+addrNode AlokNode(InfotypeTree X)
+/* Mengirimkan addrNode hasil alokasi sebuah elemen */
+/* Jika alokasi berhasil, maka addrNode tidak Nil, dan misalnya menghasilkan P, 
+  maka Akar(P) = X, Left(P) = Nil, Right(P)=Nil */
+/* Jika alokasi gagal, mengirimkan Nil */
+{
+  /* KAMUS */
+	addrNode T;
 
-/*** Predikat-Predikat Penting ***/
-boolean IsTreeEmpty (BinTree P) {
+  /* ALGORITMA */
+	T= (addrNode) malloc (sizeof(Node));
+
+	if (T != Nil) {
+		Akar(T)= X;
+		Left(T)= Nil;
+		Right(T)= Nil;
+	}
+
+	return T;
+}
+
+void DealokNode(addrNode P)
+/* I.S. P terdefinisi */
+/* F.S. P dikembalikan ke sistem */
+/* Melakukan dealokasi/pengembalian addrNode P */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
+  free(P);
+}
+
+
+/* *** Predikat-Predikat Penting *** */
+boolean IsTreeEmpty(BinTree P)
+/* Mengirimkan true jika P adalah pohon biner kosong */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (P == Nil) {
 		return true;
 	} else {
 		return false;
 	}
 }
-/* Mengirimkan true jika P adalah pohon biner kosong */
 
-boolean IsOneElmt (BinTree P) {
+boolean IsTreeOneElmt(BinTree P)
+/* Mengirimkan true jika P adalah pohon biner tidak kosong dan hanya memiliki 1 elemen */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (!IsTreeEmpty(P)) {
 		if (Left(P) == Nil && Right(P) == Nil) {
 			return true;
@@ -103,10 +135,13 @@ boolean IsOneElmt (BinTree P) {
 		return false;
 	}
 }
-/* Mengirimkan true jika P adalah pohon biner tidak kosong dan hanya memiliki 1
-elemen */
 
-boolean IsUnerLeft (BinTree P) {
+boolean IsUnerLeft(BinTree P)
+/* Mengirimkan true jika pohon biner tidak kosong P adalah pohon unerleft: hanya mempunyai subpohon kiri */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (!IsTreeEmpty(P)) {
 		if (!IsTreeEmpty(Left(P)) && IsTreeEmpty(Right(P))) {
 			return true;
@@ -117,10 +152,13 @@ boolean IsUnerLeft (BinTree P) {
 		return false;
 	}
 }
-/* Mengirimkan true jika pohon biner tidak kosong P adalah pohon unerleft: hanya
-mempunyai subpohon kiri */
 
-boolean IsUnerRight (BinTree P) {
+boolean IsUnerRight(BinTree P)
+/* Mengirimkan true jika pohon biner tidak kosong P adalah pohon unerright: hanya mempunyai subpohon kanan*/
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (!IsTreeEmpty(P)) {
 		if (IsTreeEmpty(Left(P)) && !IsTreeEmpty(Right(P))) {
 			return true;
@@ -131,10 +169,13 @@ boolean IsUnerRight (BinTree P) {
 		return false;
 	}
 }
-/* Mengirimkan true jika pohon biner tidak kosong P adalah pohon unerright: hanya
-mempunyai subpohon kanan */
 
-boolean IsBiner (BinTree P) {
+boolean IsBiner(BinTree P)
+/* Mengirimkan true jika pohon biner tidak kosong P adalah pohon biner: mempunyai subpohon kiri dan subpohon kanan*/
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (!IsTreeEmpty(P)) {
 		if (!IsTreeEmpty(Left(P)) && !IsTreeEmpty(Right(P))) {
 			return true;
@@ -145,93 +186,122 @@ boolean IsBiner (BinTree P) {
 		return false;
 	}
 }
-/* Mengirimkan true jika pohon biner tidak kosong P adalah pohon biner: mempunyai
-subpohon kiri dan subpohon kanan */
 
-/*** Traversal ***/
-void PrintPreorder (BinTree P) {
+/* *** Traversal *** */
+void PrintPreorder(BinTree P)
+/* I.S. P terdefinisi */
+/* F.S. Semua simpul P sudah dicetak secara preorder: akar, pohon kiri, dan pohon kanan. 
+   Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup (). 
+   Pohon kosong ditandai dengan ().
+   Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
+/* Contoh: 
+   (A()()) adalah pohon dengan 1 elemen dengan akar A
+   (A(B()())(C()())) adalah pohon dengan akar A dan subpohon kiri (B()()) dan subpohon kanan (C()()) */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (IsTreeEmpty(P)) {
 		printf("()");
 	} else {
-		printf("(%c ", Akar(P));
-			PrintPreorder(Left(P));
-			printf(" ");
-			PrintPreorder(Right(P));
-			printf(")");
+		printf("(%d", Akar(P));
+		PrintPreorder(Left(P));
+		PrintPreorder(Right(P));
+		printf(")");
 	}
 }
 
+void PrintInorder(BinTree P)
 /* I.S. P terdefinisi */
-/* F.S. Semua simpul P sudah dicetak secara preorder: akar, pohon kiri, dan pohon
-kanan. Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup (). */
-/* Contoh: (a (b (d () ()) ()) (c () ())) */
+/* F.S. Semua simpul P sudah dicetak secara inorder: pohon kiri, akar, dan pohon kanan. 
+   Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup (). 
+   Pohon kosong ditandai dengan ().
+   Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
+/* Contoh: 
+   (()A()) adalah pohon dengan 1 elemen dengan akar A
+   ((()B())A(()C())) adalah pohon dengan akar A dan subpohon kiri (()B()) dan subpohon kanan (()C()) */
+{
+  /* KAMUS */
 
-void PrintInorder (BinTree P) {
+  /* ALGORITMA */
 	if (IsTreeEmpty(P))
 		printf ("()");
 	else
 	{
 		printf("(");
 		PrintInorder(Left(P));
-		printf(" %c ", Akar(P));
+		printf("%d", Akar(P));
 		PrintInorder(Right(P));
 		printf(")");
 	}
 }
-/* I.S. P terdefinisi */
-/* F.S. Semua simpul P sudah dicetak secara inorder:pohon kiri, akar, dan pohon
-kanan. Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup (). */
-/* Contoh: (((() d ()) b ()) a (() c ())) */
 
-void PrintPostorder (BinTree P) {
+void PrintPostorder(BinTree P)
+/* I.S. P terdefinisi */
+/* F.S. Semua simpul P sudah dicetak secara postorder: pohon kiri, pohon kanan, dan akar. 
+   Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup (). 
+   Pohon kosong ditandai dengan ().
+   Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
+/* Contoh: 
+   (()()A) adalah pohon dengan 1 elemen dengan akar A
+   ((()()B)(()()C)A) adalah pohon dengan akar A dan subpohon kiri (()()B) dan subpohon kanan (()()C) */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (IsTreeEmpty(P))
 		printf("()");
 	else {
 		printf("(");
 		PrintPostorder(Left(P));
-		printf(" ");
 		PrintPostorder(Right(P));
-		printf(" %c)",Akar(P));
+		printf("%d)",Akar(P));
 	}
 }
-/* I.S. P terdefinisi */
-/* F.S. Semua simpul P sudah dicetak secara postorder: pohon kiri, pohon kanan, dan
-akar. Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup (). */
-/* Contoh: (((() () d) () b) (() () c) a) */
 
-void PrintTree (BinTree P, int h) {
-	int i;
-
-	if (IsTreeEmpty(P)) {
-		printf(".\n");
-	} else {
-		printf("%c\n", Akar(P));
-		for (i= 1; i<= h; i++) {
+void PrintTreeRec (BinTree P, int level, int h) {
+	if (!IsTreeEmpty(P)) {
+		int i;
+		for (i = 0; i < level * h; i++)
 			printf(" ");
-		}
-		PrintTree(Left(P), h+h);
-		for (i= 1; i<= h; i++) {
-			printf(" ");
-		}
-		PrintTree(Right(P), h+h);
+		printf("%d\n", Akar(P));
+		PrintTreeRec(Left(P), level+1, h);
+		PrintTreeRec(Right(P), level+1, h);
 	}
 }
-/* I.S. P terdefinisi, h adalah jarak indentasi */
-/* F.S. Semua simpul P sudah ditulis dengan indentasi, Nil diganti dengan '.' */
-/* Contoh: h=2
-a
-  b
-    d
-        .
-        .
-    .
-  c
-    .
-    .
+
+void PrintTree(BinTree P, int h)
+/* I.S. P terdefinisi, h adalah jarak indentasi (spasi) */
+/* F.S. Semua simpul P sudah ditulis dengan indentasi (spasi) */
+/* Penulisan akar selalu pada baris baru (diakhiri newline) */
+/* Contoh, jika h = 2: 
+1) Pohon preorder: (A()()) akan ditulis sbb:
+A
+2) Pohon preorder: (A(B()())(C()())) akan ditulis sbb:
+A
+  B
+  C
+3) Pohon preorder: (A(B(D()())())(C()(E()()))) akan ditulis sbb:
+A
+  B
+    D
+  C
+    E
 */
+{
+  /* KAMUS */
 
-/*** Searching ***/
-boolean SearchTree (BinTree P, Infotype X) {
+  /* ALGORITMA */
+	PrintTreeRec(P, 0, h);
+}
+
+/* *** Searching *** */
+boolean SearchTree(BinTree P, InfotypeTree X)
+/* Mengirimkan true jika ada node dari P yang bernilai X */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (IsTreeEmpty(P)) return false;
 	else {
 		if (Akar(P) == X) {
@@ -241,55 +311,65 @@ boolean SearchTree (BinTree P, Infotype X) {
 		}
 	}
 }
-/* Mengirimkan true jika ada node dari P yang bernilai X */
 
-/*** Fungsi-Fungsi Lain ***/
-int NbElmt (BinTree P) {
+/* *** Fungsi-Fungsi Lain *** */
+int NbElmt(BinTree P)
+/* Mengirimkan banyaknya elemen (node) pohon biner P */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (IsTreeEmpty(P)) return 0;
 	else {
 		return (1 + NbElmt(Left(P)) + NbElmt(Right(P)));
 	} 
 }
-/* Mengirimkan banyaknya elemen (node) pohon biner P */
 
-int NbDaun (BinTree P) {
+int NbDaun(BinTree P)
+/* Mengirimkan banyaknya daun (node) pohon biner P */
+/* Prekondisi: P tidak kosong */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (IsTreeEmpty(P)) return 0;
-	if (IsOneElmt(P)) return 1;
+	if (IsTreeOneElmt(P)) return 1;
 	return (NbDaun(Left(P)) + NbDaun(Right(P)));
 }
-/* Mengirimkan banyaknya daun (node) pohon biner P */
 
-boolean IsSkewLeft (BinTree P) {
-	if (IsTreeEmpty(P)) {
-		return false;
-	} else {
-		if (IsOneElmt(P)) {
-			return true;
-		} else if (IsUnerLeft(P)) {
-			return IsSkewLeft(Left(P));
-		} else {
-			return false;
-		}
-	}
-}
+boolean IsSkewLeft(BinTree P)
 /* Mengirimkan true jika P adalah pohon condong kiri */
+/* Pohon kosong adalah pohon condong kiri */
+{
+  /* KAMUS */
 
-boolean IsSkewRight (BinTree P) {
-	if (IsTreeEmpty(P)) {
-		return false;
-	} else {
-		if (IsOneElmt(P)) {
-			return true;
-		} else if (IsUnerRight(P)) {
-			return IsSkewRight(Right(P));
-		} else {
-			return false;
-		}
-	}
+  /* ALGORITMA */
+	if (IsTreeEmpty(P))
+		return true;
+	else
+		return Right(P) == Nil && IsSkewLeft(Left(P));
 }
-/* Mengirimkan true jika P adalah pohon condong kanan */
 
-int Level (BinTree P, Infotype X) {
+boolean IsSkewRight(BinTree P)
+/* Mengirimkan true jika P adalah pohon condong kanan */
+/* Pohon kosong adalah pohon condong kanan */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
+	if (IsTreeEmpty(P))
+		return true;
+	else
+		return Left(P) == Nil && IsSkewRight(Right(P));
+}
+
+int Level(BinTree P, InfotypeTree X)
+/* Mengirimkan level dari node X yang merupakan salah satu simpul dari pohon biner P. 
+   Akar(P) level-nya adalah 1. Pohon P tidak kosong. */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
 	if (IsTreeEmpty(P))	return 0;
 	if (Akar(P)==X) return 1;
 	else {
@@ -299,89 +379,150 @@ int Level (BinTree P, Infotype X) {
 			return (Level(Right(P),X)+1);
 	}
 }
-/* Mengirimkan level dari node X yang merupakan salah satu simpul dari pohon biner
-P. Akar(P) level-nya adalah 1. Pohon P tidak kosong. */ 
 
-/*** Operasi lain ***/
-void AddDaunTerkiri (BinTree *P, Infotype X) {
-	if (IsTreeEmpty(*P)) {
-		*P= Tree(X, Nil, Nil);
-	} else if (IsUnerLeft(*P) || IsBiner(*P) || IsOneElmt(*P)) {
-		AddDaunTerkiri(&Left(*P), X);
-	} else {
-		AddDaunTerkiri(&Right(*P), X);
-	}
+int Tinggi(BinTree P)
+/* Pohon Biner mungkin kosong. Tinggi pohon kosong = 0.
+   Mengirim "height" yaitu tinggi dari pohon */
+{
+  /* KAMUS */
+  int l, r;
+
+  /* ALGORITMA */
+  if (IsTreeEmpty(P)) {
+    return 0;
+  }
+  else {
+    l = Tinggi(Left(P));
+    r = Tinggi(Right(P));
+
+    if (l > r) {
+      return l + 1;
+    }
+    else {
+      return r + 1;
+    }
+  }
 }
+
+
+/* *** Operasi lain *** */
+void AddDaunTerkiri(BinTree *P, InfotypeTree X)
 /* I.S. P boleh kosong */
 /* F.S. P bertambah simpulnya, dengan X sebagai simpul daun terkiri */
+{
+  /* KAMUS */
 
-void AddDaun (BinTree *P, Infotype X, Infotype Y, boolean Kiri) {
-	if (!IsTreeEmpty(*P)) {
-		if (Akar(*P) == X) {
-			if (Kiri) {
-				Left(*P)= Tree(Y, Nil, Nil);
-			} else {
-				Right(*P)= Tree(Y, Nil, Nil);
-			}
-		} else {
-			AddDaun(&Left(*P), X, Y, Kiri);
-			AddDaun(&Right(*P), X, Y, Kiri);
-		}
-	}
+  /* ALGORITMA */
+	if (IsTreeEmpty(*P))
+		*P = Tree(X, Nil, Nil);
+	else if (IsUnerRight(*P))
+		Left(*P) = Tree(X,Nil,Nil);
+	else
+		AddDaunTerkiri(P, X);
 }
+
+void AddDaun(BinTree *P, InfotypeTree X, InfotypeTree Y, boolean Kiri)
 /* I.S. P tidak kosong, X adalah salah satu daun Pohon Biner P */
-/* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
-sebagai anak k@anan X (jika Kiri = false) */
+/* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau 
+        sebagai anak Kanan X (jika Kiri = false) */
+/*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
+{
+  /* KAMUS */
 
-void DelDaunTerkiri (BinTree *P, Infotype *X) {
-	if (IsOneElmt(*P)) {
-		*X= Akar(*P);
-		free(*P);
-		*P= Nil;
-	} else {
-		if (IsUnerRight(*P)) {
-			DelDaunTerkiri(&Right(*P), X);
-		} else { //left/ biner/ oneelmt
-			DelDaunTerkiri(&Left(*P), X);
-		}
-	}
-}
-/* I.S. P tidak kosong */
-/* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
-disimpan pada daun terkiri yang dihapus */
-
-void DelDaun (BinTree *P, Infotype X) {
+  /* ALGORITMA */
 	if (!IsTreeEmpty(*P)) {
-		if (Akar(*P) == X) {
-			free(*P);
-			*P= Nil;
+		if (IsTreeOneElmt(*P) && Akar(*P) == X) {
+			if (Kiri)
+				Left(*P) = Tree(Y, Nil, Nil);
+			else
+				Right(*P) = Tree(Y, Nil, Nil);
 		} else {
-			DelDaun(&Left(*P), X);
-			DelDaun(&Right(*P), X);
+			List daun = MakeListDaun(Left(*P));
+			if (Search(daun, X))
+				AddDaun(&Left(*P), X, Y, Kiri);
+			else
+				AddDaun(&Right(*P), X, Y, Kiri);
 		}
 	}
 }
-/* I.S. P tidak kosong, X adalah salah satu daun */
-/* F.S. Semua daun bernilai X dihapus dari P */
 
-ListOfNode MakeListDaun (BinTree P) {
-	if (IsTreeEmpty(P)) {
-		return Nil;
-	} else if (IsOneElmt(P)) {
-		return Alokasi(Akar(P));
-	} else {
-		return Concat(MakeListDaun(Left(P)), MakeListDaun(Right(P)));
+void DelDaunTerkiri(BinTree *P, InfotypeTree *X)
+/* I.S. P tidak kosong */
+/* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula 
+        disimpan pada daun terkiri yang dihapus */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
+	if (IsTreeOneElmt(*P))
+		*X = Akar(*P), *P = Nil;
+	else if (IsUnerRight(*P)) {
+		if (IsTreeOneElmt(Right(*P))) {
+			*X = Akar(Right(*P));
+			DealokNode(Right(*P));
+			Right(*P) = Nil;
+		} else
+			DelDaunTerkiri(&Right(*P), X);
+	} else if (IsTreeOneElmt(Left(*P))) {
+		*X = Akar(Left(*P));
+		DealokNode(Left(*P));
+		Left(*P) = Nil;
+	} else
+		DelDaunTerkiri(&Left(*P), X);
+}
+
+void DelDaun(BinTree *P, InfotypeTree X)
+/* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
+/* F.S. Semua daun bernilai X dihapus dari P. */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
+	if (!IsTreeEmpty(*P)) {
+		if (IsTreeOneElmt(*P)) {
+			if (Akar(*P) == X)
+				DealokNode(*P), *P = Nil;
+		} else if (Left(*P) != Nil && Akar(Left(*P)) == X && IsTreeOneElmt(Left(*P))) {
+			DealokNode(Left(*P));
+			Left(*P) = Nil;
+		} else if (Right(*P) != Nil && Akar(Right(*P)) == X && IsTreeOneElmt(Right(*P))) {
+			DealokNode(Right(*P));
+			Right(*P) = Nil;
+		}
+		if (!IsTreeEmpty(*P))
+			DelDaun(&Left(*P), X), DelDaun(&Right(*P), X);
 	}
+}
+
+List MakeListDaun(BinTree P)
+/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
+   jika semua alokasi list berhasil.
+   Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
+   Menghasilkan list kosong jika ada alokasi yang gagal. */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
+	if (IsTreeEmpty(P))
+		return Nil;
+	if (IsTreeOneElmt(P))
+		return Alokasi(Akar(P));
+	else
+		return Concat(MakeListDaun(Left(P)), MakeListDaun(Right(P)));
 
 }
-/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-/* Jika P bukan pohon kosong : menghasilkan list yang elemennya adalah semua daun
-pohon P, jika semua alokasi list berhasil. Menghasilkan list kosong jika ada
-alokasi yang gagal. */
 
-ListOfNode MakeListPreorder (BinTree P) {
+List MakeListPreorder(BinTree P)
+/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P 
+   dengan urutan preorder, jika semua alokasi berhasil.   
+   Menghasilkan list kosong jika ada alokasi yang gagal. */
+{
+  /* KAMUS */
 	Address Q;
 
+  /* ALGORITMA */
 	if (IsTreeEmpty(P)) return Nil;
 	else {
 		Q = Alokasi(Akar(P));
@@ -392,107 +533,21 @@ ListOfNode MakeListPreorder (BinTree P) {
 			return Nil;
 	}
 }
+
+List MakeListLevel(BinTree P, int N)
 /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen
-pohon P dengan urutan Preorder, jika semua alokasi berhasil. Menghasilkan list
-kosong jika ada alokasi yang gagal. */
+/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P 
+   yang levelnya=N, jika semua alokasi berhasil. 
+   Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
+   Menghasilkan list kosong jika ada alokasi yang gagal. */
+{
+  /* KAMUS */
 
-ListOfNode MakeListLevel (BinTree P, int N) {
-
-	if (IsTreeEmpty(P)) return Nil;
-	if (N == 1) return Alokasi(Akar(P));
-	else return Concat(MakeListLevel(Left(P),N-1), MakeListLevel(Right(P),N-1));
-
-}
-/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen
-pohon P yang levelnya=N, jika semua alokasi berhasil. Menghasilkan list kosong jika
-ada alokasi yang gagal. */
-
-/*** Balanced tree ***/
-BinTree BuildBalanceTree (int n) {
-	BinTree P, L, R;
-	int nL, nR;
-	Infotype X;
-
-	if (n == 0) return Nil;
-	else {
-		getchar();
-		scanf("%c", &X);
-		MakeTree(X, Nil, Nil, &P);
-		if (P!= Nil) {
-			nL= n/2;
-			nR= n-nL-1;
-			L= BuildBalanceTree(nL);
-			R= BuildBalanceTree(nR);
-			Left(P)= L;
-			Right(P)= R;
-			return P;
-		} else return Nil;
-	}
-}
-/* Menghasilkan sebuah balanced tree dengan n node, nilai setiap node dibaca dari input */
-/* Contoh (Preorder): (1 (2 (3 () ()) ()) (4 (5 () ()) ())) */
-
-/*** Binary Search Tree ***/
-boolean BSearch (BinTree P, Infotype X) {
-	return SearchTree(P, X);
-	/*
-	if (IsTreeEmpty(P)) {
-		return false;
-	} else {
-		if (Akar(P) == X) return true; 
-		else {
-			if (X < Akar(P)) return BSearch(Left(P), X);
-			else return BSearch(Right(P), X);
-		}
-	}
-	*/
-}
-/* Mengirimkan true jika ada node dari P yang bernilai X */
-
-BinTree InsSearch (BinTree P, Infotype X) {
-	BinTree Q;
-
+  /* ALGORITMA */
 	if (IsTreeEmpty(P))
-		MakeTree(X, Nil, Nil, &Q);
-	else {
-		if (X < Akar(P)) {
-			Left(P)= InsSearch(Left(P),X);
-			Q= P;
-		} else { // X > Akar(P)
-			Right(P)= InsSearch(Right(P),X);
-			Q= P;
-		}
-	}
-	return Q;
+    return Nil;
+	if (N == 1)
+    return Alokasi(Akar(P));
+	else
+    return Concat(MakeListLevel(Left(P),N-1), MakeListLevel(Right(P),N-1));
 }
-/* Menghasilkan sebuah pohon Binary Search Tree P dengan tambahan simpul X. Belum
-ada simpul P yang bernilai X. */
-
-void DelBtree (BinTree *P, Infotype X) {
-	AddressTree Q;
-
-	if (X < Akar(*P)) {
-		DelBtree(&Left(*P), X);
-	} else if (X > Akar(*P)) {
-		DelBtree(&Right(*P), X);
-	} else if (X == Akar(*P)) {
-		if (IsOneElmt(*P)) {
-			DelDaun(P, X);
-		} else if (IsUnerLeft(*P)) {
-			*P= Left(*P);
-		} else if (IsUnerRight(*P)) {
-			*P= Right(*P);
-		} else if (IsBiner(*P)) {
-			Q= *P;
-			*P= Left(Q);
-			Right(*P)= Right(Q);
-		}
-	}
-}
-/* I.S. Pohon P tidak kosong */
-/* F.S. Nilai X yang dihapus pasti ada */
-/* Sebuah node dengan nilai X dihapus, node di bawahnya menjadi node yang dihapus,
-gunakan node yang kiri jika kedua node di bawahnya terdefinisi */
-
