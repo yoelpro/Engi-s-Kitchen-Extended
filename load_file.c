@@ -94,7 +94,7 @@ void load_arr_ruangan(Ruangan Rooms[])
     /* ALGORITMA */
     START("Res/Ruangan.txt");
 
-    for (ruangNo=1;ruangNo<=1;ruangNo++)
+    for (ruangNo=1;ruangNo<=4;ruangNo++)
     {
         Rooms[ruangNo].Tipe = CC - '0';
         ADV(); ADV();
