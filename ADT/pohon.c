@@ -17,6 +17,33 @@ BinTree Tree (Infotype Akar, BinTree L, BinTree R) {
 /* Menghasilkan sebuah pohon biner dari A, L, dan R, jika alokasi berhasil */
 /* Menghasilkan pohon kosong (Nil) jika alokasi gagal */
 
+void BuildTreeText(BinTree *P, char* text, int* i)
+{
+    (*i)++;
+    if(text[*i] == ')')
+    {
+        *P = Nil;
+        (*i)++;
+    }
+    else
+    {
+        *P = Tree(text[*i],Nil,Nil);
+        (*i)++;
+        // printf("%d",*i);
+        while(text[*i] == ' ') 
+        {
+            (*i)++;
+        }
+        BuildTreeText(&Left(*P),text,i);
+        while(text[*i] == ' ')
+        {
+            (*i)++;
+        }
+        BuildTreeText(&Right(*P),text,i);
+        (*i)++;
+    }
+}
+
 void MakeTree (Infotype Akar, BinTree L, BinTree R, BinTree *P) {
 	*P= Tree(Akar, L, R);
 }

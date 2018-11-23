@@ -59,6 +59,8 @@ void BuildTree (BinTree *P);
 Memori pasti cukup, alokasi pasti berhasil. */
 /* F.S. P dibentuk dari ekspresi dalam pita */
 
+void BuildTreeText(BinTree *P, char* text, int* i);
+
 /*** Predikat-Predikat Penting ***/
 boolean IsTreeEmpty (BinTree P);
 /* Mengirimkan true jika P adalah pohon biner kosong */
