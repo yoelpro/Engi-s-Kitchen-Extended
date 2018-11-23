@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "pohon.h": "c",
-        "general.h": "c",
-        "data.h": "c",
-        "boolean.h": "c",
-        "stackt.h": "c"
-    }
-}
