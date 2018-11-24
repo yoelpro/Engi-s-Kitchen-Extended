@@ -125,17 +125,13 @@ void printLayout(){
 void CursePrintTreeRec (BinTree P, int level, int h, int *y, int x) {
 	if (!IsTreeEmpty(P)) {
 		int i;
-		// for (i = 1; i <= level * h; i++)
-		// 	if (i < level*h-(h-1))
-		// 		mvwprintw(tree_disp,y,x," ");
-		// 	else if (i == level*h-(h-1))
-		// 		mvwprintw(tree_disp,y,x,"`");
-		// 	else
-		// 		mvwprintw(tree_disp,y,x,"-");
-		if (IsTreeOneElmt(P))
-			mvwprintw(tree_disp,*y,x,"%s", JenisMakanan[Akar(P)]);
-		else
+
+		if (x == 1)
 			mvwprintw(tree_disp,*y,x,"%s", JenisBahan[Akar(P)]);
+		else if (IsTreeOneElmt(P))
+			mvwprintw(tree_disp,*y,x-h,"`---%s", JenisMakanan[Akar(P)]);
+		else
+			mvwprintw(tree_disp,*y,x-h,"`---%s", JenisBahan[Akar(P)]);
 
 		if (!IsTreeEmpty(Left(P))){
 			(*y)++;
@@ -149,8 +145,10 @@ void CursePrintTreeRec (BinTree P, int level, int h, int *y, int x) {
 }
 
 void CursePrintTree(BinTree P){
+	// Kamus Lokal
 	int y;
 
+	// Algoritma
 	tree_disp = newwin(tree_height, tree_width, 2, 24);
     box(tree_disp,0,0);
     y = 1;
