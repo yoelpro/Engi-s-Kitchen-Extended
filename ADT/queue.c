@@ -108,10 +108,6 @@ void MoveDataCustomer(TypeQueueCustomer* QC, int from, int to)
 
 void AddCustomerWC (TypeQueueCustomer* QC, int id, int kesabaran, int Orang, boolean IsStar)
 {
-	if (IsEmptyQC(*QC))
-	{
-		Head(*QC)++;
-	}
 	if (!IsStar)
 	{
 		(*QC).Customer[Tail(*QC) + 1].Id = id;
@@ -155,7 +151,10 @@ void AddCustomerWC (TypeQueueCustomer* QC, int id, int kesabaran, int Orang, boo
 			(*QC).Customer[1].JmlOrang = Orang;
 			(*QC).Customer[1].Star = IsStar;
 		}
-
+	}
+	if (Head(*QC)==0)
+	{
+		Head(*QC)++;
 	}
 	Tail(*QC)++;
 }
