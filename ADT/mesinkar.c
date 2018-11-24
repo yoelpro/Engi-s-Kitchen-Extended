@@ -2,6 +2,7 @@
 /* Implementasi Mesin Karakter */
 
 #include "mesinkar.h"
+#include <curses.h>
 #include <stdio.h>
 
 char CC, CCommand;
@@ -59,5 +60,18 @@ void ADVCommand()
 {
   /* Algoritma */
   retval = scanf("%c",&CCommand);
+  EOP = (CCommand == ENTER);
+}
+
+void CurseADVCommand()
+/*Pita dimajukan satu karakter. 
+  I.S. : Karakter pada jendela = 
+          CCommand, CCommand != MARK
+  F.S. : CCommand adalah karakter berikutnya dari CCommand yang lama, 
+          CCommand mungkin = MARK.
+  Jika CCommand = MARK maka EOP akan menyala (true) */
+{
+  /* Algoritma */
+  CCommand = getch();
   EOP = (CCommand == ENTER);
 }

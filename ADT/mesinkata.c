@@ -126,6 +126,30 @@ void BacaCommand()
   }
 }
 
+void CurseBacaCommand()
+/* Procedure yang digunakan */
+/* I.S. : CC sembarang 
+   F.S. : EndKata = true, dan CC = MARK; 
+          atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
+          CC karakter pertama sesudah karakter terakhir kata */
+{
+  STARTCommand();
+  switch (CCommand)
+  {
+    case ENTER:
+    {
+      EndCommand = true;
+      break;
+    }
+    default :
+    {
+      EndCommand = false;
+      // printf("salin\n");
+      CurseSalinCommand();
+    }
+  }
+}
+
 void SalinCommand()
 /* Mengakuisisi command dari console, menyimpan dalam CCommand
    I.S. : CC adalah karakter pertama dari kata
@@ -144,6 +168,29 @@ void SalinCommand()
       i++;
     }
     ADVCommand();
+  } while (CCommand!=ENTER);
+  i--;
+  Command.Length = i;
+}
+
+void CurseSalinCommand()
+/* Mengakuisisi command dari console, menyimpan dalam CCommand
+   I.S. : CC adalah karakter pertama dari kata
+   F.S. : CCommand berisi kata yang sudah diakuisisi; 
+          CC = \n */
+{
+  int i;
+  //Algoritma
+  i=1;
+  do
+  {
+    // printf("%c\n",CC);
+    if (i<=NMax)
+    {
+      Command.TabKata[i] = CCommand;
+      i++;
+    }
+    CurseADVCommand();
   } while (CCommand!=ENTER);
   i--;
   Command.Length = i;
