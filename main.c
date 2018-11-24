@@ -56,6 +56,24 @@ int main()
 	Absis(GameData.PosisiPlayer)=4;
 	Ordinat(GameData.PosisiPlayer)=10;
 
+	/* Added 15 random Orders to TabOrders */
+		Order Orders;
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);
+
 	CreateEmptyStck(&Hand);
     Push(&Hand,0);
     Push(&Hand,2);
