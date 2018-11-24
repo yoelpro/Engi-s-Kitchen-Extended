@@ -9,18 +9,23 @@
 #include <curses.h>
 
 /* Perintah curses yang bisa digunakan:
-	void move(int y,x) : (x,y) adalah koordinat di tampilan
+	void move(int y, int x) : (x,y) adalah koordinat di tampilan
 	void printw(...) : penggunaan seperti printf
 	WINDOW newwin(int height,width,y,x) : height dan width adalah ukuran window baru, (x,y) adalah koordinat di mana window baru akan dibuat
-	void box(WINDOW &disp, int topbottom_border, leftright_border) : disp adalah window yang sudah diinisialisasi, topbottom_border dan leftright_border adalah
+	void box(WINDOW *disp, int topbottom_border, leftright_border) : disp adalah window yang sudah diinisialisasi, topbottom_border dan leftright_border adalah
 			kode ascii karakter yang ingin ditampilkan
 	void refresh() : mengupdate display curses (dalam curses, update tidak terjadi setiap ada perubahan)
+	void getmaxyx(WINDOW *disp, int y, int x) : mengembalikan ukuran disp dalam (x,y)
 
 	tambah prefix 'w' untuk menggunakan fungsi relatif terhadap window, parameter fungsi pertama menjadi WINDOW
 	Contoh: wmove(disp,y,x)
 
-	tambah prefix 'mv' untuk menggunakan fungsi dengan tambahan parameter posisi dilakukannya aksi
+	tambah prefix 'mv' untuk menggunakan fungsi dengan tambahan parameter posisi dilakukannya aksi, parameter fungsi pertama dan kedua menjadi TITIK y dan x
 	Contoh: mvprintw(y,x,...)
+
+	tambah prefix 'mvw' untuk menggunakan fungsi dengan tambahan parameter posisi dan window dilakukannya aksi, parameter fungsi pertama menjadi WINDOW, 
+		parameter fungsi kedua dan ketiga menjadi TITIK y dan x
+	Contoh: mvwprintw(disp, y, x, ...)
 */
 
 /* Kelompok tampilan */
@@ -32,7 +37,16 @@ void setLayout();
 /* Mengatur setting layout game */
 
 void printLayout();
-/* Mencetak layout sesuai setting yang ada */
+/* Mencetak kerangka layout sesuai setting yang ada (tidak ada informasi yang tercetak) */
+
+void CursePrintTabOrder(TabOrder T);
+/* I.S. T terdefinisi */
+/* F.S. Nilai NoMeja dan NoMenu dari Order(T) dituliskan per baris, masing-masing tuple dipisah sebuah newline */
+/* Contoh: Menulis tabOrder dengan isi [(1,2),(3,4),(5,6)] anggapan representasi [Order[1],Order[2],Order[3],...] dan Order[i] = (NoMeja,NoMenu)
+1, 2
+3, 4
+5, 6
+*/
 
 void CurseTulisMatriks (Matriks M);
 /* I.S. M terdefinisi */
@@ -76,7 +90,9 @@ void updateLayout();
 */
 
 void GetCommand();
-/* Menerima command dari user */
+/* I.S. Command sembarang */
+/* F.S. Command berisi semua char yang diperoleh dari keyboard */
+/* Proses: Menerima command dari user char per char dengan curseMesinKar dan curseMesinKata */
 /* BUG: KARAKTER PERTAMA DARI INPUT TIDAK DITAMPILKAN, BACKSPACE DIANGGAP KARAKTER, SEHINGGA TIDAK BISA MENGUBAH INPUT */
 
 void CursorOnCommand();

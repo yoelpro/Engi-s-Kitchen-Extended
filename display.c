@@ -118,6 +118,32 @@ void printLayout(){
         wrefresh(command_disp);
 }
 
+void CursePrintTabOrder(TabOrder T){
+	// Kamus Lokal
+	int x,y;
+	int maxx, maxy;
+
+	// Algoritma
+	x = 1;
+	y = 2;
+	getmaxyx(order_disp, maxy, maxx);
+
+  	for (int i=1; i<=Neff(T); i++){
+  		// Tidak akan lanjut mencetak elemen jika window order_disp sudah penuh
+  		if (y < maxy-1){ 
+    		mvwprintw(order_disp, y, x, "%d, %d", ElmtArr(T, i).NoMenu, ElmtArr(T,i).NoMeja);
+    		y++;
+  		}
+  	}
+
+  	// Kasus jika elemen T melebihi batas window order_disp
+  	if (y == maxy-1){
+  		wattron(order_disp, A_UNDERLINE);
+  		mvwprintw(order_disp, y, x, "etc...");
+  		wattroff(order_disp, A_UNDERLINE);
+  	}
+}
+
 void CurseTulisMatriks (Matriks M)
 /* I.S. M terdefinisi */
 /* F.S. Nilai M(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
@@ -243,7 +269,7 @@ void updateLayout(){
         wattron(order_disp, A_BOLD);
         wprintw(order_disp, "Order");
         wattroff(order_disp, A_BOLD);
-        // Display belum ada
+        CursePrintTabOrder(TabOrders);
         wrefresh(order_disp);
 
         wmove(hand_disp, 1, 1);
