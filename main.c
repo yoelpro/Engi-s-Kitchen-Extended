@@ -17,6 +17,7 @@
 int main()
 {
 	InitGame();
+
 	// PrintTree(Resep,2);
 	// Room[GameData.CurrentRoom].JmlMeja=2;
 	// Room[GameData.CurrentRoom].Tipe=0;
@@ -55,6 +56,17 @@ int main()
 	Absis(GameData.PosisiPlayer)=4;
 	Ordinat(GameData.PosisiPlayer)=10;
 
+	CreateEmptyStck(&Hand);
+    Push(&Hand,0);
+    Push(&Hand,2);
+    Push(&Hand,3);
+
+    CreateEmptyStck(&Tray);
+    Push(&Tray,0);
+    Push(&Tray,2);
+    Push(&Tray,3);
+    Push(&Tray,7);
+
 	initLayout();
 
 	// printf("absis %d ordinat %d\n", GameData.PosisiPlayer.X, Ordinat(GameData.PosisiPlayer));
@@ -65,14 +77,10 @@ int main()
 
 	// printf("input 1/2/3: ");
 	updateLayout();
-	// CursorCommand();
+	
 	GetCommand();
 	// BacaCommand();
 
-	// if (EqualKata(Command,"EXIT"))
-	// 	printf("TRUEEEE");
-	// else
-	// 	printf("falseee");
 	// if (EqualKata(Command,"1"))
 	// {
 	// 	orderFood();
@@ -87,15 +95,16 @@ int main()
 	// }
 
 	// BacaCommand();
-	// if (EqualKata(Command,"NEW"))
-	// {
-	// 	printf("aka");
-	// }
-	// while (!(EqualKata(Command,"EXIT")))
-	// {
-	// 	/* Game Main Loop */
-		
-	// 	printf("\n");
-	// 	BacaCommand();
-	// }
+	if (EqualKata(Command,"NEW"))
+	{
+		// mvprintw(25,1,"aka");
+	}
+	while (!(EqualKata(Command,"EXIT")))
+	{
+		/* Game Main Loop */
+
+		// BacaCommand();
+		GetCommand();
+	}
+	endLayout();
 }
