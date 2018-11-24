@@ -72,25 +72,4 @@ void giveFood();
 /*I.S.player dapat berada di manapun. Tray mungkin kosong.
 F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja dan QSeatedC berkurang satu elemennya*/
 
-/* Kelompok tampilan */
-
-void initLayout();
-/* Mulai menampilkan tampilan */
-
-void setLayout();
-/* Mengatur setting layout game */
-
-void printLayout();
-/* Mencetak layout sesuai setting yang ada */
-
-void updateLayout();
-/* Meng-update isi game sesuai kondisi game */
-
-void GetCommand();
-/* Menerima command dari user */
-/* Sebenarnya BacaCommand() untuk curses, cuman blom dicoba begini bs atau ngak */
-
-void endLayout();
-/* Menghentikan tampilan */
-
 #endif
