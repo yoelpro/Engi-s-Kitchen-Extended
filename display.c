@@ -24,55 +24,53 @@
 int main(){
 	/* CURSES START */
 	initscr();
-
 	setLayout();
-
 	refresh();
-
 	printLayout();
-
 	updateLayout();
 
-	mvprintw(25,0,"Press F1 to give command");
-	mvprintw(26,0,"Use keypad to move 'X' around");
+	// mvprintw(25,0,"Press F1 to give command");
+	// mvprintw(26,0,"Use keypad to move 'X' around");
 
-	player_x = 1;
-	player_y = 1;
+	// player_x = 1;
+	// player_y = 1;
 
-	mvwprintw(map_disp,player_y,player_x,"X");
-	wrefresh(map_disp);
+	// mvwprintw(map_disp,player_y,player_x,"X");
+	// wrefresh(map_disp);
 
-	keypad(stdscr, TRUE); // For reading F1 key
-	int ch;
-	while((ch = getch()) != KEY_F(1))
-	{	
-		mvwprintw(map_disp,player_y,player_x," ");
-		switch(ch)
-		{	case KEY_LEFT:
-				if (player_x > 1)
-					player_x--;
-				break;
-			case KEY_RIGHT:
-				if (player_x < map_width - 2)
-					player_x++;
-				break;
-			case KEY_UP:
-				if (player_y > 1)
-					player_y--;
-				break;
-			case KEY_DOWN:
-				if (player_y < map_height - 2)
-					player_y++;
-				break;	
-		}
-		mvwprintw(map_disp,player_y,player_x,"X");
-		wrefresh(map_disp);
-	}
+	// mvwprintw(command_disp, 1, 10, "Press F1 to input command");
+	// keypad(stdscr, TRUE); // For reading F1 key
+	// int ch;
+	// while((ch = getch()) != KEY_F(1))
+	// {	
+	// 	mvwprintw(map_disp,player_y,player_x," ");
+	// 	switch(ch)
+	// 	{	case KEY_LEFT:
+	// 			if (player_x > 1)
+	// 				player_x--;
+	// 			break;
+	// 		case KEY_RIGHT:
+	// 			if (player_x < map_width - 2)
+	// 				player_x++;
+	// 			break;
+	// 		case KEY_UP:
+	// 			if (player_y > 1)
+	// 				player_y--;
+	// 			break;
+	// 		case KEY_DOWN:
+	// 			if (player_y < map_height - 2)
+	// 				player_y++;
+	// 			break;
+	// 	}
+	// 	mvwprintw(map_disp,player_y,player_x,"X");
+	// 	wrefresh(map_disp);
+	// }
 
+	// mvwprintw(command_disp, 1, 10, "					");
 	mvwgetstr(command_disp, 1, 10, user_input);
 	updateLayout();
 
-	mvprintw(27,0,"Press any key to exit");
+	// mvprintw(27,0,"Press any key to exit");
 	getch();
 	endwin();
 	/* Terminate curses */
