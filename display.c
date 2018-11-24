@@ -225,7 +225,7 @@ void updateLayout(){
         wattron(waitcust_disp, A_BOLD);
         wprintw(waitcust_disp, "Waiting Customer");
         wattroff(waitcust_disp, A_BOLD);
-        // Display
+        // Display belum ada
         wrefresh(waitcust_disp);
 
         wmove(map_disp, 1, 1);
@@ -236,21 +236,21 @@ void updateLayout(){
         wattron(food_disp, A_BOLD);
         wprintw(food_disp, "Food Stack");
         wattroff(food_disp, A_BOLD);
-        CursePrintStack(food_disp, &Tray, 't');
+        CursePrintStack(food_disp, &Tray, 't'); // Displaying the food
         wrefresh(food_disp);
 
         wmove(order_disp, 1, 1);
         wattron(order_disp, A_BOLD);
         wprintw(order_disp, "Order");
         wattroff(order_disp, A_BOLD);
-        // Display
+        // Display belum ada
         wrefresh(order_disp);
 
         wmove(hand_disp, 1, 1);
         wattron(hand_disp, A_BOLD);
         wprintw(hand_disp, "Hand");
         wattroff(hand_disp, A_BOLD);
-        CursePrintStack(hand_disp, &Hand, 'h');
+        CursePrintStack(hand_disp, &Hand, 'h'); // Displaying what's on the hand
         wrefresh(hand_disp);
 
         start_x = 0;
@@ -258,7 +258,7 @@ void updateLayout(){
         command_disp = newwin(command_height, command_width, start_y, start_x);
         box(command_disp,0,0);
 
-        mvprintw(29,0,"Type EXIT to stop");
+        mvprintw(start_y + 3,0,"Type EXIT to stop");
         refresh();
 
         wmove(command_disp, 1, 1);
@@ -271,15 +271,72 @@ void updateLayout(){
 void GetCommand(){
     CursorOnCommand();
     CurseBacaCommand();
+    updateLayout();
 }
 
 void CursorOnCommand(){
     // wmove(command_disp, 1, 10); // memindah cursor ke posisi (10,1) relatif terhadap command_disp
-    move(20, 10);
+    wmove(command_disp, 1, 10);
     wrefresh(command_disp);
 }
 
 void endLayout(){
     endwin();
     /* Terminate curses */
+}
+
+/* Kelompok MesinKata MesinKar */
+
+void CurseADVCommand()
+{
+  /* Algoritma */
+  CCommand = wgetch(command_disp);
+  EOP = (CCommand == ENTER);
+}
+
+void CurseBacaCommand()
+/* Procedure yang digunakan */
+/* I.S. : CC sembarang 
+   F.S. : EndKata = true, dan CC = MARK; 
+          atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
+          CC karakter pertama sesudah karakter terakhir kata */
+{
+  STARTCommand();
+  switch (CCommand)
+  {
+    case ENTER:
+    {
+      EndCommand = true;
+      break;
+    }
+    default :
+    {
+      EndCommand = false;
+      // printf("salin\n");
+      CurseSalinCommand();
+    }
+  }
+}
+
+void CurseSalinCommand()
+/* Mengakuisisi command dari console, menyimpan dalam CCommand
+   I.S. : CC adalah karakter pertama dari kata
+   F.S. : CCommand berisi kata yang sudah diakuisisi; 
+          CC = \n */
+{
+  int i;
+  //Algoritma
+  i=1;
+  do
+  {
+    // printf("%c\n",CC);
+    if (i<=NMax)
+    {
+      Command.TabKata[i] = CCommand;
+      i++;
+    }
+    CurseADVCommand();
+  } while (CCommand!=ENTER);
+  i--;
+  Command.Length = i;
 }

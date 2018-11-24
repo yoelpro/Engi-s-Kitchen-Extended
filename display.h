@@ -50,28 +50,59 @@ void CursePrintStack(WINDOW *win, Stack *Current, char opt);
 /* F.S. Nilai Current ditulis ke dalam win per baris, masing-masing elemen dipisah sebuah newline */
 /* Proses: Menyalin semua elemen Current ke dalam ReverseStack, kemudian menulis nilai setiap elemen ReverseStack ke dalam win dengan
 		loop hingga isi ReverseStack kosong */
-/* Contoh: menulis Current dengan isi 0 1 3 7
+/* Contoh: menulis Current dengan isi 0 1 3 7 8 10
 +---------------+
 |Hand			|
 |0				|
 |1				|
 |3				|
 |7				|
-|				|
-+---------------+
+|8				|
++etc...---------+
 */
 /* BUG: UNTUK ISI STACK YANG MELEBIHI UKURAN WINDOW TIDAK AKAN TAMPIL DI WINDOW */
 
 void updateLayout();
-/* Meng-update isi game sesuai kondisi game */
+/* Meng-update isi game sesuai kondisi game:
+	1. Money
+	2. Life
+	3. Waktu
+	4. Waiting Customer (pending)
+	5. Map
+	6. Food Stack
+	7. Order (pending)
+	8. Hand Stack
+	9. Command 
+*/
 
 void GetCommand();
 /* Menerima command dari user */
-/* Sebenarnya BacaCommand() untuk curses, cuman blom dicoba begini bs atau ngak */
+/* BUG: KARAKTER PERTAMA DARI INPUT TIDAK DITAMPILKAN, BACKSPACE DIANGGAP KARAKTER, SEHINGGA TIDAK BISA MENGUBAH INPUT */
 
 void CursorOnCommand();
+/* Memindahkan cursor input di window command */
 
 void endLayout();
-/* Menghentikan tampilan */
+/* Menghentikan tampilan dan curses */
+
+void CurseADVCommand();
+/*Pita dimajukan satu karakter. 
+  I.S. : Karakter pada jendela = 
+          CCommand, CCommand != MARK
+  F.S. : CCommand adalah karakter berikutnya dari CCommand yang lama, 
+          CCommand mungkin = MARK.
+  Jika CCommand = MARK maka EOP akan menyala (true) */
+
+void CurseBacaCommand();
+/* I.S. : CCommand sembarang 
+   F.S. : EndKata = true, dan CCommand = MARK; 
+          atau EndKata = false, Command adalah kata yang sudah diakuisisi,
+          CCommand karakter pertama sesudah karakter terakhir kata */
+
+void CurseSalinCommand();
+/* Mengakuisisi command dari console, menyimpan dalam CCommand
+   I.S. : CCommand adalah karakter pertama dari kata
+   F.S. : CCommand berisi kata yang sudah diakuisisi; 
+          CCommand = \n */
 
 #endif
