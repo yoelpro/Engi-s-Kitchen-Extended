@@ -175,7 +175,7 @@ void CursePrintQC(TypeQueueCustomer QC){
 	int y, x;
 
 	x = 1;
-	y = 2;
+	y = 1;
 
 	if (!IsEmptyQC(QC))
 		for(i = Head(QC); i <= Tail(QC); i++){
