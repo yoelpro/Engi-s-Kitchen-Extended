@@ -10,6 +10,8 @@
 #include "ADT/point.h"
 #include "ADT/stackt.h"
 #include "general.h"
+#include "display.h"
+#include <curses.h>
 
 /* Deklarasi variable global */
 int main()
@@ -52,38 +54,48 @@ int main()
 	CreateEmptyStck(&Tray);
 	Absis(GameData.PosisiPlayer)=4;
 	Ordinat(GameData.PosisiPlayer)=10;
-	printf("absis %d ordinat %d\n", GameData.PosisiPlayer.X, Ordinat(GameData.PosisiPlayer));
-	// Room[GameData.CurrentRoom].Map.NBrsEff=8;
-	// Room[GameData.CurrentRoom].Map.NKolEff=8;
-	TulisMatriks(Room[1].Map);
-	printf("\n");
 
-	printf("input 1/2/3: ");
-	BacaCommand();
+	initLayout();
 
-	if (EqualKata(Command,"1"))
-	{
-		orderFood();
-	}
-	else if(EqualKata(Command,"2"))
-	{
-		placeCustomer();
-	}
-	else if(EqualKata(Command,"3"))
-	{
-		giveFood();
-	}
+	// printf("absis %d ordinat %d\n", GameData.PosisiPlayer.X, Ordinat(GameData.PosisiPlayer));
+	// // Room[GameData.CurrentRoom].Map.NBrsEff=8;
+	// // Room[GameData.CurrentRoom].Map.NKolEff=8;
+	// TulisMatriks(Room[1].Map);
+	// printf("\n");
 
-	BacaCommand();
-	if (EqualKata(Command,"NEW"))
-	{
-		printf("aka");
-	}
-	while (!(EqualKata(Command,"EXIT")))
-	{
-		/* Game Main Loop */
+	// printf("input 1/2/3: ");
+	updateLayout();
+	// CursorCommand();
+	GetCommand();
+	// BacaCommand();
+
+	// if (EqualKata(Command,"EXIT"))
+	// 	printf("TRUEEEE");
+	// else
+	// 	printf("falseee");
+	// if (EqualKata(Command,"1"))
+	// {
+	// 	orderFood();
+	// }
+	// else if(EqualKata(Command,"2"))
+	// {
+	// 	placeCustomer();
+	// }
+	// else if(EqualKata(Command,"3"))
+	// {
+	// 	giveFood();
+	// }
+
+	// BacaCommand();
+	// if (EqualKata(Command,"NEW"))
+	// {
+	// 	printf("aka");
+	// }
+	// while (!(EqualKata(Command,"EXIT")))
+	// {
+	// 	/* Game Main Loop */
 		
-		printf("\n");
-		BacaCommand();
-	}
+	// 	printf("\n");
+	// 	BacaCommand();
+	// }
 }
