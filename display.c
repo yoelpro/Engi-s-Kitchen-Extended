@@ -178,12 +178,12 @@ void CursePrintQC(TypeQueueCustomer QC){
 	y = 2;
 
 	if (!IsEmptyQC(QC))
-		for(i = Head(QC)-1; i <= Tail(QC); i++){
+		for(i = Head(QC); i <= Tail(QC); i++){
 			// printf("%d %d %d %d %u\n", QC.Customer[i].Id, QC.Customer[i].NoMeja, QC.Customer[i].Kesabaran, QC.Customer[i].JmlOrang, QC.Customer[i].Star);
 			if (QC.Customer[i].Star)
-				mvwprintw(waitcust_disp, y + i, x, "i=%d %d (%d) (Star)", i, QC.Customer[i].Id, QC.Customer[i].Kesabaran);
+				mvwprintw(waitcust_disp, y + i, x, "%d (%d) (Star)", QC.Customer[i].Id, QC.Customer[i].Kesabaran);
 			else
-				mvwprintw(waitcust_disp, y + i, x, "i=%d %d (%d)", i, QC.Customer[i].Id, QC.Customer[i].Kesabaran);
+				mvwprintw(waitcust_disp, y + i, x, "%d (%d)", QC.Customer[i].Id, QC.Customer[i].Kesabaran);
 		}
 	else
 		mvwprintw(waitcust_disp, y, x, "There's no one here");
