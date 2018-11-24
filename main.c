@@ -10,11 +10,14 @@
 #include "ADT/point.h"
 #include "ADT/stackt.h"
 #include "general.h"
+#include "display.h"
+#include <curses.h>
 
 /* Deklarasi variable global */
 int main()
 {
 	InitGame();
+
 	// PrintTree(Resep,2);
 	// Room[GameData.CurrentRoom].JmlMeja=2;
 	// Room[GameData.CurrentRoom].Tipe=0;
@@ -52,38 +55,74 @@ int main()
 	CreateEmptyStck(&Tray);
 	Absis(GameData.PosisiPlayer)=4;
 	Ordinat(GameData.PosisiPlayer)=10;
-	printf("absis %d ordinat %d\n", GameData.PosisiPlayer.X, Ordinat(GameData.PosisiPlayer));
-	// Room[GameData.CurrentRoom].Map.NBrsEff=8;
-	// Room[GameData.CurrentRoom].Map.NKolEff=8;
-	TulisMatriks(Room[1].Map);
-	printf("\n");
 
-	printf("input 1/2/3: ");
-	BacaCommand();
+	/* Added 15 random Orders to TabOrders */
+		Order Orders;
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
+		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);
 
-	if (EqualKata(Command,"1"))
-	{
-		orderFood();
-	}
-	else if(EqualKata(Command,"2"))
-	{
-		placeCustomer();
-	}
-	else if(EqualKata(Command,"3"))
-	{
-		giveFood();
-	}
+	CreateEmptyStck(&Hand);
+    Push(&Hand,0);
+    Push(&Hand,2);
+    Push(&Hand,3);
 
-	BacaCommand();
+    CreateEmptyStck(&Tray);
+    Push(&Tray,0);
+    Push(&Tray,2);
+    Push(&Tray,3);
+    Push(&Tray,7);
+
+	initLayout();
+
+	// printf("absis %d ordinat %d\n", GameData.PosisiPlayer.X, Ordinat(GameData.PosisiPlayer));
+	// // Room[GameData.CurrentRoom].Map.NBrsEff=8;
+	// // Room[GameData.CurrentRoom].Map.NKolEff=8;
+	// TulisMatriks(Room[1].Map);
+	// printf("\n");
+
+	// printf("input 1/2/3: ");
+	updateLayout();
+	
+	GetCommand();
+	// BacaCommand();
+
+	// if (EqualKata(Command,"1"))
+	// {
+	// 	orderFood();
+	// }
+	// else if(EqualKata(Command,"2"))
+	// {
+	// 	placeCustomer();
+	// }
+	// else if(EqualKata(Command,"3"))
+	// {
+	// 	giveFood();
+	// }
+
+	// BacaCommand();
 	if (EqualKata(Command,"NEW"))
 	{
-		printf("aka");
+		// mvprintw(25,1,"aka");
 	}
 	while (!(EqualKata(Command,"EXIT")))
 	{
 		/* Game Main Loop */
-		
-		printf("\n");
-		BacaCommand();
+
+		// BacaCommand();
+		GetCommand();
 	}
+	endLayout();
 }

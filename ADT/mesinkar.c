@@ -2,6 +2,7 @@
 /* Implementasi Mesin Karakter */
 
 #include "mesinkar.h"
+#include <curses.h>
 #include <stdio.h>
 
 char CC, CCommand;
