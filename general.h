@@ -86,6 +86,10 @@ void printLayout();
 void updateLayout();
 /* Meng-update isi game sesuai kondisi game */
 
+void GetCommand();
+/* Menerima command dari user */
+/* Sebenarnya BacaCommand() untuk curses, cuman blom dicoba begini bs atau ngak */
+
 void endLayout();
 /* Menghentikan tampilan */
 

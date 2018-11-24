@@ -504,9 +504,6 @@ void initLayout(){
     refresh();
     printLayout();
     updateLayout();
-
-    mvwgetstr(command_disp, 1, 10, user_input);
-    updateLayout();
 }
 
 void setLayout(){
@@ -643,7 +640,17 @@ void updateLayout(){
         wmove(command_disp, 1, 1);
         wprintw(command_disp, "Command: ");
         wrefresh(command_disp);
+
+        mvprintw(25,0,"Type EXIT to stop");
 }
+
+void GetCommand(){
+    mvwgetstr(command_disp, 1, 10, user_input);
+    if (user_input == "EXIT")
+        endLayout();
+    updateLayout();
+}
+
 
 void endLayout(){
     endwin();
