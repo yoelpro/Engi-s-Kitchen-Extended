@@ -73,8 +73,8 @@ int main()
     Push(&Tray,3);
     Push(&Tray,7);
 
-	AddCustomerWC(&QWaitingC, 1, 2, 3, true);
-	AddCustomerWC(&QWaitingC, 2, 3, 1, false);
+	AddCustomerWC(&QWaitingC, 1, 2, 3, FALSE);
+	AddCustomerWC(&QWaitingC, 2, 3, 1, FALSE);
 	AddCustomerWC(&QWaitingC, 3, 1, 2, true);
 
 	initLayout();
