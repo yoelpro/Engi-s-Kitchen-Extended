@@ -42,7 +42,7 @@ void setLayout(){
         time_width = 25;
         waitcust_height = 8;
         waitcust_width = name_width;
-        order_height = 8;
+        order_height = 15;
         order_width = name_width;
         map_height = waitcust_height + order_height;
         map_width = 50;
@@ -118,7 +118,7 @@ void printLayout(){
         wrefresh(command_disp);
 }
 
-void CurseTulisMatriks (Matriks M, int y, int x)
+void CurseTulisMatriks (Matriks M)
 /* I.S. M terdefinisi */
 /* F.S. Nilai M(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
    dipisahkan sebuah spasi */
@@ -131,10 +131,14 @@ void CurseTulisMatriks (Matriks M, int y, int x)
 {
     /* KAMUS LOKAL */
     matriksIndeks i, j;
+    int x,y;
 
     /* ALGORITMA */
+    x = 1;
+    y = 1;
+
     wmove(map_disp, y,x);
-    // printw("Haha");
+    
     for(i=GetFirstIdxBrs(M);i<=GetLastIdxBrs(M);i++){
 
         for(j=GetFirstIdxKol(M);j<GetLastIdxKol(M);j++){
@@ -152,86 +156,124 @@ void CurseTulisMatriks (Matriks M, int y, int x)
     }
 }
 
-// void CursePrintStack(Stack S, WINDOW *disp) {
-//     int x,y;
-//     char Z;
-//     x = 1;
-//     y = 1;
+void CursePrintStack(WINDOW *win, Stack *Current, char opt)
+{
+    Stack ReverseStack;
+    int Z;
+    int y,x;
+    int maxy,maxx;
 
-//     while (!IsEmptyStck(S)) {
-//         wmove(*disp, y, x);
-//         wprintw(*disp, "%s", InfoTop(S));
-//         y++;
-//         Pop(&S, &Z);
-//     }
-// }
+    if(!IsEmptyStck(*Current)){
+        /*Membuat salinan *Current*/
+            CreateEmptyStck(&ReverseStack);
+            do
+            {
+                Pop(&*Current,&Z);
+                Push(&ReverseStack,Z);
+            }
+            while (!IsEmptyStck(*Current));
+
+        /* Mencetak dan memasukkan kembali salinan *Current */
+            x = 1;
+            y = 2;
+            getmaxyx(win,maxy,maxx);
+
+            do{
+                Pop(&ReverseStack, &Z);
+                Push(&*Current, Z);
+                if (y < maxy-1){
+	                switch(opt){
+	                	case 'h': mvwprintw(win, y, x, "%s", JenisBahan[Z]);
+	                		break;
+	                	case 't': mvwprintw(win, y, x, "%s", JenisMakanan[Z]);
+	                }
+                	y++;
+            	}
+                // printf("%c ", Z);
+            }while (!IsEmptyStck(ReverseStack));
+
+            if (y == maxy-1){
+            	wattron(win, A_UNDERLINE);
+            	mvwprintw(win, y, x, "etc...");
+            	wattroff(win, A_UNDERLINE);
+            }
+    }
+    else{
+    	mvwprintw(win, 3, 1, "It's Empty, bro");
+    }
+}
 
 void updateLayout(){
     /* Print data */
         wmove(name_disp, 1, 1);
-        wprintw(name_disp, "<Name>");
+        wprintw(name_disp, "<Name>"); // Display
         wrefresh(name_disp);
 
         wmove(money_disp, 1, 1);
-        wprintw(money_disp, "Money: %ld", Money(GameData));
+        wprintw(money_disp, "Money: %ld", Money(GameData)); // Display
         wrefresh(money_disp);
 
         wmove(life_disp, 1, 1);
-        wprintw(life_disp, "Life: %ld", Life(GameData));
+        wprintw(life_disp, "Life: %ld", Life(GameData)); // Display
         wrefresh(life_disp);
 
         wmove(time_disp, 1, 1);
-        wprintw(time_disp, "Waktu: %ld", Waktu(GameData));
+        wprintw(time_disp, "Waktu: %ld", Waktu(GameData)); // Display
         wrefresh(time_disp);
 
         wmove(waitcust_disp, 1, 1);
+        wattron(waitcust_disp, A_BOLD);
         wprintw(waitcust_disp, "Waiting Customer");
+        wattroff(waitcust_disp, A_BOLD);
+        // Display
         wrefresh(waitcust_disp);
 
         wmove(map_disp, 1, 1);
-        // wprintw(map_disp, "");
-        CurseTulisMatriks(Room[1].Map,1,1);
+        CurseTulisMatriks(Room[1].Map); // Displaying the map
         wrefresh(map_disp);
 
         wmove(food_disp, 1, 1);
+        wattron(food_disp, A_BOLD);
         wprintw(food_disp, "Food Stack");
+        wattroff(food_disp, A_BOLD);
+        CursePrintStack(food_disp, &Tray, 't');
         wrefresh(food_disp);
 
         wmove(order_disp, 1, 1);
+        wattron(order_disp, A_BOLD);
         wprintw(order_disp, "Order");
+        wattroff(order_disp, A_BOLD);
+        // Display
         wrefresh(order_disp);
 
         wmove(hand_disp, 1, 1);
+        wattron(hand_disp, A_BOLD);
         wprintw(hand_disp, "Hand");
+        wattroff(hand_disp, A_BOLD);
+        CursePrintStack(hand_disp, &Hand, 'h');
         wrefresh(hand_disp);
 
         start_x = 0;
         start_y = name_height + waitcust_height + order_height;
-        // delwin(command_disp);
         command_disp = newwin(command_height, command_width, start_y, start_x);
         box(command_disp,0,0);
 
-        mvprintw(25,0,"Type EXIT to stop");
+        mvprintw(29,0,"Type EXIT to stop");
         refresh();
 
         wmove(command_disp, 1, 1);
+        wattron(command_disp, A_BOLD);
         wprintw(command_disp, "Command: ");
+        wattroff(command_disp, A_BOLD);
         wrefresh(command_disp);
 }
 
 void GetCommand(){
-    CursorCommand();
+    CursorOnCommand();
     CurseBacaCommand();
-    
-    if (!EqualKata(Command,"EXIT")){
-        updateLayout();
-        GetCommand();
-    }
-    else
-        endLayout();
 }
 
-void CursorCommand(){
+void CursorOnCommand(){
     // wmove(command_disp, 1, 10); // memindah cursor ke posisi (10,1) relatif terhadap command_disp
     move(20, 10);
     wrefresh(command_disp);

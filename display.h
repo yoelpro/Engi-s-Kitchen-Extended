@@ -6,6 +6,7 @@
 #define DISPLAY_H
 
 #include "data.h"
+#include <curses.h>
 
 /* Perintah curses yang bisa digunakan:
 	void move(int y,x) : (x,y) adalah koordinat di tampilan
@@ -33,7 +34,33 @@ void setLayout();
 void printLayout();
 /* Mencetak layout sesuai setting yang ada */
 
-void CurseTulisMatriks (Matriks M, int y, int x);
+void CurseTulisMatriks (Matriks M);
+/* I.S. M terdefinisi */
+/* F.S. Nilai M(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
+   dipisahkan sebuah spasi */
+/* Proses: Menulis nilai setiap elemen M ke layar dengan traversal per baris dan per kolom */
+/* Contoh: menulis matriks 3x3 (ingat di akhir tiap baris, tidak ada spasi)
+1 2 3
+4 5 6
+8 9 10
+*/
+
+void CursePrintStack(WINDOW *win, Stack *Current, char opt);
+/* I.S. win dan Current terdefinisi */
+/* F.S. Nilai Current ditulis ke dalam win per baris, masing-masing elemen dipisah sebuah newline */
+/* Proses: Menyalin semua elemen Current ke dalam ReverseStack, kemudian menulis nilai setiap elemen ReverseStack ke dalam win dengan
+		loop hingga isi ReverseStack kosong */
+/* Contoh: menulis Current dengan isi 0 1 3 7
++---------------+
+|Hand			|
+|0				|
+|1				|
+|3				|
+|7				|
+|				|
++---------------+
+*/
+/* BUG: UNTUK ISI STACK YANG MELEBIHI UKURAN WINDOW TIDAK AKAN TAMPIL DI WINDOW */
 
 void updateLayout();
 /* Meng-update isi game sesuai kondisi game */
@@ -42,7 +69,7 @@ void GetCommand();
 /* Menerima command dari user */
 /* Sebenarnya BacaCommand() untuk curses, cuman blom dicoba begini bs atau ngak */
 
-void CursorCommand();
+void CursorOnCommand();
 
 void endLayout();
 /* Menghentikan tampilan */
