@@ -4,13 +4,14 @@
 /* Kelompok Tampilan */
 /* Kamus Tampilan*/
     /* Pointer display */
-    WINDOW *name_disp, *money_disp, *life_disp, *time_disp, *waitcust_disp, *order_disp, *map_disp, *food_disp, *hand_disp, *command_disp;
+    WINDOW *name_disp, *money_disp, *life_disp, *time_disp, *waitcust_disp, *order_disp, *map_disp, *food_disp, *hand_disp, *command_disp, *tree_disp;
 
     /* Ukuran display */
     int disp_height, disp_width;
     int name_height, name_width, money_height, money_width, life_height, life_width, time_height, time_width;
     int waitcust_height, waitcust_width, order_height, order_width, map_height, map_width, food_height, food_width, hand_height, hand_width;
     int command_height, command_width;
+    int tree_height, tree_width;
 
     /* Cursor */
     int start_y, start_x;
@@ -40,9 +41,9 @@ void setLayout(){
         life_width = 25;
         time_height = name_height;
         time_width = 25;
-        waitcust_height = 8;
+        waitcust_height = 11;
         waitcust_width = name_width;
-        order_height = 15;
+        order_height = 11;
         order_width = name_width;
         map_height = waitcust_height + order_height;
         map_width = 50;
@@ -52,6 +53,9 @@ void setLayout(){
         hand_width = food_width;
         command_height = 3;
         command_width = order_width + map_width + hand_width;
+
+        tree_height = 28;
+        tree_width = 50;
 
         disp_height = 10;
         disp_width = 40;
@@ -118,6 +122,73 @@ void printLayout(){
         wrefresh(command_disp);
 }
 
+void CursePrintTreeRec (BinTree P, int level, int h, int *y, int x) {
+	if (!IsTreeEmpty(P)) {
+		int i;
+		// for (i = 1; i <= level * h; i++)
+		// 	if (i < level*h-(h-1))
+		// 		mvwprintw(tree_disp,y,x," ");
+		// 	else if (i == level*h-(h-1))
+		// 		mvwprintw(tree_disp,y,x,"`");
+		// 	else
+		// 		mvwprintw(tree_disp,y,x,"-");
+		if (IsTreeOneElmt(P))
+			mvwprintw(tree_disp,*y,x,"%s", JenisMakanan[Akar(P)]);
+		else
+			mvwprintw(tree_disp,*y,x,"%s", JenisBahan[Akar(P)]);
+
+		if (!IsTreeEmpty(Left(P))){
+			(*y)++;
+			CursePrintTreeRec(Left(P), level+1, h, y, x+h);
+		}
+		if (!IsTreeEmpty(Right(P))){
+			(*y)++;
+			CursePrintTreeRec(Right(P), level+1, h, y, x+h);
+		}
+	}
+}
+
+void CursePrintTree(BinTree P){
+	int y;
+
+	tree_disp = newwin(tree_height, tree_width, 2, 24);
+    box(tree_disp,0,0);
+    y = 1;
+	CursePrintTreeRec(P, 0, 4, &y, 1);
+
+	// mvwprintw(tree_disp, 0, 0, "#Recipe Tree");
+	wattron(tree_disp, A_UNDERLINE);
+	mvwprintw(tree_disp, tree_height-2, 1, "Press Enter to close recipe");
+	wattroff(tree_disp, A_UNDERLINE);
+	wrefresh(tree_disp);
+	noecho();
+	while (wgetch(tree_disp) != ENTER){}
+	delwin(tree_disp);
+	wrefresh(tree_disp);
+	printLayout();
+	updateLayout();
+	echo();
+}
+
+void CursePrintQC(TypeQueueCustomer QC){
+	int i;
+	int y, x;
+
+	x = 1;
+	y = 2;
+
+	if (!IsEmptyQC(QC))
+		for(i = Head(QC)-1; i < Tail(QC); i++){
+			// printf("%d %d %d %d %u\n", QC.Customer[i].Id, QC.Customer[i].NoMeja, QC.Customer[i].Kesabaran, QC.Customer[i].JmlOrang, QC.Customer[i].Star);
+			if (QC.Customer[i].Star)
+				mvwprintw(waitcust_disp, y + i, x, "%d (%d) (Star)", QC.Customer[i].Id, QC.Customer[i].Kesabaran);
+			else
+				mvwprintw(waitcust_disp, y + i, x, "%d (%d)", QC.Customer[i].Id, QC.Customer[i].Kesabaran);
+		}
+	else
+		mvwprintw(waitcust_disp, y, x, "There's no one here");
+}
+
 void CursePrintTabOrder(TabOrder T){
 	// Kamus Lokal
 	int x,y;
@@ -131,7 +202,7 @@ void CursePrintTabOrder(TabOrder T){
   	for (int i=1; i<=Neff(T); i++){
   		// Tidak akan lanjut mencetak elemen jika window order_disp sudah penuh
   		if (y < maxy-1){ 
-    		mvwprintw(order_disp, y, x, "%d, %d", ElmtArr(T, i).NoMenu, ElmtArr(T,i).NoMeja);
+    		mvwprintw(order_disp, y, x, "%s, %d", JenisMakanan[ElmtArr(T, i).NoMenu], ElmtArr(T,i).NoMeja);
     		y++;
   		}
   	}
@@ -251,7 +322,7 @@ void updateLayout(){
         wattron(waitcust_disp, A_BOLD);
         wprintw(waitcust_disp, "Waiting Customer");
         wattroff(waitcust_disp, A_BOLD);
-        // Display belum ada
+        CursePrintQC(QWaitingC);
         wrefresh(waitcust_disp);
 
         wmove(map_disp, 1, 1);

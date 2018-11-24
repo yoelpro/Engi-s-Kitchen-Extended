@@ -39,6 +39,29 @@ void setLayout();
 void printLayout();
 /* Mencetak kerangka layout sesuai setting yang ada (tidak ada informasi yang tercetak) */
 
+void CursePrintTreeRec (BinTree P, int level, int h, int *y, int x);
+
+void CursePrintTree(BinTree P);
+/* I.S. P terdefinisi, h adalah jarak indentasi (spasi) */
+/* F.S. Semua simpul P sudah ditulis dengan indentasi (spasi) */
+/* Penulisan akar selalu pada baris baru (diakhiri newline) */
+/* Contoh, jika h = 2 dan JenisBahan = [Ba,Bb,Bc] dan JenisMakanan = [Ma, Mb, Mc]: 
+1) Pohon preorder: (1()()) akan ditulis sbb:
+Mb
+2) Pohon preorder: (1(2()())(0()())) akan ditulis sbb:
+Ba
+`---Mc
+`---Ma
+3) Pohon preorder: (2(0(1()())())(1()(0()()))) akan ditulis sbb:
+Bc
+`---Ba
+    `---Mb
+`---Bb
+    `---Ma
+*/
+
+void CursePrintQC(TypeQueueCustomer QC);
+
 void CursePrintTabOrder(TabOrder T);
 /* I.S. T terdefinisi */
 /* F.S. Nilai NoMeja dan NoMenu dari Order(T) dituliskan per baris, masing-masing tuple dipisah sebuah newline */
