@@ -60,18 +60,6 @@ int main()
 		Order Orders;
 		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);
 		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
 		Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);
 
 	CreateEmptyStck(&Hand);
@@ -85,6 +73,10 @@ int main()
     Push(&Tray,3);
     Push(&Tray,7);
 
+	AddCustomerWC(&QWaitingC, 1, 2, 3, true);
+	AddCustomerWC(&QWaitingC, 2, 3, 1, false);
+	AddCustomerWC(&QWaitingC, 3, 1, 2, true);
+
 	initLayout();
 
 	// printf("absis %d ordinat %d\n", GameData.PosisiPlayer.X, Ordinat(GameData.PosisiPlayer));
@@ -94,6 +86,7 @@ int main()
 	// printf("\n");
 
 	// printf("input 1/2/3: ");
+	
 	updateLayout();
 	
 	GetCommand();
@@ -120,6 +113,8 @@ int main()
 	while (!(EqualKata(Command,"EXIT")))
 	{
 		/* Game Main Loop */
+		if (EqualKata(Command, "RECIPE"))
+			CursePrintTree(Resep);
 
 		// BacaCommand();
 		GetCommand();
