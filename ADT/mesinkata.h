@@ -60,19 +60,7 @@ void BacaCommand();
           atau EndKata = false, Command adalah kata yang sudah diakuisisi,
           CCommand karakter pertama sesudah karakter terakhir kata */
 
-void CurseBacaCommand();
-/* I.S. : CCommand sembarang 
-   F.S. : EndKata = true, dan CCommand = MARK; 
-          atau EndKata = false, Command adalah kata yang sudah diakuisisi,
-          CCommand karakter pertama sesudah karakter terakhir kata */
-
 void SalinCommand();
-/* Mengakuisisi command dari console, menyimpan dalam CCommand
-   I.S. : CCommand adalah karakter pertama dari kata
-   F.S. : CCommand berisi kata yang sudah diakuisisi; 
-          CCommand = \n */
-
-void CurseSalinCommand();
 /* Mengakuisisi command dari console, menyimpan dalam CCommand
    I.S. : CCommand adalah karakter pertama dari kata
    F.S. : CCommand berisi kata yang sudah diakuisisi; 

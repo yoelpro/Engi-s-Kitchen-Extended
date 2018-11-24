@@ -43,12 +43,4 @@ void ADVCommand();
           CCommand mungkin = MARK.
   Jika CCommand = MARK maka EOP akan menyala (true) */
 
-void CurseADVCommand();
-/*Pita dimajukan satu karakter. 
-  I.S. : Karakter pada jendela = 
-          CCommand, CCommand != MARK
-  F.S. : CCommand adalah karakter berikutnya dari CCommand yang lama, 
-          CCommand mungkin = MARK.
-  Jika CCommand = MARK maka EOP akan menyala (true) */
-
 #endif
