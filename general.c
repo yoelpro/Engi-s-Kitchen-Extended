@@ -141,11 +141,21 @@ void Put()
 /* Fungsi pendukung put dan take */
 int hexToInt(char target)
 {
-    if (target >= '0' && target <= '9')
-        return target - '0';
-    if (target >= 'a' && target <= 'f')
-        return target - 'a' + 10;
-    return -1;
+    /* KAMUS LOKAL */
+
+    /* ALGORITMA */
+    if (target >= '0' && target <= '9') {
+        return (int)(CC-'0');
+    }
+    else if (target >= 'a' && target <= 'f') {
+        return (int)(CC - 'a') + 10;
+    }
+    else if (target >= 'A' && target <= 'F') {
+        return (int)(CC - 'A') + 10;
+    }
+    else {
+        return -1;
+    }
 }
 
 /*fungsi isMeja*/

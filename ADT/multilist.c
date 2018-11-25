@@ -1,10 +1,11 @@
 #include "multilist.h"
 #include "boolean.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-void CreateGraph(int X, Graph *G)
+void CreateGraph(Graph *G)
 {
-    FirstG(*G) = AlokNodeG(X);
+    FirstG(*G) = NULL;
 }
 
 adrNode AlokNodeG(int X)
@@ -76,72 +77,84 @@ adrSuccNode SearchEdge(Graph G, int prec, int succ)
     else
     {
         adrSuccNode TrailerPprec = Trail(SearchNode(G,prec));
-        adrNode Psucc = SearchNode(G,succ);
-        while (NextG(TrailerPprec)!=NULL && Succ(TrailerPprec)!=Psucc)
-        {
-            TrailerPprec = NextG(TrailerPprec);
+
+        if (TrailerPprec != NULL) {
+            adrNode Psucc = SearchNode(G,succ);
+
+            while (NextG(TrailerPprec) != NULL && Succ(TrailerPprec) != Psucc)
+            {
+                TrailerPprec = NextG(TrailerPprec);
+            }
+            
+            if (Succ(TrailerPprec)==Psucc)
+            {
+                return TrailerPprec;
+            }
+            else
+            {
+                return NULL;
+            }
         }
-        if (Succ(TrailerPprec)==Psucc)
-        {
-            return TrailerPprec;
-        }
-        else
-        {
+        else {
             return NULL;
         }
-
     }
 }
 
 void InsertNode(Graph* G, int X, adrNode* Pn)
 {
-    adrNode Pt;
-    (Pt)=FirstG(*G);
-    if ((Pt)==NULL)
+    *Pn=AlokNodeG(X);
+    if (FirstG(*G)==NULL)
     {
-        FirstG(*G)=AlokNodeG(X);
-        *Pn = FirstG(*G);
+        FirstG(*G) = *Pn;
     }
     else
     {
-        while(NextG(Pt)!=NULL)
-        {
-            (Pt) = NextG(Pt);
-        }
-        NextG(Pt) = AlokNodeG(X);
-        *Pn = NextG(Pt);
-    }
+        adrNode Pt = FirstG(*G);
 
+        while(NextG(Pt) != NULL)
+        {
+            Pt = NextG(Pt);
+        }
+        NextG(Pt) = *Pn;
+    }
 }
 
-void InsertEdge(Graph* G, int prec, int succ)
+void InsertEdge(Graph* G, int prec, int succ, adrSuccNode *Pt)
 {
-    if (SearchEdge(*G,prec,succ)==NULL)
+    adrNode Pprec = SearchNode(*G,prec);
+    if (Pprec == NULL)
     {
-        adrNode Pprec = SearchNode(*G,prec);
-        if (Pprec == NULL)
-        {
-            InsertNode(G,prec,&Pprec);
+        InsertNode(G, prec, &Pprec);
+    }
+
+    adrNode Psucc = SearchNode(*G,succ);
+    if (Psucc == NULL)
+    {
+        InsertNode(G, succ, &Psucc);
+    }
+
+    adrSuccNode TrailPprec = SearchEdge(*G, prec, succ);
+    if (TrailPprec == NULL) {
+        *Pt = AlokSuccNode(Psucc);
+
+        if (Trail(Pprec) == NULL) {
+            Trail(Pprec) = *Pt;
         }
-        adrNode Psucc = SearchNode(*G,succ);
-        if (Psucc == NULL)
-        {
-            InsertNode(G,succ,&Psucc);
-        }
-        adrSuccNode TrailPprec = Trail(Pprec);
-        if (TrailPprec==NULL)
-        {
-            TrailPprec = AlokSuccNode(Psucc);
-        }
-        else
-        {
-            while(NextG(TrailPprec)!=NULL)
-            {
+        else {
+            TrailPprec = Trail(Pprec);
+
+            while (NextG(TrailPprec) != NULL) {
                 TrailPprec = NextG(TrailPprec);
             }
-            TrailPprec = AlokSuccNode(Psucc);
+
+            NextG(TrailPprec) = *Pt;
         }
+        
         NPred(Psucc)++;
+    }
+    else {
+        *Pt = TrailPprec;
     }
 }
 

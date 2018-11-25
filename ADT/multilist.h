@@ -7,6 +7,7 @@
 #define MULTILIST_H
 
 #include "boolean.h"
+#include "point.h"
 #include <stdlib.h>
 
 #define Nol 0
@@ -23,6 +24,7 @@ typedef struct tGraph{
 } Graph;
 
 typedef struct tSuccNode{
+    Point Info;
     adrNode Succ;
     adrSuccNode Next; 
 } SuccNode;
@@ -37,12 +39,13 @@ typedef struct tNodeG{
 #define FirstG(G) (G).First
 #define Id(Pn) (Pn)->Id
 #define Trail(Pn) (Pn)->Trail
-#define Succ(Pn) (Pn)->Succ
 #define NPred(Pn) (Pn)->NPred
 #define NextG(P) (P)->Next
+#define Succ(Pt) (Pt)->Succ
+#define InfoG(Pt) (Pt)->Info
 
 /* Konstruktor */
-void CreateGraph(int X, Graph *G);
+void CreateGraph(Graph *G);
 
 adrNode AlokNodeG(int X);
 
@@ -60,7 +63,7 @@ adrSuccNode SearchEdge(Graph G, int prec, int succ);
 
 void InsertNode(Graph* G, int X, adrNode* Pn);
 
-void InsertEdge(Graph* G, int prec, int succ);
+void InsertEdge(Graph* G, int prec, int succ, adrSuccNode *Pt);
 
 boolean IsEmptyG(Graph G);
 

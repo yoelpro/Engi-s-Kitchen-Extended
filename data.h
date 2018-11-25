@@ -21,7 +21,7 @@
 
 #define KOLOM 8
 #define BARIS 8
-#define MAX_MEJA 4
+#define MAX_MEJA 16
 #define MAX_BAHAN 16
 #define MAX_MAKANAN 9
 

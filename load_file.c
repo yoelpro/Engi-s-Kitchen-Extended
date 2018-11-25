@@ -11,6 +11,25 @@
 #define MAP_HORIZONTAL_SIZE 8
 #define MAP_VERTICAL_SIZE 8
 
+int _hex_to_int(char target)
+{
+    /* KAMUS LOKAL */
+
+    /* ALGORITMA */
+    if (target >= '0' && target <= '9') {
+        return (int)(CC-'0');
+    }
+    else if (target >= 'a' && target <= 'f') {
+        return (int)(CC - 'a') + 10;
+    }
+    else if (target >= 'A' && target <= 'F') {
+        return (int)(CC - 'A') + 10;
+    }
+    else {
+        return -1;
+    }
+}
+
 boolean _kursi_exist (Matriks *map, Meja *meja, int i, int j) 
 {
     /* KAMUS LOKAL */
@@ -58,46 +77,75 @@ void _search_meja_in_ruangan (Ruangan *ruang)
     {
         for (j=1;j<=MAP_HORIZONTAL_SIZE;j++)
         {
-            if (ElmtMat((*ruang).Map, i, j) >= '1' && ElmtMat((*ruang).Map, i, j) <= '9') 
-            { // map berisi suatu karakter angka yang berarti sebuah meja
+            if (_hex_to_int(ElmtMat((*ruang).Map, i, j)) != -1) 
+            { // map berisi suatu karakter hexadecimal yang berarti sebuah meja
                 ((*ruang).JmlMeja)++;
 
                 ((*ruang).DMeja[(*ruang).JmlMeja]).Posisi = MakePoint(i, j);
 
-                ((*ruang).DMeja[(*ruang).JmlMeja]).NoMeja = (int)(ElmtMat((*ruang).Map, i, j) - '0');
+                ((*ruang).DMeja[(*ruang).JmlMeja]).NoMeja = _hex_to_int(ElmtMat((*ruang).Map, i, j));
 
-                ((*ruang).DMeja[(*ruang).JmlMeja]).JmlKursi = 0;
-                
-                ((*ruang).DMeja[(*ruang).JmlMeja]).N[1] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i+1, j);
-                ((*ruang).DMeja[(*ruang).JmlMeja]).N[2] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j+1);
-                ((*ruang).DMeja[(*ruang).JmlMeja]).N[3] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i-1, j);
-                ((*ruang).DMeja[(*ruang).JmlMeja]).N[4] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j-1);
+                if ((*ruang).Tipe == Makan) {
+                    ((*ruang).DMeja[(*ruang).JmlMeja]).JmlKursi = 0;
+                    
+                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[1] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i+1, j);
+                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[2] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j+1);
+                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[3] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i-1, j);
+                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[4] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j-1);
 
-                ((*ruang).DMeja[(*ruang).JmlMeja]).N[1] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i+1, j);
-                ((*ruang).DMeja[(*ruang).JmlMeja]).N[2] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j+1);
-                ((*ruang).DMeja[(*ruang).JmlMeja]).N[3] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i-1, j);
-                ((*ruang).DMeja[(*ruang).JmlMeja]).N[4] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j-1);
+                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[1] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i+1, j);
+                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[2] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j+1);
+                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[3] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i-1, j);
+                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[4] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j-1);
+                }
             }
         }
     }
 }
 
-void load_arr_ruangan(Ruangan Rooms[], int NRooms)
+void _get_doors(Graph *Doors, int ruangAsal)
+{
+    /* KAMUS LOKAL */
+    int x, y, ruangTujuan;
+    adrSuccNode Pt;
+
+    /* ALGORITMA */
+    ADV();
+    x = _hex_to_int(CC);
+    ADV(); ADV();
+    y = _hex_to_int(CC);
+    ADV(); ADV(); IgnoreBlank();
+    
+    ruangTujuan = _hex_to_int(CC);
+    InsertEdge(Doors, ruangAsal, ruangTujuan, &Pt);
+    InfoG(Pt) = MakePoint(x, y);
+    ADV(); ADV();
+}
+
+void load_arr_ruangan(Graph *Doors, Ruangan Rooms[], int NRooms)
 /*  Membaca ruangan dari file eksternal
  *  I.S. : Rooms[] sembarang
  *  F.S. : Rooms[] berisi ruangan dari file eksternal
  */
 {
     /* KAMUS LOKAL */
-    int ruangNo, i, j;
+    int ruangNo, i, j, doorCount;
 
     /* ALGORITMA */
     START("Res/Ruangan.txt");
 
     for (ruangNo=1;ruangNo<=NRooms;ruangNo++)
     {
-        Rooms[ruangNo].Tipe = CC - '0';
+        IgnoreBlank();
+        Rooms[ruangNo].Tipe = _hex_to_int(CC);
         ADV(); ADV();
+        
+        doorCount = _hex_to_int(CC);
+        ADV(); ADV();
+
+        for (i=1;i<=doorCount;i++) {
+            _get_doors(Doors, ruangNo);
+        }
 
         MakeMatriks(MAP_VERTICAL_SIZE, MAP_HORIZONTAL_SIZE, &(Rooms[ruangNo].Map));
         for (i=1;i<=MAP_VERTICAL_SIZE;i++)
@@ -109,11 +157,8 @@ void load_arr_ruangan(Ruangan Rooms[], int NRooms)
             }
             ADV();
         }
-        if( Rooms[ruangNo].Tipe == Makan) {
-            _search_meja_in_ruangan(&Rooms[ruangNo]);
-        }
-
-        ADV();
+        
+        _search_meja_in_ruangan(&Rooms[ruangNo]);
     }
 
     while (!EOP)
@@ -142,18 +187,7 @@ Memori pasti cukup, alokasi pasti berhasil. */
 	}
 	else
 	{
-        if (CC >= '0' && CC <= '9') {
-            temp = (int)(CC-'0');
-        }
-        else if (CC >= 'A' && CC <= 'F') {
-            temp = (int)(CC - 'A') + 10;
-        }
-        else if (CC >= 'a' && CC <= 'f') {
-            temp = (int)(CC - 'a') + 10;
-        }
-        else {
-            temp = -1;
-        }
+        temp = _hex_to_int(CC);
 
         if (temp != -1) {
             *ResepTree = Tree(temp, Nil, Nil);
