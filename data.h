@@ -95,4 +95,5 @@ extern TypeQueueCustomer QSeatedC;	// Seating customer
 extern TabOrder TabOrders;
 extern Ruangan Room [4+1];
 extern BinTree Resep;
+extern Graph Door;
 #endif

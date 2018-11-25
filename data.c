@@ -43,3 +43,4 @@ TypeQueueCustomer QSeatedC;
 TabOrder TabOrders;
 Ruangan Room [4+1];
 BinTree Resep;
+Graph Door;
