@@ -16,7 +16,7 @@ void InitGame()
     Life(GameData) = 5;
 
     /* Reading dari file (belum diimplementasi) */
-    load_arr_ruangan(Room,1);
+    load_arr_ruangan(&Door,Room,1);
 }
 
 void UpdateWaitingCustomer()
