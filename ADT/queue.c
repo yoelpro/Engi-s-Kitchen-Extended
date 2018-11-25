@@ -121,12 +121,11 @@ void AddCustomerWC (TypeQueueCustomer* QC, int id, int kesabaran, int Orang, boo
 		int idx = Tail(*QC);
 		if (!IsEmptyQC(*QC))
 		{
-			while (idx>=1 && (!(*QC).Customer[idx].Star))
+			while (idx>1 && (!(*QC).Customer[idx].Star))
 			{
 				MoveDataCustomer(QC,idx,idx+1);
 				idx--;
 			}
-			idx++;
 			if ((*QC).Customer[idx].Star)
 			{
 				(*QC).Customer[idx+1].Id = id;
@@ -137,6 +136,7 @@ void AddCustomerWC (TypeQueueCustomer* QC, int id, int kesabaran, int Orang, boo
 			}
 			else
 			{
+				MoveDataCustomer(QC,idx,idx+1); //move data customer pertama ke kedua
 				(*QC).Customer[idx].Id = id;
 				(*QC).Customer[idx].NoMeja = 0;
 				(*QC).Customer[idx].Kesabaran = kesabaran;
