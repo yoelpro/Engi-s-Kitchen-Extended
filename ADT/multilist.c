@@ -16,6 +16,7 @@ adrNode AlokNodeG(int X)
         Id(N) = X;
         NPred(N) = 0;
         Trail(N) = NULL;
+        NextG(N) = NULL;
     }
     return N;
 }
@@ -94,18 +95,21 @@ adrSuccNode SearchEdge(Graph G, int prec, int succ)
 
 void InsertNode(Graph* G, int X, adrNode* Pn)
 {
-    *Pn=FirstG(*G);
-    if (*Pn==NULL)
+    adrNode Pt;
+    (Pt)=FirstG(*G);
+    if ((Pt)==NULL)
     {
         FirstG(*G)=AlokNodeG(X);
+        *Pn = FirstG(*G);
     }
     else
     {
-        while(NextG(*Pn)!=NULL)
+        while(NextG(Pt)!=NULL)
         {
-            *Pn = NextG(*Pn);
+            (Pt) = NextG(Pt);
         }
-        NextG(*Pn) = AlokNodeG(X);
+        NextG(Pt) = AlokNodeG(X);
+        *Pn = NextG(Pt);
     }
 
 }
