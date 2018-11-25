@@ -4,12 +4,14 @@
 /* Kelompok Tampilan */
 /* Kamus Tampilan*/
     /* Pointer display */
-    WINDOW *name_disp, *money_disp, *life_disp, *time_disp, *waitcust_disp, *order_disp, *map_disp, *food_disp, *hand_disp, *command_disp, *tree_disp;
+    WINDOW *name_disp, *money_disp, *life_disp, *time_disp, *waitcust_disp, *order_disp, *room1_disp, *room2_disp, *room3_disp, *room4_disp, 
+    	*food_disp, *hand_disp, *command_disp, *tree_disp;
 
     /* Ukuran display */
     int disp_height, disp_width;
     int name_height, name_width, money_height, money_width, life_height, life_width, time_height, time_width;
-    int waitcust_height, waitcust_width, order_height, order_width, map_height, map_width, food_height, food_width, hand_height, hand_width;
+    int waitcust_height, waitcust_width, order_height, order_width, food_height, food_width, hand_height, hand_width;
+    int room1_height, room1_width, room2_height, room2_width, room3_height, room3_width, room4_height, room4_width;
     int command_height, command_width;
     int tree_height, tree_width;
 
@@ -45,14 +47,22 @@ void setLayout(){
         waitcust_width = name_width;
         order_height = 11;
         order_width = name_width;
-        map_height = waitcust_height + order_height;
-        map_width = 50;
+
+        room1_height = 17; // CUSTOM, ORI = waitcust_height + order_height
+        room1_width = 33; // CUSTOM, ORI = 50
+        room2_height = 17; // CUSTOM, ORI = waitcust_height + order_height
+        room2_width = 33; // CUSTOM, ORI = 50
+        room3_height = 17; // CUSTOM, ORI = waitcust_height + order_height
+        room3_width = 33; // CUSTOM, ORI = 50
+        room4_height = 17; // CUSTOM, ORI = waitcust_height + order_height
+        room4_width = 33; // CUSTOM, ORI = 50
+
         food_height = waitcust_height;
         food_width = 25;
         hand_height = order_height;
         hand_width = food_width;
         command_height = 3;
-        command_width = order_width + map_width + hand_width;
+        command_width = order_width + 50 + hand_width;
 
         tree_height = 28;
         tree_width = 50;
@@ -95,11 +105,23 @@ void printLayout(){
         wrefresh(waitcust_disp);
 
         start_x += waitcust_width;
-        map_disp = newwin(map_height, map_width, start_y, start_x);
-        box(map_disp,0,0);
-        wrefresh(map_disp);
+        room1_disp = newwin(room1_height, room1_width, start_y+1, start_x+2);
+        box(room1_disp,0,0);
+        wrefresh(room1_disp);
 
-        start_x += map_width;
+        room2_disp = newwin(room2_height, room2_width, start_y, start_x+11);
+        box(room2_disp,0,0);
+        wrefresh(room2_disp);
+
+        room3_disp = newwin(room3_height, room3_width, start_y+4, start_x+15);
+        box(room3_disp,0,0);
+        wrefresh(room3_disp);
+
+        room4_disp = newwin(room4_height, room4_width, start_y+5, start_x+5);
+        box(room4_disp,0,0);
+        wrefresh(room4_disp);
+
+        start_x += 50; // ORI room1_width
         food_disp = newwin(food_height, food_width, start_y, start_x);
         box(food_disp,0,0);
         wrefresh(food_disp);
@@ -110,7 +132,7 @@ void printLayout(){
         box(order_disp,0,0);
         wrefresh(order_disp);
 
-        start_x += order_width + map_width;
+        start_x += order_width + 50; // ORI 50 is room1_width
         hand_disp = newwin(hand_height, hand_width, start_y, start_x);
         box(hand_disp,0,0);
         wrefresh(hand_disp);
@@ -213,7 +235,7 @@ void CursePrintTabOrder(TabOrder T){
   	}
 }
 
-void CurseTulisMatriks (Matriks M)
+void CurseTulisMatriks (WINDOW *win, Matriks M)
 /* I.S. M terdefinisi */
 /* F.S. Nilai M(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
    dipisahkan sebuah spasi */
@@ -232,22 +254,22 @@ void CurseTulisMatriks (Matriks M)
     x = 1;
     y = 1;
 
-    wmove(map_disp, y,x);
+    wmove(win, y,x);
     
     for(i=GetFirstIdxBrs(M);i<=GetLastIdxBrs(M);i++){
 
         for(j=GetFirstIdxKol(M);j<GetLastIdxKol(M);j++){
-            wprintw(map_disp, "%c ", ElmtMat(M,i,j));
+            wprintw(win, " %c  ", ElmtMat(M,i,j));
         }
 
         if(i==GetLastIdxBrs(M)){
-            wprintw(map_disp, "%c", ElmtMat(M,i,GetLastIdxKol(M)));
+            wprintw(win, " %c ", ElmtMat(M,i,GetLastIdxKol(M)));
         }
         else{
-            wprintw(map_disp, "%c", ElmtMat(M,i,GetLastIdxKol(M)));
+            wprintw(win, " %c ", ElmtMat(M,i,GetLastIdxKol(M)));
         }
-        y++;
-        wmove(map_disp, y,x);
+        y+=2;
+        wmove(win, y,x);
     }
 }
 
@@ -323,9 +345,93 @@ void updateLayout(){
         CursePrintQC(QWaitingC);
         wrefresh(waitcust_disp);
 
-        wmove(map_disp, 1, 1);
-        CurseTulisMatriks(Room[1].Map); // Displaying the map
-        wrefresh(map_disp);
+        // int i,j;
+        // i = 0;
+        // j = 0;
+
+        switch(CurrentRoom(GameData)){
+        	case 1:
+		        room1_disp = newwin(room1_height, room1_width, name_height+1, waitcust_width+2);
+		        box(room1_disp,0,0);
+
+		        wmove(room1_disp, 1, 1);
+		        CurseTulisMatriks(room1_disp, Room[1].Map); // Displaying the map
+		        mvwprintw(room1_disp, Ordinat(GameData.PosisiPlayer)*2-1, (Absis(GameData.PosisiPlayer)-1)*4+2, "P"); // Display Player
+		        wattron(room1_disp, A_UNDERLINE);
+
+			        // if (Ordinat(InfoG(SearchEdge(Door, 1, 2))) == 1){
+			        // 	i = 0;
+			        // 	j = -1;
+			        // }
+			        // else if (Ordinat(InfoG(SearchEdge(Door, 1, 2))) == 8){
+			        // 	i = 0;
+			        // 	j = 1;
+			        // }
+			        // else if (Absis(InfoG(SearchEdge(Door, 1, 2))) == 1){
+			        // 	i = -1;
+			        // 	j = 0;
+			        // }
+			        // else if (Absis(InfoG(SearchEdge(Door, 1, 2))) == 8){
+			        // 	i = 1;
+			        // 	j = 0;
+			        // }
+
+			    mvwprintw(room1_disp, Ordinat(InfoG(SearchEdge(Door, 1, 2)))*2-1, (Absis(InfoG(SearchEdge(Door, 1, 2)))-1)*4+2, "#"); // Display Door
+
+		        mvwprintw(room1_disp, Ordinat(InfoG(SearchEdge(Door, 1, 3)))*2-1, (Absis(InfoG(SearchEdge(Door, 1, 3)))-1)*4+2, "#"); // Display Door
+		        wattroff(room1_disp, A_UNDERLINE);
+		        // mvwprintw(room1_disp, Ordinat(InfoG(SearchEdge(Door, 1, 2)))*2, (Absis(InfoG(SearchEdge(Door, 1, 2)))-1)*4+1, "vvv");
+		        // mvwprintw(room1_disp, Ordinat(InfoG(SearchEdge(Door, 1, 4)))*2, (Absis(InfoG(SearchEdge(Door, 1, 4)))-1)*4+4, ">");
+		        // mvwprintw(room1_disp, Ordinat(InfoG(SearchEdge(Door, 1, 4)))*2-1, (Absis(InfoG(SearchEdge(Door, 1, 4)))-1)*4+4, ">");
+		        // mvwprintw(room1_disp, Ordinat(InfoG(SearchEdge(Door, 1, 4)))*2+1, (Absis(InfoG(SearchEdge(Door, 1, 4)))-1)*4+4, ">");
+		        wrefresh(room1_disp);
+		        break;
+		    case 2:
+		        room1_disp = newwin(room2_height, room2_width, name_height, waitcust_width+11);
+		        box(room2_disp,0,0);
+
+		        wmove(room2_disp, 1, 1);
+		        CurseTulisMatriks(room2_disp, Room[2].Map); // Displaying the map
+		        mvwprintw(room2_disp, Ordinat(GameData.PosisiPlayer)*2-1, (Absis(GameData.PosisiPlayer)-1)*4+2, "P"); // Display Player
+		        wattron(room2_disp, A_UNDERLINE);
+		        mvwprintw(room2_disp, Ordinat(InfoG(SearchEdge(Door, 2, 3)))*2-1, (Absis(InfoG(SearchEdge(Door, 2, 3)))-1)*4+2, "#"); // Display Door
+		        mvwprintw(room2_disp, Ordinat(InfoG(SearchEdge(Door, 2, 1)))*2-1, (Absis(InfoG(SearchEdge(Door, 2, 1)))-1)*4+2, "#"); // Display Door
+		        wattroff(room2_disp, A_UNDERLINE);
+		        // mvwprintw(room2_disp, Ordinat(InfoG(SearchEdge(Door, 2, 3)))*2-1, (Absis(InfoG(SearchEdge(Door, 2, 3)))-1)*4+2, "vvv");
+		        // mvwprintw(room2_disp, Ordinat(InfoG(SearchEdge(Door, 2, 1)))*2-2, (Absis(InfoG(SearchEdge(Door, 2, 1)))-1)*4+2, "<");
+		        // mvwprintw(room2_disp, Ordinat(InfoG(SearchEdge(Door, 2, 1)))*2-1, (Absis(InfoG(SearchEdge(Door, 2, 1)))-1)*4+2, "<");
+		        // mvwprintw(room2_disp, Ordinat(InfoG(SearchEdge(Door, 2, 1)))*2-0, (Absis(InfoG(SearchEdge(Door, 2, 1)))-1)*4+2, "<");
+		        wrefresh(room2_disp);
+		        break;
+		    case 3:
+		        room3_disp = newwin(room3_height, room3_width, name_height+4, waitcust_width+15);
+		        box(room3_disp,0,0);
+
+		        wmove(room3_disp, 1, 1);
+		        CurseTulisMatriks(room3_disp, Room[3].Map); // Displaying the map
+		        mvwprintw(room3_disp, Ordinat(GameData.PosisiPlayer)*2-1, (Absis(GameData.PosisiPlayer)-1)*4+2, "P"); // Display Player
+		        wattron(room3_disp, A_UNDERLINE);
+		        mvwprintw(room3_disp, Ordinat(InfoG(SearchEdge(Door, 3, 4)))*2-1, (Absis(InfoG(SearchEdge(Door, 3, 4)))-1)*4+2, "#"); // Display Door
+		        mvwprintw(room3_disp, Ordinat(InfoG(SearchEdge(Door, 3, 2)))*2-1, (Absis(InfoG(SearchEdge(Door, 3, 2)))-1)*4+2, "#"); // Display Door
+		        wattroff(room3_disp, A_UNDERLINE);
+		        wrefresh(room3_disp);
+		        break;
+		    case 4:
+		        room4_disp = newwin(room4_height, room4_width, name_height+5, waitcust_width+5);
+		        box(room4_disp,0,0);
+
+		        wmove(room4_disp, 1, 1);
+		        CurseTulisMatriks(room4_disp, Room[4].Map); // Displaying the map
+		        mvwprintw(room4_disp, Ordinat(GameData.PosisiPlayer)*2-1, (Absis(GameData.PosisiPlayer)-1)*4+2, "P"); // Display Player
+		        wattron(room4_disp, A_UNDERLINE);
+		        mvwprintw(room4_disp, Ordinat(InfoG(SearchEdge(Door, 4, 3)))*2-1, (Absis(InfoG(SearchEdge(Door, 4, 3)))-1)*4+2, "#"); // Display Door
+		        mvwprintw(room4_disp, Ordinat(InfoG(SearchEdge(Door, 4, 1)))*2-1, (Absis(InfoG(SearchEdge(Door, 4, 1)))-1)*4+2, "#"); // Display Door
+		        wattroff(room4_disp, A_UNDERLINE);
+		        wrefresh(room4_disp);
+		        break;
+		    
+	    }
+        
 
         wmove(food_disp, 1, 1);
         wattron(food_disp, A_BOLD);

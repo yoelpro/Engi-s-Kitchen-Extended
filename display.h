@@ -71,7 +71,7 @@ void CursePrintTabOrder(TabOrder T);
 5, 6
 */
 
-void CurseTulisMatriks (Matriks M);
+void CurseTulisMatriks (WINDOW *win, Matriks M);
 /* I.S. M terdefinisi */
 /* F.S. Nilai M(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
    dipisahkan sebuah spasi */
