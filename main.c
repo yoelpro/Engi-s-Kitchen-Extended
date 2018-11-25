@@ -54,7 +54,7 @@ int main()
 	CreateEmptyQC(&QSeatedC);
 	CreateEmptyStck(&Tray);
 	Absis(GameData.PosisiPlayer)=4;
-	Ordinat(GameData.PosisiPlayer)=10;
+	Ordinat(GameData.PosisiPlayer)=4;
 
 	/* Added 15 random Orders to TabOrders */
 		Order Orders;

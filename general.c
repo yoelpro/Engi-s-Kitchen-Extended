@@ -11,12 +11,13 @@ void InitGame()
     GameData.PosisiPlayer = MakePoint(4,4); //Sepakati dapur 4,4 harus kosong dan tidak menjebak
     CreateEmptyStck(&GameData.Hand);
     CreateEmptyStck(&GameData.Tray);
+    CreateGraph(&Door);
     Waktu(GameData) = 0;
     Money(GameData) = 0;
     Life(GameData) = 5;
 
     /* Reading dari file (belum diimplementasi) */
-    load_arr_ruangan(&Door,Room,1);
+    load_arr_ruangan(&Door, Room,4);
 }
 
 void UpdateWaitingCustomer()
