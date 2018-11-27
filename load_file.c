@@ -68,10 +68,11 @@ boolean _kursi_isi_exist (Matriks *map, Meja *meja, int i, int j)
 void _search_meja_in_ruangan (Ruangan *ruang)
 {
     /* KAMUS LOKAL */
-    int i, j;
+    int i, j, jumlahTotalMeja;
 
     /* ALGORITMA */
     (*ruang).JmlMeja = 0;
+     jumlahTotalMeja = 0;
 
     for (i=1;i<=MAP_VERTICAL_SIZE;i++)
     {
@@ -80,23 +81,24 @@ void _search_meja_in_ruangan (Ruangan *ruang)
             if (_hex_to_int(ElmtMat((*ruang).Map, i, j)) != -1) 
             { // map berisi suatu karakter hexadecimal yang berarti sebuah meja
                 ((*ruang).JmlMeja)++;
+                jumlahTotalMeja++;
 
-                ((*ruang).DMeja[(*ruang).JmlMeja]).Posisi = MakePoint(i, j);
+                (DMeja[jumlahTotalMeja]).Posisi = MakePoint(i, j);
 
-                ((*ruang).DMeja[(*ruang).JmlMeja]).NoMeja = _hex_to_int(ElmtMat((*ruang).Map, i, j));
+                (DMeja[jumlahTotalMeja]).NoMeja = _hex_to_int(ElmtMat((*ruang).Map, i, j));
 
                 if ((*ruang).Tipe == Makan) {
-                    ((*ruang).DMeja[(*ruang).JmlMeja]).JmlKursi = 0;
+                    (DMeja[jumlahTotalMeja]).JmlKursi = 0;
                     
-                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[1] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i+1, j);
-                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[2] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j+1);
-                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[3] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i-1, j);
-                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[4] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j-1);
+                    (DMeja[jumlahTotalMeja]).N[1] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i+1, j);
+                    (DMeja[jumlahTotalMeja]).N[2] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j+1);
+                    (DMeja[jumlahTotalMeja]).N[3] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i-1, j);
+                    (DMeja[jumlahTotalMeja]).N[4] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j-1);
 
-                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[1] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i+1, j);
-                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[2] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j+1);
-                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[3] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i-1, j);
-                    ((*ruang).DMeja[(*ruang).JmlMeja]).N[4] = _kursi_exist(&(*ruang).Map, &((*ruang).DMeja[(*ruang).JmlMeja]), i, j-1);
+                    (DMeja[jumlahTotalMeja]).N[1] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i+1, j);
+                    (DMeja[jumlahTotalMeja]).N[2] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j+1);
+                    (DMeja[jumlahTotalMeja]).N[3] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i-1, j);
+                    (DMeja[jumlahTotalMeja]).N[4] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j-1);
                 }
             }
         }

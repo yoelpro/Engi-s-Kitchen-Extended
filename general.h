@@ -20,11 +20,11 @@ void UpdateGameState();
     3. Nambah waktu (done)
     4. Add customer(probabilitas) (pending) */
 
-void UpdateWaitingCustomer();
+void UpdateWaitingCustomer(int * X);
 /*  Procedure untuk update customer yang masih berada di waiting list */
 
 
-void UpdateSeatedCustomer();
+void UpdateSeatedCustomer(int * X);
 /*  Procedure untuk update customer yang sudah duduk*/
 
 void AddCustomer();
@@ -71,5 +71,26 @@ F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC ber
 void giveFood();
 /*I.S.player dapat berada di manapun. Tray mungkin kosong.
 F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja dan QSeatedC berkurang satu elemennya*/
+
+void GU();
+/*I.S. player dapat berada di manapun, petak di atas player adalah petak kosong.*/
+/*F.S. player sudah berpindah 1 petak ke atas.*/
+void GD();
+/*I.S. player dapat berada di manapun, petak di bawah player adalah petak kosong.*/
+/*F.S. player sudah berpindah 1 petak ke bawah.*/
+void GL();
+/*I.S. player dapat berada di manapun, petak di kiri player adalah petak kosong.*/
+/*F.S. player sudah berpindah 1 petak ke kiri.*/
+void GR();
+/*I.S. player dapat berada di manapun, petak di kanan player adalah petak kosong.*/
+/*F.S. player sudah berpindah 1 petak ke kanan.*/
+
+boolean IsDoor(int noRuang, Point P);
+/*I.S. Player dapat berada di manapun.*/
+/*F.S. Mengembalikan true apabila player berada di pintu.*/
+
+adrSuccNode GetDoor(int noRuang, Point P);
+/*I.S. Player dapat berada di manapun*/
+/*F.S. Mengembalikan adrSuccNode dari ruang yang memiliki info P*/
 
 #endif

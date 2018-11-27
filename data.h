@@ -57,18 +57,17 @@ typedef struct
 
 typedef struct {
 	Matriks Map;
-	Meja DMeja[MAX_MEJA+1];
+	
 	int JmlMeja;
 	enum JenisRuangan Tipe;
 } Ruangan;
 
 typedef struct
 {
+	char Nama [20];
 	int CurrentRoom;
 	Point PosisiPlayer;
-	Stack Hand;
-	Stack Tray;
-	long Waktu;
+	JAM Waktu;
 	long Money;
 	int Life;
 	int JmlCustomer;
@@ -96,4 +95,5 @@ extern TabOrder TabOrders;
 extern Ruangan Room [4+1];
 extern BinTree Resep;
 extern Graph Door;
+extern Meja DMeja[MAX_MEJA+1];
 #endif

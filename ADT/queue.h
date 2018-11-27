@@ -137,7 +137,7 @@ void DelCustomerQC(TypeQueueCustomer *QC, int id);
         Q mungkin kosong */
 /* Status: Tested */        
 
-void CleanQC(TypeQueueCustomer *QC);
+void CleanQC(TypeQueueCustomer *QC, int* X);
 /* Proses: Menghapus customer yang sudah hilang kesabaran */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. Menghapus customer yang kesabarannya 0

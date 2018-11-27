@@ -44,3 +44,4 @@ TabOrder TabOrders;
 Ruangan Room [4+1];
 BinTree Resep;
 Graph Door;
+Meja DMeja[MAX_MEJA+1];

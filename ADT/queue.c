@@ -182,7 +182,7 @@ void DelCustomerQC (TypeQueueCustomer* QC, int id)
 	}
 }
 
-void CleanQC(TypeQueueCustomer *QC)
+void CleanQC(TypeQueueCustomer *QC,int * X)
 {
 	int idx;
 	for(idx = Head(*QC); idx<=Tail(*QC); idx++)
@@ -192,6 +192,11 @@ void CleanQC(TypeQueueCustomer *QC)
 			DelCustomerQC(QC,(*QC).Customer[idx].Id);
 			// printf("aa\n");
 			idx--;
+			(*X)--;
+		}
+		else
+		{
+			(*QC).Customer[idx].Kesabaran--;
 		}
 		// printf("%d %d %d\n",idx,(*QC).Customer[idx].Id,(*QC).Customer[idx].Kesabaran);
 	}
