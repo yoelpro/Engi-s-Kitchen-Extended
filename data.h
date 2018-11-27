@@ -59,6 +59,7 @@ typedef struct {
 	Matriks Map;
 	
 	int JmlMeja;
+	int start_meja;
 	enum JenisRuangan Tipe;
 } Ruangan;
 

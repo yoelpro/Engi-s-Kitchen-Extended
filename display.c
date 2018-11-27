@@ -221,6 +221,7 @@ void updateLayout(){
         TulisJAM(Waktu(GameData)); // Display
         printf("\n");
         printf("+----------------------------------------------------------------+\n");
+        printf("player pos x: %d  y: %d \n", Absis(GameData.PosisiPlayer), Ordinat(GameData.PosisiPlayer));
 
         printf("+--------------------------+\n");
         printf("|     Waiting Customer     |\n");
