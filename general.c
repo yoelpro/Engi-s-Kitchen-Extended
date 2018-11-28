@@ -361,7 +361,7 @@ void orderFood()
         {
             Order Temp;
             menu = (rand() % 9); //Jumlah makanan ada 0..8
-            DMeja[tableno].order = menu;
+            DMeja[i].order = menu;
             // DMeja[tableno].Pelanggan.Kesabaran = ((rand()%6)+25);/*tambah kesabaran*/
             Temp.NoMeja = tableno;
             Temp.NoMenu = menu;
@@ -444,21 +444,43 @@ F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC ber
     }
     else
     {
+        int no=i;
         int j=1;
         i=1;
         struct TypeCustomer Temp = InfoHeadC(QWaitingC);
         DelCustomerQC (&QWaitingC, Temp.Id);
         Head(QWaitingC)=1;
-        DMeja[tableno].Terisi= Temp.JmlOrang;
-        DMeja[tableno].Id = Temp.Id;
+        DMeja[no].Terisi= Temp.JmlOrang;
+        DMeja[no].Id = Temp.Id;
         while (i<=Temp.JmlOrang)
         {
-            if (DMeja[tableno].N[j])
+            if (DMeja[no].N[j])
             {
-                DMeja[tableno].NIsiCustomer[j]=true;
+                printf("%d %d\n",tableno, j);
+                if (ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi)+1,Absis(DMeja[no].Posisi)) == 'X')
+                {
+                    ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi)+1,Absis(DMeja[no].Posisi)) = 'C';
+                }
+                else  if (ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi),Absis(DMeja[no].Posisi)+1) == 'X')
+                {
+                    ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi),Absis(DMeja[no].Posisi)+1) = 'C';
+                }
+                else if (ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi)-1,Absis(DMeja[no].Posisi)) == 'X')
+                {
+                    ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi)-1,Absis(DMeja[no].Posisi)) = 'C';
+                }
+                else if (ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi),Absis(DMeja[no].Posisi)-1) == 'X')
+                {
+                    ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi),Absis(DMeja[no].Posisi)-1) = 'C';
+                }
+                DMeja[no].NIsiCustomer[j]=true;
                 i++;
             }
             j++;
+        }
+        if (Temp.JmlOrang>=1)
+        {
+             
         }
         Temp.NoMeja=tableno;
         Temp.Kesabaran = ((rand()%6)+25);/*tambah kesabaran*/
@@ -514,10 +536,11 @@ F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja d
         Pop(&Tray, &Temp);
     }
     if (cek){
-        int noarray = searchTabOrders(tableno);
+        int num =i;
+        int noarray = searchTabOrders(num);
         Order Hapus;
         Head(QSeatedC)=1;
-        while(Head(QSeatedC)<Tail(QSeatedC) && InfoHeadC(QSeatedC).Id==DMeja[tableno].Id){
+        while(Head(QSeatedC)<Tail(QSeatedC) && InfoHeadC(QSeatedC).Id==DMeja[num].Id){
             Head(QSeatedC)++;
         }
         if (InfoHeadC(QSeatedC).Star){
@@ -531,10 +554,10 @@ F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja d
         Head(QSeatedC)=1;
 
         DelEliTabOrder(&TabOrders,noarray,&Hapus);
-        DelCustomerQC (&QSeatedC, DMeja[tableno].Id);
-        printf("Food had been given. Customer with Id : %d and table no : %d will take the leave\n",DMeja[tableno].Id, tableno);
+        DelCustomerQC (&QSeatedC, DMeja[num].Id);
+        printf("Food had been given. Customer with Id : %d and table no : %d will take the leave\n",DMeja[num].Id, tableno);
 
-        FreeMeja(&DMeja[tableno]);
+        FreeMeja(&DMeja[num]);
     }
     Room[GameData.CurrentRoom] = RNow;
 }

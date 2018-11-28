@@ -18,16 +18,20 @@ int _hex_to_int(char target)
     /* KAMUS LOKAL */
 
     /* ALGORITMA */
-    if (target >= '0' && target <= '9') {
-        return (int)(CC-'0');
+    if (target >= '0' && target <= '9')
+    {
+        return (int)(target-'0');
     }
-    else if (target >= 'a' && target <= 'f') {
-        return (int)(CC - 'a') + 10;
+    else if (target >= 'a' && target <= 'f')
+    {
+        return (int)(target - 'a') + 10;
     }
-    else if (target >= 'A' && target <= 'F') {
-        return (int)(CC - 'A') + 10;
+    else if (target >= 'A' && target <= 'F')
+    {
+        return (int)(target - 'A') + 10;
     }
-    else {
+    else
+    {
         return -1;
     }
 }
@@ -90,7 +94,9 @@ void _search_meja_in_ruangan (Ruangan *ruang)
                 (DMeja[jumlahTotalMeja]).Posisi = MakePoint(j, i);
                 // printf("Koordinat DMeja[%d] : %d %d \n", jumlahTotalMeja, Absis(DMeja[jumlahTotalMeja].Posisi), Ordinat(DMeja[jumlahTotalMeja].Posisi));
                 (DMeja[jumlahTotalMeja]).NoMeja = _hex_to_int(ElmtMat((*ruang).Map, i, j));
-
+                // printf("%c",ElmtMat((*ruang).Map, i, j));
+                // printf("%d",_hex_to_int('2'));
+                // scanf("%d");
                 if ((*ruang).Tipe == Makan) {
                     (DMeja[jumlahTotalMeja]).JmlKursi = 0;
 
@@ -99,7 +105,6 @@ void _search_meja_in_ruangan (Ruangan *ruang)
                     (DMeja[jumlahTotalMeja]).N[3] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i+1, j);
                     (DMeja[jumlahTotalMeja]).N[4] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j-1);
                 }
-                (DMeja[jumlahTotalMeja]).NoMeja=jumlahTotalMeja;
                 (DMeja[jumlahTotalMeja]).Id=-1;
                 (DMeja[jumlahTotalMeja]).Terisi=0;
                 (DMeja[jumlahTotalMeja]).order=-1;
@@ -113,6 +118,7 @@ void _search_meja_in_ruangan (Ruangan *ruang)
 
 void _get_doors(Graph *Doors, int ruangAsal)
 {
+    /* State awal sudah ada di ( */
     /* KAMUS LOKAL */
     int x, y, ruangTujuan;
     adrSuccNode Pt;
@@ -148,10 +154,10 @@ void load_arr_ruangan(Graph *Doors, Ruangan Rooms[], int NRooms)
     for (ruangNo=1;ruangNo<=NRooms;ruangNo++)
     {
         IgnoreBlank();
-        Rooms[ruangNo].Tipe = _hex_to_int(CC);
+        Rooms[ruangNo].Tipe = _hex_to_int(CC); //0 biasa, 1 dapur
         ADV(); ADV();
         
-        doorCount = _hex_to_int(CC);
+        doorCount = _hex_to_int(CC);//jumlah pintu
         ADV(); ADV();
 
         for (i=1;i<=doorCount;i++) {
