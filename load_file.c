@@ -11,8 +11,6 @@
 #define MAP_HORIZONTAL_SIZE 8
 #define MAP_VERTICAL_SIZE 8
 
-int jumlahTotalMeja;
-
 int _hex_to_int(char target)
 {
     /* KAMUS LOKAL */
@@ -70,13 +68,11 @@ boolean _kursi_isi_exist (Matriks *map, Meja *meja, int i, int j)
 void _search_meja_in_ruangan (Ruangan *ruang)
 {
     /* KAMUS LOKAL */
-    int s;
-    int i, j;
+    int i, j, jumlahTotalMeja;
 
     /* ALGORITMA */
     (*ruang).JmlMeja = 0;
-    (*ruang).start_meja= jumlahTotalMeja+1;
-    //  jumlahTotalMeja = 0;
+     jumlahTotalMeja = 0;
 
     for (i=1;i<=MAP_VERTICAL_SIZE;i++)
     {
@@ -87,28 +83,26 @@ void _search_meja_in_ruangan (Ruangan *ruang)
                 ((*ruang).JmlMeja)++;
                 jumlahTotalMeja++;
 
-                (DMeja[jumlahTotalMeja]).Posisi = MakePoint(j, i);
-                // printf("Koordinat DMeja[%d] : %d %d \n", jumlahTotalMeja, Absis(DMeja[jumlahTotalMeja].Posisi), Ordinat(DMeja[jumlahTotalMeja].Posisi));
+                (DMeja[jumlahTotalMeja]).Posisi = MakePoint(i, j);
+
                 (DMeja[jumlahTotalMeja]).NoMeja = _hex_to_int(ElmtMat((*ruang).Map, i, j));
 
                 if ((*ruang).Tipe == Makan) {
                     (DMeja[jumlahTotalMeja]).JmlKursi = 0;
-
-                    (DMeja[jumlahTotalMeja]).N[1] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i-1, j);
+                    
+                    (DMeja[jumlahTotalMeja]).N[1] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i+1, j);
                     (DMeja[jumlahTotalMeja]).N[2] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j+1);
-                    (DMeja[jumlahTotalMeja]).N[3] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i+1, j);
+                    (DMeja[jumlahTotalMeja]).N[3] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i-1, j);
+                    (DMeja[jumlahTotalMeja]).N[4] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j-1);
+
+                    (DMeja[jumlahTotalMeja]).N[1] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i+1, j);
+                    (DMeja[jumlahTotalMeja]).N[2] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j+1);
+                    (DMeja[jumlahTotalMeja]).N[3] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i-1, j);
                     (DMeja[jumlahTotalMeja]).N[4] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j-1);
                 }
-                (DMeja[jumlahTotalMeja]).NoMeja=jumlahTotalMeja;
-                (DMeja[jumlahTotalMeja]).Id=-1;
-                (DMeja[jumlahTotalMeja]).Terisi=0;
-                (DMeja[jumlahTotalMeja]).order=-1;
-                // printf("Jumlah Kursi in meja %d : %d\n", jumlahTotalMeja, (DMeja[jumlahTotalMeja]).JmlKursi);
-                // printf("Kursi 1 2 3 4 : %d %d %d %d\n", (DMeja[jumlahTotalMeja]).N[1], (DMeja[jumlahTotalMeja]).N[2], (DMeja[jumlahTotalMeja]).N[3], (DMeja[jumlahTotalMeja]).N[4]);
             }
         }
     }
-    
 }
 
 void _get_doors(Graph *Doors, int ruangAsal)
@@ -136,9 +130,6 @@ void load_arr_ruangan(Graph *Doors, Ruangan Rooms[], int NRooms)
  *  F.S. : Rooms[] berisi ruangan dari file eksternal
  */
 {
-    int s;
-    // printf("First Input : "); scanf("%d", &s);
-    jumlahTotalMeja=0;
     /* KAMUS LOKAL */
     int ruangNo, i, j, doorCount;
 
@@ -168,11 +159,9 @@ void load_arr_ruangan(Graph *Doors, Ruangan Rooms[], int NRooms)
             }
             ADV();
         }
-        if (ruangNo <NRooms){
-            _search_meja_in_ruangan(&Rooms[ruangNo]);
-        }
+        
+        _search_meja_in_ruangan(&Rooms[ruangNo]);
     }
-    // printf("lahh ?? : "); scanf("%d", &s);
 
     while (!EOP)
     {
