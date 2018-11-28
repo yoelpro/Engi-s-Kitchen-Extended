@@ -8,6 +8,8 @@
 #include "ADT/pohon.h"
 #include "data.h"
 
+extern int jumlahTotalMeja;
+
 void load_arr_ruangan(Graph *Doors, Ruangan Rooms[], int NRooms);
 /*  Membaca ruangan dari file eksternal
  *  I.S. : Rooms[] sembarang, NRooms terdefinisi

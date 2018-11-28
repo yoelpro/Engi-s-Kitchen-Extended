@@ -11,17 +11,16 @@ void InitGame()
 	CreateEmptyQC(&QWaitingC);
 	CreateEmptyQC(&QSeatedC);
 	CreateEmptyStck(&Tray);
-	Absis(GameData.PosisiPlayer)=4;
-	Ordinat(GameData.PosisiPlayer)=4;
+	// Absis(GameData.PosisiPlayer)=7;
+	// Ordinat(GameData.PosisiPlayer)=6;
 
     load_resep(&Resep);
-    CurrentRoom(GameData) = 4; //Dapur
+    CurrentRoom(GameData) = 2; //Dapur
     GameData.PosisiPlayer = MakePoint(4,4); //Sepakati dapur 4,4 harus kosong dan tidak menjebak
     CreateGraph(&Door);
     Waktu(GameData) = MakeJAM(0,0,0);
     Money(GameData) = 0;
     Life(GameData) = 5;
-
     /* Reading dari file (belum diimplementasi) */
     load_arr_ruangan(&Door, Room,4);
 }
@@ -238,6 +237,7 @@ F.S. Sesuai fungsi nilai X, fungsi akan mencari Point Posisi yang sama terhadap 
     Point Pup, Pdown, Pleft, Pright, Pnow; //P terhadap meja dan player
     if (EQPoint(Posisi,meja.Posisi))
     {
+        printf("%d\n", meja.NoMeja);
         return meja.NoMeja;
     }
     else
@@ -247,10 +247,17 @@ F.S. Sesuai fungsi nilai X, fungsi akan mencari Point Posisi yang sama terhadap 
     Pdown = MakePoint(Absis(Pnow),Ordinat(Pnow)-1);
     Pleft = MakePoint(Absis(Pnow)-1,Ordinat(Pnow));
     Pright = MakePoint(Absis(Pnow)+1,Ordinat(Pnow));
+
+    // printf("\nKoordinat search2 PNow: %d %d \n", Absis(Pnow), Ordinat(Pnow));               
+    // printf("Koordinat search2 Pup: %d %d \n", Absis(Pup), Ordinat(Pup));
+    // printf("Koordinat search2 Pdown: %d %d \n", Absis(Pdown), Ordinat(Pdown));
+    // printf("Koordinat search2 Pleft: %d %d \n", Absis(Pleft), Ordinat(Pleft));
+    // printf("Koordinat search2 Pright: %d %d \n\n", Absis(Pright), Ordinat(Pright));
     if (X==1)
     {
         if (((EQPoint(Posisi,Pup)) && (meja.N[1])) || ((EQPoint(Posisi,Pright)) && (meja.N[2])) || ((EQPoint(Posisi,Pdown)) && (meja.N[3]))  || ((EQPoint(Posisi,Pleft)) && (meja.N[4])))
         {
+            printf("%d\n", meja.NoMeja);
             return meja.NoMeja;
         }
     }
@@ -269,14 +276,21 @@ int searchMeja(Point P1, Meja meja, int X)
 /*I.S. Player memiliki 4 arah, yaitu atas bawah kiri kanan yang kemungkinan memiliki object di arah tersebut atau tidak
 F.S. Mengembalikan NoMeja apabila posisi player dalam 4 arah tersebut sama dengan posisi bersangkutan dari meja. searchMeja akan menyambung ke searchMejaII*/
 {
+    // printf("masuk searchMeja\n");
     Point P1up, P1down, P1right, P1left; //P terhadap meja dan player
     P1up = MakePoint(Absis(P1),Ordinat(P1)+1);
     P1down = MakePoint(Absis(P1),Ordinat(P1)-1);
     P1right = MakePoint(Absis(P1)+1,Ordinat(P1));
     P1left = MakePoint(Absis(P1)-1,Ordinat(P1));
-    // printf("absis %f ordinat %f\n", Absis(P1left), Ordinat(P1left));
-    // printf("absis meja %f ordinat %f\n", Absis(meja.Posisi), Ordinat(meja.Posisi));
+
+    // printf("\nKoordinat search Player1Now: %d %d \n", Absis(P1), Ordinat(P1));               
+    // printf("Koordinat search Player1up: %d %d \n", Absis(P1up), Ordinat(P1up));
+    // printf("Koordinat search Player1down: %d %d \n", Absis(P1down), Ordinat(P1down));
+    // printf("Koordinat search Player1left: %d %d \n", Absis(P1left), Ordinat(P1left));
+    // printf("Koordinat search Player1right: %d %d \n\n", Absis(P1right), Ordinat(P1right));
+    
     if ((searchMejaII(P1up,meja,X)!=Nol) || (searchMejaII(P1right,meja,X)!=Nol) || (searchMejaII(P1down,meja,X)!=Nol) || (searchMejaII(P1left,meja,X)!=Nol)){
+        printf("No Meja %d\n", meja.NoMeja);
         return meja.NoMeja;
     }
     else
@@ -310,14 +324,16 @@ void orderFood()
     time_t t;
     srand((unsigned) time(&t));
     int tableno=0;
-    int i =1;
+    int i,maxmeja;
     boolean cek = false;
     int menu;
     Ruangan RNow=Room[GameData.CurrentRoom];
+    i =RNow.start_meja;
+    maxmeja = RNow.start_meja + RNow.JmlMeja -1;
     Point P1 = GameData.PosisiPlayer;
     if (!IsFullTabOrder(TabOrders))
     {
-        while ((i<=MAX_MEJA) && (!cek))
+        while ((i<=maxmeja) && (!cek))
         {
             if ((DMeja[i].order<=8 && DMeja[i].order>=0) || DMeja[i].Terisi<=0)
             {
@@ -351,6 +367,7 @@ void orderFood()
             Temp.NoMenu = menu;
             AddAsLastElTabOrder(&TabOrders,Temp);
             printf("Order berhasil ! Menu : %d dan nomor meja : %d\n", Temp.NoMenu, Temp.NoMeja);
+            // Push(&Tray,menu);
         }
         Room[GameData.CurrentRoom] = RNow;
 
@@ -365,24 +382,35 @@ void placeCustomer()
 /*I.S. Player berada di manapun. Tabel QWaitingC mungkin kosong
 F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC berkurang satu elemennya. Kesabaran customer bertambah secara random. Failed jika player berada jauh. Customer di meja bersangkutan belum melakukan order*/
 {
+    int maxmeja; //maxmeja di ruang
     time_t t;
     srand((unsigned) time(&t));
     int tableno=0;
-    int i =1;
+    int i;
     boolean cek = false;
     struct TypeCustomer X;
     Point P1 = GameData.PosisiPlayer;
     Ruangan RNow = Room[GameData.CurrentRoom];
+    Head(QWaitingC)=1;
+    // printf("Tail : %d\n", Tail(QWaitingC));
+    i =RNow.start_meja;
+    maxmeja = RNow.start_meja + RNow.JmlMeja -1;
     if (!IsEmptyQC(QWaitingC))
     {
+        // printf("yepp\n");
         while ((!cek) && (Head(QWaitingC)<=Tail(QWaitingC)))
         {
             X=InfoHeadC(QWaitingC);
-            while ((i<=MAX_MEJA) && (!cek))
+            while ((i<=maxmeja) && (!cek))
             {
                 if ((DMeja[i].Terisi>0) || (X.JmlOrang>DMeja[i].JmlKursi))
                 {
+                    // printf("Jml Kursi %d\n",DMeja[i].JmlKursi);
+                    // printf("i ke %d\n", i);
+                    // printf("absis koordinat meja [%d]: %d %d\n", i, Absis(DMeja[i].Posisi), Ordinat(DMeja[i].Posisi));
+                        
                     i++;
+
                 }
                 else
                 {
@@ -393,6 +421,8 @@ F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC ber
                     }
                     else
                     {
+                        // printf("i 2 ke %d\n", i);
+                        // printf("absis koordinat meja [%d]: %d %d\n", i, Absis(DMeja[i].Posisi), Ordinat(DMeja[i].Posisi));
                         i++;
                     }
                 }
@@ -428,14 +458,12 @@ F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC ber
                 DMeja[tableno].NIsiCustomer[j]=true;
                 i++;
             }
-            else
-            {
-                j++;
-            }
+            j++;
         }
         Temp.NoMeja=tableno;
         Temp.Kesabaran = ((rand()%6)+25);/*tambah kesabaran*/
         AddCustomerWC (&QSeatedC, Temp.Id, Temp.Kesabaran, Temp.JmlOrang, false);
+        printf("Successfully add customer to the table no %d with the sum of %d people and Id : %d\n", tableno, Temp.JmlOrang, Temp.Id);
     }
     Room[GameData.CurrentRoom] = RNow;
 }
@@ -445,16 +473,19 @@ void giveFood()
 F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja dan QSeatedC berkurang satu elemennya*/
 {
     time_t t;
-    int max =5;
     srand((unsigned) time(&t));
-    int tableno=0,i=1;
+    int tableno=0,i,maxmeja;
     boolean cek = false;
     Ruangan RNow=Room[GameData.CurrentRoom];
     Point P1 = GameData.PosisiPlayer;
-    if (!IsEmptyStck(Tray) && Top(Tray)!=max)
+    i =RNow.start_meja;
+    maxmeja = RNow.start_meja + RNow.JmlMeja -1;
+    if (!IsEmptyStck(Tray))
     {
-        while ((i<=MAX_MEJA) && (!cek))
+        // printf("InfoTop : %d\n",InfoTop(Tray));
+        while ((i<=maxmeja) && (!cek))
         {
+            // printf("yepp\n");
             if ((DMeja[i].Terisi<=0) || (DMeja[i].order>8) || (DMeja[i].order<0))
             {
                 i++;
@@ -485,8 +516,24 @@ F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja d
     if (cek){
         int noarray = searchTabOrders(tableno);
         Order Hapus;
+        Head(QSeatedC)=1;
+        while(Head(QSeatedC)<Tail(QSeatedC) && InfoHeadC(QSeatedC).Id==DMeja[tableno].Id){
+            Head(QSeatedC)++;
+        }
+        if (InfoHeadC(QSeatedC).Star){
+            GameData.Life+= 1;
+            GameData.Money+=300;
+            printf("Star Customer is served well enough. You got +1 live and $300\n");
+        }else{
+            GameData.Money+=100;
+            printf("You got $100\n");
+        }
+        Head(QSeatedC)=1;
+
         DelEliTabOrder(&TabOrders,noarray,&Hapus);
         DelCustomerQC (&QSeatedC, DMeja[tableno].Id);
+        printf("Food had been given. Customer with Id : %d and table no : %d will take the leave\n",DMeja[tableno].Id, tableno);
+
         FreeMeja(&DMeja[tableno]);
     }
     Room[GameData.CurrentRoom] = RNow;
