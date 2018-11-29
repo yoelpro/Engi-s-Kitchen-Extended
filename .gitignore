@@ -1,2 +1,9 @@
 main.exe
 main
+#binary files
+bin/
+*.out
+*.exe
+
+# vscode
+.vscode/

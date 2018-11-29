@@ -77,7 +77,7 @@ void TulisJAM (JAM J){
    /* KAMUS LOKAL */
 
    /* ALGORITMA */
-   printf("&d:&d:&d", Hour(J), Minute(J), Second(J));
+   printf("%d:%d:%d", Hour(J), Minute(J), Second(J));
 }
 
 /* ***************************************************************** */
@@ -90,7 +90,7 @@ long JAMToDetik (JAM J){
    /* KAMUS LOKAL */
 
    /* ALGORITMA */
-   return (3600*Hour(J) + 60*Minute(J) * Second(J));
+   return (3600*Hour(J) + 60*Minute(J) + Second(J));
 }
 
 JAM DetikToJAM (long N){

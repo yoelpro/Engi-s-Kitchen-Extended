@@ -108,10 +108,6 @@ void MoveDataCustomer(TypeQueueCustomer* QC, int from, int to)
 
 void AddCustomerWC (TypeQueueCustomer* QC, int id, int kesabaran, int Orang, boolean IsStar)
 {
-	if (IsEmptyQC(*QC))
-	{
-		Head(*QC)++;
-	}
 	if (!IsStar)
 	{
 		(*QC).Customer[Tail(*QC) + 1].Id = id;
@@ -123,27 +119,43 @@ void AddCustomerWC (TypeQueueCustomer* QC, int id, int kesabaran, int Orang, boo
 	else
 	{
 		int idx = Tail(*QC);
-		while (idx>1 && (!(*QC).Customer[idx].Star))
+		if (!IsEmptyQC(*QC))
 		{
-			MoveDataCustomer(QC,idx,idx+1);
-			idx--;
-		}
-		if ((*QC).Customer[idx].Star)
-		{
-			(*QC).Customer[idx+1].Id = id;
-			(*QC).Customer[idx+1].NoMeja = 0;
-			(*QC).Customer[idx+1].Kesabaran = kesabaran;
-			(*QC).Customer[idx+1].JmlOrang = Orang;
-			(*QC).Customer[idx+1].Star = IsStar;
+			while (idx>1 && (!(*QC).Customer[idx].Star))
+			{
+				MoveDataCustomer(QC,idx,idx+1);
+				idx--;
+			}
+			if ((*QC).Customer[idx].Star)
+			{
+				(*QC).Customer[idx+1].Id = id;
+				(*QC).Customer[idx+1].NoMeja = 0;
+				(*QC).Customer[idx+1].Kesabaran = kesabaran;
+				(*QC).Customer[idx+1].JmlOrang = Orang;
+				(*QC).Customer[idx+1].Star = IsStar;
+			}
+			else
+			{
+				MoveDataCustomer(QC,idx,idx+1); //move data customer pertama ke kedua
+				(*QC).Customer[idx].Id = id;
+				(*QC).Customer[idx].NoMeja = 0;
+				(*QC).Customer[idx].Kesabaran = kesabaran;
+				(*QC).Customer[idx].JmlOrang = Orang;
+				(*QC).Customer[idx].Star = IsStar;
+			}
 		}
 		else
 		{
-			(*QC).Customer[idx].Id = id;
-			(*QC).Customer[idx].NoMeja = 0;
-			(*QC).Customer[idx].Kesabaran = kesabaran;
-			(*QC).Customer[idx].JmlOrang = Orang;
-			(*QC).Customer[idx].Star = IsStar;
+			(*QC).Customer[1].Id = id;
+			(*QC).Customer[1].NoMeja = 0;
+			(*QC).Customer[1].Kesabaran = kesabaran;
+			(*QC).Customer[1].JmlOrang = Orang;
+			(*QC).Customer[1].Star = IsStar;
 		}
+	}
+	if (Head(*QC)==0)
+	{
+		Head(*QC)++;
 	}
 	Tail(*QC)++;
 }
@@ -170,7 +182,7 @@ void DelCustomerQC (TypeQueueCustomer* QC, int id)
 	}
 }
 
-void CleanQC(TypeQueueCustomer *QC)
+void CleanQC(TypeQueueCustomer *QC,int * X)
 {
 	int idx;
 	for(idx = Head(*QC); idx<=Tail(*QC); idx++)
@@ -180,6 +192,11 @@ void CleanQC(TypeQueueCustomer *QC)
 			DelCustomerQC(QC,(*QC).Customer[idx].Id);
 			// printf("aa\n");
 			idx--;
+			(*X)--;
+		}
+		else
+		{
+			(*QC).Customer[idx].Kesabaran--;
 		}
 		// printf("%d %d %d\n",idx,(*QC).Customer[idx].Id,(*QC).Customer[idx].Kesabaran);
 	}

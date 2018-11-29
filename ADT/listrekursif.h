@@ -5,7 +5,7 @@
 #define Nil NULL
 
 /* List rekursif direpresentasi dengan pointer */
-typedef char Infotype;
+typedef int Infotype;
 typedef struct tElmtList *Address;
 typedef struct tElmtList {
 	Infotype 	info;

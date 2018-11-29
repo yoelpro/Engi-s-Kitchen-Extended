@@ -117,10 +117,12 @@ void BacaMatriks (Matriks * M, int NB, int NK)
     /* ALGORITMA */
     MakeMatriks(NB,NK,M);
 
-    for(i=GetFirstIdxBrs(* M);i<=GetLastIdxBrs(* M);i++){
+    for(i=GetFirstIdxBrs(* M);i<=GetLastIdxBrs(* M);i++)
+    {
 
-        for(j=GetFirstIdxKol(* M);j<=GetLastIdxKol(* M);j++){
-            scanf("%d", &ElmtMat(* M,i,j));
+        for(j=GetFirstIdxKol(* M);j<=GetLastIdxKol(* M);j++)
+        {
+            scanf(" %c", &ElmtMat(*M,i,j));
         }
 
     }
@@ -144,14 +146,14 @@ void TulisMatriks (Matriks M)
     for(i=GetFirstIdxBrs(M);i<=GetLastIdxBrs(M);i++){
 
         for(j=GetFirstIdxKol(M);j<GetLastIdxKol(M);j++){
-            printf("%d ", ElmtMat(M,i,j));
+            printf("%c ", ElmtMat(M,i,j));
         }
 
         if(i==GetLastIdxBrs(M)){
-            printf("%d", ElmtMat(M,i,GetLastIdxKol(M)));
+            printf("%c", ElmtMat(M,i,GetLastIdxKol(M)));
         }
         else{
-            printf("%d\n", ElmtMat(M,i,GetLastIdxKol(M)));
+            printf("%c\n", ElmtMat(M,i,GetLastIdxKol(M)));
         }
 
     }
