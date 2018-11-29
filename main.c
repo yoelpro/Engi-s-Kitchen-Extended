@@ -11,8 +11,6 @@
 #include "ADT/stackt.h"
 #include "general.h"
 #include "display.h"
-#include <curses.h>
-#include <string.h>
 
 /* Deklarasi variable global */
 int main()
@@ -40,7 +38,7 @@ int main()
 	// AddCustomerWC(&QWaitingC, 1, 2, 3, FALSE);
 	// AddCustomerWC(&QWaitingC, 2, 3, 1, FALSE);
 	// AddCustomerWC(&QWaitingC, 3, 1, 2, true);
-	system("cls");
+	system("clear");
 	initLayout();
 	// updateLayout();
 	
@@ -54,7 +52,7 @@ int main()
 	BacaCommand();
 	while (!(EqualKata(Command,"EXIT")) && GameData.Life > 0)
 	{
-		system("cls");
+		system("clear");
 		/* Game Main Loop */
 		if (EqualKata(Command, "RECIPE"))
 		{
