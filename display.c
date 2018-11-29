@@ -103,9 +103,9 @@ void CursePrintQC(TypeQueueCustomer QC){
 		for(i = Head(QC); i <= Tail(QC); i++){
 			// printf("%d %d %d %d %u\n", QC.Customer[i].Id, QC.Customer[i].NoMeja, QC.Customer[i].Kesabaran, QC.Customer[i].JmlOrang, QC.Customer[i].Star);
 			if (QC.Customer[i].Star)
-				printf("%d (%d) (Star) (%d)\n", QC.Customer[i].Id, QC.Customer[i].Kesabaran, QC.Customer[i].JmlOrang);
+				printf("%d (%d) (Star)\n", QC.Customer[i].Id, QC.Customer[i].Kesabaran);
 			else
-				printf("%d (%d) (%d)\n", QC.Customer[i].Id, QC.Customer[i].Kesabaran, QC.Customer[i].JmlOrang);
+				printf("%d (%d)\n", QC.Customer[i].Id, QC.Customer[i].Kesabaran);
 		}
 	else
 		printf("There's no one here");
@@ -227,12 +227,6 @@ void updateLayout(){
         printf("|     Waiting Customer     |\n");
         printf("+--------------------------+\n");
         CursePrintQC(QWaitingC);
-        printf("\n");
-
-        printf("+--------------------------+\n");
-        printf("|     Seating Customer     |\n");
-        printf("+--------------------------+\n");
-        CursePrintQC(QSeatedC);
         printf("\n");
         
         if (CurrentRoom(GameData) == 1)

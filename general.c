@@ -367,7 +367,7 @@ void orderFood()
             Temp.NoMenu = menu;
             AddAsLastElTabOrder(&TabOrders,Temp);
             printf("Order berhasil ! Menu : %d dan nomor meja : %d\n", Temp.NoMenu, Temp.NoMeja);
-            Push(&Tray,menu);
+            // Push(&Tray,menu);
         }
         Room[GameData.CurrentRoom] = RNow;
 
@@ -456,20 +456,20 @@ F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC ber
         {
             if (DMeja[no].N[j])
             {
-                printf("no meja & j : %d %d\n",tableno, j);
-                if (j==1)
+                printf("%d %d\n",tableno, j);
+                if (ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi)+1,Absis(DMeja[no].Posisi)) == 'X')
                 {
                     ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi)+1,Absis(DMeja[no].Posisi)) = 'C';
                 }
-                else  if (j==2)
+                else  if (ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi),Absis(DMeja[no].Posisi)+1) == 'X')
                 {
                     ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi),Absis(DMeja[no].Posisi)+1) = 'C';
                 }
-                else if (j==3)
+                else if (ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi)-1,Absis(DMeja[no].Posisi)) == 'X')
                 {
                     ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi)-1,Absis(DMeja[no].Posisi)) = 'C';
                 }
-                else if (j==4)
+                else if (ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi),Absis(DMeja[no].Posisi)-1) == 'X')
                 {
                     ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi),Absis(DMeja[no].Posisi)-1) = 'C';
                 }
@@ -478,9 +478,13 @@ F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC ber
             }
             j++;
         }
+        if (Temp.JmlOrang>=1)
+        {
+             
+        }
         Temp.NoMeja=tableno;
         Temp.Kesabaran = ((rand()%6)+25);/*tambah kesabaran*/
-        AddCustomerWC (&QSeatedC, Temp.Id, Temp.Kesabaran, Temp.JmlOrang, Temp.Star);
+        AddCustomerWC (&QSeatedC, Temp.Id, Temp.Kesabaran, Temp.JmlOrang, false);
         printf("Successfully add customer to the table no %d with the sum of %d people and Id : %d\n", tableno, Temp.JmlOrang, Temp.Id);
     }
     Room[GameData.CurrentRoom] = RNow;
@@ -536,8 +540,7 @@ F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja d
         int noarray = searchTabOrders(num);
         Order Hapus;
         Head(QSeatedC)=1;
-        while(Head(QSeatedC)<Tail(QSeatedC) && InfoHeadC(QSeatedC).Id!=DMeja[num].Id){
-            printf("lalalla\n");
+        while(Head(QSeatedC)<Tail(QSeatedC) && InfoHeadC(QSeatedC).Id==DMeja[num].Id){
             Head(QSeatedC)++;
         }
         if (InfoHeadC(QSeatedC).Star){
@@ -555,32 +558,6 @@ F.S. Apabila memenuhi, meja yang telah menerima makanan akan mengosongkan meja d
         printf("Food had been given. Customer with Id : %d and table no : %d will take the leave\n",DMeja[num].Id, tableno);
 
         FreeMeja(&DMeja[num]);
-        int j =1;
-
-        while (j<=4)
-        {
-            if (DMeja[num].N[j])
-            {
-                // printf("no meja & j : %d %d\n",tableno, j);
-                if (j==1)
-                {
-                    ElmtMat(RNow.Map,Ordinat(DMeja[num].Posisi)+1,Absis(DMeja[num].Posisi)) = 'X';
-                }
-                else  if (j==2)
-                {
-                    ElmtMat(RNow.Map,Ordinat(DMeja[num].Posisi),Absis(DMeja[num].Posisi)+1) = 'X';
-                }
-                else if (j==3)
-                {
-                    ElmtMat(RNow.Map,Ordinat(DMeja[num].Posisi)-1,Absis(DMeja[num].Posisi)) = 'X';
-                }
-                else if (j==4)
-                {
-                    ElmtMat(RNow.Map,Ordinat(DMeja[num].Posisi),Absis(DMeja[num].Posisi)-1) = 'X';
-                }
-            }
-            j++;
-        }
     }
     Room[GameData.CurrentRoom] = RNow;
 }

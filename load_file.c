@@ -94,46 +94,22 @@ void _search_meja_in_ruangan (Ruangan *ruang)
                 (DMeja[jumlahTotalMeja]).Posisi = MakePoint(j, i);
                 // printf("Koordinat DMeja[%d] : %d %d \n", jumlahTotalMeja, Absis(DMeja[jumlahTotalMeja].Posisi), Ordinat(DMeja[jumlahTotalMeja].Posisi));
                 (DMeja[jumlahTotalMeja]).NoMeja = _hex_to_int(ElmtMat((*ruang).Map, i, j));
-                printf("Nomor Meja %d\n",(DMeja[jumlahTotalMeja]).NoMeja);
+                // printf("%c",ElmtMat((*ruang).Map, i, j));
                 // printf("%d",_hex_to_int('2'));
                 // scanf("%d");
                 if ((*ruang).Tipe == Makan) {
                     (DMeja[jumlahTotalMeja]).JmlKursi = 0;
 
-                    (DMeja[jumlahTotalMeja]).N[1] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i+1, j);
+                    (DMeja[jumlahTotalMeja]).N[1] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i-1, j);
                     (DMeja[jumlahTotalMeja]).N[2] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j+1);
-                    (DMeja[jumlahTotalMeja]).N[3] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i-1, j);
+                    (DMeja[jumlahTotalMeja]).N[3] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i+1, j);
                     (DMeja[jumlahTotalMeja]).N[4] = _kursi_exist(&(*ruang).Map, &(DMeja[jumlahTotalMeja]), i, j-1);
                 }
                 (DMeja[jumlahTotalMeja]).Id=-1;
                 (DMeja[jumlahTotalMeja]).Terisi=0;
                 (DMeja[jumlahTotalMeja]).order=-1;
-                printf("Jumlah Kursi in meja %d : %d\n", jumlahTotalMeja, (DMeja[jumlahTotalMeja]).JmlKursi);
-                if ((DMeja[jumlahTotalMeja]).N[1] == 1){
-                    (DMeja[jumlahTotalMeja]).N[1]=true;
-                }else{
-                    (DMeja[jumlahTotalMeja]).N[1]=false;
-                }
-
-                if ((DMeja[jumlahTotalMeja]).N[2] == 1){
-                    (DMeja[jumlahTotalMeja]).N[2]=true;
-                }else{
-                    (DMeja[jumlahTotalMeja]).N[2]=false;
-                }
-
-                if ((DMeja[jumlahTotalMeja]).N[3] == 1){
-                    (DMeja[jumlahTotalMeja]).N[3]=true;
-                }else{
-                    (DMeja[jumlahTotalMeja]).N[3]=false;
-                }
-
-                if ((DMeja[jumlahTotalMeja]).N[4] == 1){
-                    (DMeja[jumlahTotalMeja]).N[4]=true;
-                }else{
-                    (DMeja[jumlahTotalMeja]).N[4]=false;
-                } 
-
-                printf("Kursi 1 2 3 4 : %d %d %d %d\n", (DMeja[jumlahTotalMeja]).N[1], (DMeja[jumlahTotalMeja]).N[2], (DMeja[jumlahTotalMeja]).N[3], (DMeja[jumlahTotalMeja]).N[4]);
+                // printf("Jumlah Kursi in meja %d : %d\n", jumlahTotalMeja, (DMeja[jumlahTotalMeja]).JmlKursi);
+                // printf("Kursi 1 2 3 4 : %d %d %d %d\n", (DMeja[jumlahTotalMeja]).N[1], (DMeja[jumlahTotalMeja]).N[2], (DMeja[jumlahTotalMeja]).N[3], (DMeja[jumlahTotalMeja]).N[4]);
             }
         }
     }
@@ -198,11 +174,11 @@ void load_arr_ruangan(Graph *Doors, Ruangan Rooms[], int NRooms)
             }
             ADV();
         }
-        if (Rooms[ruangNo].Tipe != Dapur){
+        if (ruangNo <NRooms){
             _search_meja_in_ruangan(&Rooms[ruangNo]);
         }
     }
-    printf("lahh ?? : "); scanf("%d", &s);
+    // printf("lahh ?? : "); scanf("%d", &s);
 
     while (!EOP)
     {
