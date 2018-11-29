@@ -3,7 +3,6 @@
 #include "data.h"
 #include "time.h"
 #include "display.h"
-#include <curses.h>
 
 void InitGame()
 {
@@ -37,6 +36,44 @@ void UpdateSeatedCustomer(int * X)
 {
     if (!IsEmptyQC(QSeatedC))
     {
+        int idx;
+        for(idx = Head(QSeatedC); idx<=Tail(QSeatedC); idx++)
+        {
+            if ((QSeatedC).Customer[idx].Kesabaran==0)
+            {
+                // printf("aa\n");
+                int i;
+                boolean found=false;
+                for (i=1; i<= 16; i++)
+                {
+                    if (DMeja[i].Id==((QSeatedC).Customer[idx].Id))
+                    {
+                        if (Room[GameData.CurrentRoom].Map.Mem[Ordinat(DMeja[i].Posisi)+1][Absis(DMeja[i].Posisi)]=='C')
+                        {
+                            Room[GameData.CurrentRoom].Map.Mem[Ordinat(DMeja[i].Posisi)+1][Absis(DMeja[i].Posisi)]='X';
+                        }
+                        if (Room[GameData.CurrentRoom].Map.Mem[Ordinat(DMeja[i].Posisi)-1][Absis(DMeja[i].Posisi)]=='C')
+                        {
+                            Room[GameData.CurrentRoom].Map.Mem[Ordinat(DMeja[i].Posisi)-1][Absis(DMeja[i].Posisi)]='X';
+                        }
+                        if (Room[GameData.CurrentRoom].Map.Mem[Ordinat(DMeja[i].Posisi)][Absis(DMeja[i].Posisi)+1]=='C')
+                        {
+                            Room[GameData.CurrentRoom].Map.Mem[Ordinat(DMeja[i].Posisi)][Absis(DMeja[i].Posisi)+1]='X';
+                        }
+                        if (Room[GameData.CurrentRoom].Map.Mem[Ordinat(DMeja[i].Posisi)+1][Absis(DMeja[i].Posisi)-1]=='C')
+                        {
+                            Room[GameData.CurrentRoom].Map.Mem[Ordinat(DMeja[i].Posisi)][Absis(DMeja[i].Posisi)-1]='X';
+                        }
+                        break;
+                    }
+                }
+            }
+            
+            
+        }
+    }
+    if (!IsEmptyQC(QSeatedC))
+    {
         CleanQC(&QSeatedC,X);
     }
 }
@@ -50,11 +87,11 @@ void AddCustomer()
     {
         if (chanceStarred>=15)
         {
-            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,12,(rand()%4)+1,true);
+            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,402,(rand()%4)+1,true);
         }
         else
         {
-            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,20,(rand()%4)+1,false);
+            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,500,(rand()%4)+1,false);
         }
         /* Jika berhasil insert, jml customer tambah 1 */
         GameData.JmlCustomer++;
@@ -290,7 +327,7 @@ F.S. Mengembalikan NoMeja apabila posisi player dalam 4 arah tersebut sama denga
     // printf("Koordinat search Player1right: %d %d \n\n", Absis(P1right), Ordinat(P1right));
     
     if ((searchMejaII(P1up,meja,X)!=Nol) || (searchMejaII(P1right,meja,X)!=Nol) || (searchMejaII(P1down,meja,X)!=Nol) || (searchMejaII(P1left,meja,X)!=Nol)){
-        printf("No Meja %d\n", meja.NoMeja);
+        // printf("No Meja %d\n", meja.NoMeja);
         return meja.NoMeja;
     }
     else
@@ -367,7 +404,7 @@ void orderFood()
             Temp.NoMenu = menu;
             AddAsLastElTabOrder(&TabOrders,Temp);
             printf("Order berhasil ! Menu : %d dan nomor meja : %d\n", Temp.NoMenu, Temp.NoMeja);
-            Push(&Tray,menu);
+            // Push(&Tray,menu);
         }
         Room[GameData.CurrentRoom] = RNow;
 
@@ -456,7 +493,7 @@ F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC ber
         {
             if (DMeja[no].N[j])
             {
-                printf("no meja & j : %d %d\n",tableno, j);
+                // printf("no meja & j : %d %d\n",tableno, j);
                 if (j==1)
                 {
                     ElmtMat(RNow.Map,Ordinat(DMeja[no].Posisi)+1,Absis(DMeja[no].Posisi)) = 'C';
@@ -479,7 +516,7 @@ F.S. apabila memenuhi, Tabel QSeatedC bertambah satu elemennya dan QWaitingC ber
             j++;
         }
         Temp.NoMeja=tableno;
-        Temp.Kesabaran = ((rand()%6)+25);/*tambah kesabaran*/
+        Temp.Kesabaran = ((rand()%6)+50);/*tambah kesabaran*/
         AddCustomerWC (&QSeatedC, Temp.Id, Temp.Kesabaran, Temp.JmlOrang, Temp.Star);
         printf("Successfully add customer to the table no %d with the sum of %d people and Id : %d\n", tableno, Temp.JmlOrang, Temp.Id);
     }
