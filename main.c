@@ -18,37 +18,8 @@ int main()
 	initMainMenu();
 	InitGame();
 
-	/* Added 15 random Orders to TabOrders */
-		Order Orders;
-		// Orders.NoMenu = 1;  Orders.NoMeja = 2;  AddAsLastElTabOrder(&TabOrders, Orders);
-		// Orders.NoMenu = 3;  Orders.NoMeja = 4;  AddAsLastElTabOrder(&TabOrders, Orders);  
-		// Orders.NoMenu = 5;  Orders.NoMeja = 6;  AddAsLastElTabOrder(&TabOrders, Orders);
-
-	CreateEmptyStck(&Hand);
-    // Push(&Hand,0);
-    // Push(&Hand,2);
-    // Push(&Hand,3);
-
-    CreateEmptyStck(&Tray);
-    // Push(&Tray,0);
-    // Push(&Tray,2);
-    // Push(&Tray,3);
-    // Push(&Tray,7);
-
-	// AddCustomerWC(&QWaitingC, 1, 2, 3, FALSE);
-	// AddCustomerWC(&QWaitingC, 2, 3, 1, FALSE);
-	// AddCustomerWC(&QWaitingC, 3, 1, 2, true);
 	system("clear");
 	initLayout();
-	// updateLayout();
-	
-	// GetCommand();
-	// BacaCommand();
-
-	// if (EqualKata(Command,"NEW"))
-	// {
-	// 	// mvprintw(25,1,"aka");
-	// }
 	BacaCommand();
 	while (!(EqualKata(Command,"EXIT")) && GameData.Life > 0)
 	{
@@ -135,7 +106,6 @@ int main()
 			BacaCommand();
 		}
 	}
-
 	initCredit();
 
 }
