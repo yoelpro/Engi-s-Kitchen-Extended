@@ -23,8 +23,8 @@ void initMainMenu(){
 
     printf("Please input your name\n");
     printf("Name: ");
-    scanf("%s",&GameData.Nama);
-    system("cls");
+    scanf("%s",GameData.Nama);
+    system("clear");
 }
 
 void initCredit(){
@@ -84,7 +84,7 @@ void CursePrintTree(BinTree P){
 	int y;
 
 	// Algoritma
-    system("cls");
+    system("clear");
 	CursePrintTreeRec(P, 0, 4);
 
 	// mvwprintw(tree_disp, 0, 0, "#Recipe Tree");
@@ -186,16 +186,24 @@ void CursePrintStack(Stack *Current, char opt)
             while (!IsEmptyStck(*Current));
 
         /* Mencetak dan memasukkan kembali salinan *Current */
-            do{
+            Pop(&ReverseStack, &Z);
+            Push(&*Current, Z);
+                switch(opt){
+                    case 'h': printf("%s", JenisBahan[Z]);
+                        break;
+                    case 't': printf("%s", JenisMakanan[Z]);
+                }
+            while (!IsEmptyStck(ReverseStack))
+            {
                 Pop(&ReverseStack, &Z);
                 Push(&*Current, Z);
 	                switch(opt){
-	                	case 'h': printf("%s, ", JenisBahan[Z]);
+	                	case 'h': printf(", %s", JenisBahan[Z]);
 	                		break;
-	                	case 't': printf("%s, ", JenisMakanan[Z]);
+	                	case 't': printf(", %s", JenisMakanan[Z]);
 	                }
                 // printf("%c ", Z);
-            }while (!IsEmptyStck(ReverseStack));
+            }
             printf("\n");
     }
     else{
@@ -214,7 +222,7 @@ void updateLayout(){
         printf("Money: %ld", Money(GameData)); // Display
         printf("        | ");
 
-        printf("Life: %ld", Life(GameData)); // Display
+        printf("Life: %d", Life(GameData)); // Display
         printf("        | ");
 
         printf("Waktu: "); 
@@ -280,8 +288,8 @@ void GetCommand(){
 void CurseADVCommand()
 {
   /* Algoritma */
-  CCommand = scanf("%c", CC);
-  EOP = (CCommand == ENTER);
+//   CCommand = scanf("%c", CC);
+//   EOP = (CCommand == ENTER);
 }
 
 void CurseBacaCommand()

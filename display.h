@@ -1,12 +1,10 @@
-/*  File : display.h
-    berisi fungsi dan prosedur yang dibutuhkan program untuk display
-*/
+/*  File : display.h */
+/*    berisi fungsi dan prosedur yang dibutuhkan program untuk display */
 
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
 #include "data.h"
-#include <curses.h>
 
 /* Deklarasi variabel global */
 // extern WINDOW *prompt_disp, *command_disp;
