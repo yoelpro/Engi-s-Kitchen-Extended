@@ -10,6 +10,7 @@ void InitGame()
 	CreateEmptyQC(&QWaitingC);
 	CreateEmptyQC(&QSeatedC);
 	CreateEmptyStck(&Tray);
+    CreateEmptyStck(&Hand);
 	// Absis(GameData.PosisiPlayer)=7;
 	// Ordinat(GameData.PosisiPlayer)=6;
 
@@ -87,11 +88,11 @@ void AddCustomer()
     {
         if (chanceStarred>=15)
         {
-            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,402,(rand()%4)+1,true);
+            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,52,(rand()%4)+1,true);
         }
         else
         {
-            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,500,(rand()%4)+1,false);
+            AddCustomerWC(&QWaitingC,GameData.JmlCustomer+1,70,(rand()%4)+1,false);
         }
         /* Jika berhasil insert, jml customer tambah 1 */
         GameData.JmlCustomer++;
